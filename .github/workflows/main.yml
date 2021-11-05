@@ -36,12 +36,15 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.
 
+      # My Deployment commands.
       - name: Create directory if not exits into /var/www/tote
         run: mkdir -p /var/www/tote
 
       - name: Show where is it.
         run: pwd
 
-      # - name: Copy files into release directory
-      #   run: rsync -av ./ /var/www/tote
+      - name: Copy files into release directory
+        run: rsync -av ./ /var/www/tote --exclude .git/
 
+      - name: Chamge owner of directory to www-data
+        run: chown -R www-data:www-data test
