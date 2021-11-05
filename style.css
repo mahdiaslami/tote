@@ -13,6 +13,7 @@ body {
 
 body {
     background-color: var(--c-green-light);
+    font-family: 'Dongle';
 }
 
 .container {
@@ -31,8 +32,15 @@ body {
     margin-bottom: 5px;
 }
 
+.task .tick {
+    margin-right: 10px;
+}
+
 .task .content {
     flex-grow: 1;
+    font-size: 28px;
+    font-weight: 300;
+    line-height: 22px;
 }
 
 .task .btn-delete {

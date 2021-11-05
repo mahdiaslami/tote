@@ -7,6 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple TODO</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@300;400;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="/style.css">
 </head>
 
@@ -14,8 +18,9 @@
 
     <div id="app" class="container">
         <div class="task" v-for="todo in todos" :key="todo.id">
-            <input type="checkbox" @change="complete(todo.id)" :checked="todo.completed">
-            <span class="content" :class="[todo.completed ? 'bold linethrough' : '', (todo.id === currentId) ? 'underline' : '']"
+            <input class="tick" type="checkbox" @change="complete(todo.id)" :checked="todo.completed">
+            <span class="content"
+                :class="[todo.completed ? 'bold linethrough' : '', (todo.id === currentId) ? 'underline' : '']"
                 @click="select(todo.id); return false;">
                 {{ todo.text }}
             </span>
