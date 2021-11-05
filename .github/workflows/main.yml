@@ -47,4 +47,4 @@ jobs:
         run: rsync -av ./ /var/www/tote --exclude .git/
 
       - name: Chamge owner of directory to www-data
-        run: chown -R www-data:www-data test
+        run: chown -R www-data:www-data /var/www/tote
