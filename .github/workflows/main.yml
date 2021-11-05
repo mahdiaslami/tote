@@ -6,7 +6,7 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ develop ]
+    branches: [ main ]
   # Run workflow only when pushed to main branch.
   # pull_request:
   #   branches: [ main ]
@@ -35,3 +35,16 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+
+      # My Deployment commands.
+      - name: Create directory if not exits into /var/www/tote
+        run: mkdir -p /var/www/tote
+
+      - name: Show where is it.
+        run: pwd
+
+      - name: Copy files into release directory
+        run: rsync -av ./ /var/www/tote --exclude .git/
+
+      - name: Chamge owner of directory to www-data
+        run: chown -R www-data:www-data /var/www/tote
