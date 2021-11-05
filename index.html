@@ -7,26 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple TODO</title>
 
-    <style>
-        .bold {
-            font-weight: bold;
-        }
-
-        .linethrough {
-            text-decoration-line: line-through;
-        }
-
-        .underline {
-            text-decoration-line: underline;
-        }
-    </style>
+    <link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
 
-    <div id="app">
-        <div v-for="todo in todos" :key="todo.id">
-            <button @click="deleteTodo(todo.id)">X</button>
+    <div id="app" class="container">
+        <div class="task" v-for="todo in todos" :key="todo.id">
+            <button class="btn-delete" @click="deleteTodo(todo.id)">✗</button>
             <input type="checkbox" @change="complete(todo.id)" :checked="todo.completed">
             <span :class="[todo.completed ? 'bold linethrough' : '', (todo.id === currentId) ? 'underline' : '']"
                 @click="select(todo.id); return false;">
