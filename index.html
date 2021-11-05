@@ -7,37 +7,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple TODO</title>
 
-    <style>
-        .bold {
-            font-weight: bold;
-        }
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@300;400;700&display=swap" rel="stylesheet">
 
-        .linethrough {
-            text-decoration-line: line-through;
-        }
-
-        .underline {
-            text-decoration-line: underline;
-        }
-    </style>
+    <link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
 
-    <div id="app">
-        <div v-for="todo in todos" :key="todo.id">
-            <button @click="deleteTodo(todo.id)">X</button>
-            <input type="checkbox" @change="complete(todo.id)" :checked="todo.completed">
-            <span :class="[todo.completed ? 'bold linethrough' : '', (todo.id === currentId) ? 'underline' : '']"
+    <div id="app" class="container">
+        <div class="task" v-for="todo in todos" :key="todo.id">
+            <input class="tick" type="checkbox" @change="complete(todo.id)" :checked="todo.completed">
+            <span class="content"
+                :class="[todo.completed ? 'bold linethrough' : '', (todo.id === currentId) ? 'underline' : '']"
                 @click="select(todo.id); return false;">
                 {{ todo.text }}
             </span>
+            <button class="btn btn-delete" @click="deleteTodo(todo.id)">✗</button>
         </div>
 
-        <br>
-
-        <input type="text" v-model="newTodo" @keyup.enter="saveTodo">
-        <button @click="saveTodo">Save</button>
+        <div class="form">
+            <input class="title-input" type="text" v-model="newTodo" @keyup.enter="saveTodo">
+            <button class="btn btn-save" @click="saveTodo">Save</button>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
