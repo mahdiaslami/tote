@@ -14,12 +14,12 @@
 
     <div id="app" class="container">
         <div class="task" v-for="todo in todos" :key="todo.id">
-            <button class="btn-delete" @click="deleteTodo(todo.id)">✗</button>
             <input type="checkbox" @change="complete(todo.id)" :checked="todo.completed">
-            <span :class="[todo.completed ? 'bold linethrough' : '', (todo.id === currentId) ? 'underline' : '']"
+            <span class="content" :class="[todo.completed ? 'bold linethrough' : '', (todo.id === currentId) ? 'underline' : '']"
                 @click="select(todo.id); return false;">
                 {{ todo.text }}
             </span>
+            <button class="btn-delete" @click="deleteTodo(todo.id)">✗</button>
         </div>
 
         <br>
