@@ -35,3 +35,13 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+
+      - name: Create directory if not exits into /var/www/tote
+        run: mkdir -p /var/www/tote
+
+      - name: Show where is it.
+        run: pwd
+
+      # - name: Copy files into release directory
+      #   run: rsync -av ./ /var/www/tote
+
