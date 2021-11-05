@@ -24,13 +24,13 @@
                 @click="select(todo.id); return false;">
                 {{ todo.text }}
             </span>
-            <button class="btn-delete" @click="deleteTodo(todo.id)">✗</button>
+            <button class="btn btn-delete" @click="deleteTodo(todo.id)">✗</button>
         </div>
 
-        <br>
-
-        <input type="text" v-model="newTodo" @keyup.enter="saveTodo">
-        <button @click="saveTodo">Save</button>
+        <div class="form">
+            <input class="title-input" type="text" v-model="newTodo" @keyup.enter="saveTodo">
+            <button class="btn btn-save" @click="saveTodo">Save</button>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
