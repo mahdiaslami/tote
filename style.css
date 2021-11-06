@@ -18,7 +18,7 @@ body {
 
 body {
     background-color: var(--c-green-light);
-    font-family: 'Dongle';
+    font-family: 'Montserrat';
 }
 
 .container {
@@ -36,6 +36,8 @@ body {
 
 .btn {
     cursor: pointer;
+    font-family: 'Montserrat';
+    font-weight: 500;
 }
 
 .task {
@@ -53,9 +55,9 @@ body {
 
 .task .content {
     flex-grow: 1;
-    font-size: 28px;
-    font-weight: 300;
-    line-height: 22px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 16px;
     padding: 0 5px;
     unicode-bidi: embed;
 }
