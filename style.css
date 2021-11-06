@@ -56,6 +56,8 @@ body {
     font-size: 28px;
     font-weight: 300;
     line-height: 22px;
+    padding: 0 5px;
+    unicode-bidi: embed;
 }
 
 .task .btn-delete {

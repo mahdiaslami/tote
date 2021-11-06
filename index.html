@@ -21,7 +21,8 @@
             <input class="tick" type="checkbox" @change="complete(todo.id)" :checked="todo.completed">
             <span class="content"
                 :class="[todo.completed ? 'bold linethrough' : '', (todo.id === currentId) ? 'underline' : '']"
-                @click="select(todo.id); return false;">
+                @click="select(todo.id); return false;"
+                dir="auto">
                 {{ todo.text }}
             </span>
             <button class="btn btn-delete" @click="deleteTodo(todo.id)">✗</button>
