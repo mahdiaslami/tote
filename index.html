@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple TODO</title>
+    <title>Tote</title>
+
+    <link rel="manifest" href="manifest.json">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,7 +18,7 @@
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet"
         type="text/css" />
 
-    <link rel="stylesheet" href="/style.css?v=1.0.5">
+    <link rel="stylesheet" href="/style.css?v=1.0.6">
 </head>
 
 <body>
@@ -34,7 +36,7 @@
         </div>
 
         <div class="form">
-            <input class="title-input" type="text" v-model="newTodo" @keyup.enter="saveTodo">
+            <input class="title-input" type="text" v-model="newTodo" @keyup.enter="saveTodo" dir="auto">
             <button class="btn btn-save" @click="saveTodo">Save</button>
         </div>
     </div>
