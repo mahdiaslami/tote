@@ -23,7 +23,7 @@ body {
 
 .container {
     margin: 0 auto;
-    min-width: 375px;
+    min-width: 200px;
     padding: 10px;
     width: 100%;
 }
