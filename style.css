@@ -18,7 +18,7 @@ body {
 
 body {
     background-color: var(--c-green-light);
-    font-family: 'Dongle';
+    font-family: 'Montserrat', Vazir;
 }
 
 .container {
@@ -36,6 +36,8 @@ body {
 
 .btn {
     cursor: pointer;
+    font-family: 'Montserrat', Vazir;
+    font-weight: 500;
 }
 
 .task {
@@ -47,15 +49,13 @@ body {
     margin-bottom: 5px;
 }
 
-.task .tick {
-    margin-right: 10px;
-}
-
 .task .content {
     flex-grow: 1;
-    font-size: 28px;
-    font-weight: 300;
-    line-height: 22px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 16px;
+    padding: 0 10px;
+    unicode-bidi: embed;
 }
 
 .task .btn-delete {
@@ -75,6 +75,7 @@ body {
     border: 1px solid lightgrey;
     border-radius: 50px;
     flex-grow: 1;
+    font-family: 'Montserrat', Vazir;
     margin-right: 10px;
     padding: 10px;
 }
