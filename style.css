@@ -67,6 +67,15 @@ body {
     color: var(--c-green-dark);
 }
 
+.image {
+    padding: 0 15px;
+}
+
+.image img {
+    height: 40px;
+    width: 40px;
+}
+
 .form {
     padding: 10px;
     display: flex;
