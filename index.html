@@ -18,7 +18,7 @@
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet"
         type="text/css" />
 
-    <link rel="stylesheet" href="/style.css?v=1.0.7">
+    <link rel="stylesheet" href="/style.css?v=1.0.8">
 
     <script src="/init-sw.js"></script>
 </head>
@@ -30,19 +30,22 @@
             <input class="tick" type="checkbox" @change="complete(todo.id)" :checked="todo.completed">
             <span class="content"
                 :class="[todo.completed ? 'bold linethrough' : '', (todo.id === currentId) ? 'underline' : '']"
-                @click="select(todo.id); return false;"
+                @click="select(todo.id); return false;" 
                 dir="auto">
                 {{ todo.text }}
             </span>
             <button class="btn btn-delete" @click="deleteTodo(todo.id)">✗</button>
         </div>
 
-        <div class="image">
-            <img src="/writing-hand.gif" alt="writing-hand">
-        </div>
-
         <div class="form">
-            <input class="title-input" type="text" v-model="newTodo" @keyup.enter="saveTodo" dir="auto">
+            <div class="title-input">
+                <div class="image">
+                    <img src="/writing-hand.gif" alt="writing-hand">
+                </div>
+
+                <input type="text" v-model="newTodo" @keyup.enter="saveTodo" dir="auto">
+            </div>
+
             <button class="btn btn-save" @click="saveTodo">Save</button>
         </div>
     </div>

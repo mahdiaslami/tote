@@ -71,11 +71,6 @@ body {
     padding: 0 15px;
 }
 
-.image img {
-    height: 40px;
-    width: 40px;
-}
-
 .form {
     padding: 10px;
     display: flex;
@@ -84,13 +79,28 @@ body {
 .form .title-input {
     border: 1px solid lightgrey;
     border-radius: 50px;
+    display: flex;
     flex-grow: 1;
-    font-family: 'Montserrat', Vazir;
+    align-items: center;
     margin-right: 10px;
     padding: 10px;
+    background-color: white;
 }
 
-.form .title-input:focus {
+.form .title-input .image img {
+    height: 40px;
+    width: 40px;
+    margin: -10px;
+}
+
+.form .title-input > input {
+    flex-grow: 1;
+    border: 0;
+    font-family: 'Montserrat', Vazir;
+}
+
+
+.form .title-input > input:focus {
     outline: 0;
 }
 
