@@ -18,7 +18,9 @@
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet"
         type="text/css" />
 
-    <link rel="stylesheet" href="/style.css?v=1.0.6">
+    <link rel="stylesheet" href="/style.css?v=1.0.8">
+
+    <script src="/init-sw.js"></script>
 </head>
 
 <body>
@@ -28,7 +30,7 @@
             <input class="tick" type="checkbox" @change="complete(todo.id)" :checked="todo.completed">
             <span class="content"
                 :class="[todo.completed ? 'bold linethrough' : '', (todo.id === currentId) ? 'underline' : '']"
-                @click="select(todo.id); return false;"
+                @click="select(todo.id); return false;" 
                 dir="auto">
                 {{ todo.text }}
             </span>
@@ -36,77 +38,20 @@
         </div>
 
         <div class="form">
-            <input class="title-input" type="text" v-model="newTodo" @keyup.enter="saveTodo" dir="auto">
+            <div class="title-input">
+                <div class="image">
+                    <img src="/writing-hand.gif" alt="writing-hand">
+                </div>
+
+                <input type="text" v-model="newTodo" @keyup.enter="saveTodo" dir="auto">
+            </div>
+
             <button class="btn btn-save" @click="saveTodo">Save</button>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-    <script>
-
-        const database = document.location.pathname.split('/').pop()
-        document.title = `Todo: ${database}`
-
-        var app = new Vue({
-            el: '#app',
-            data() {
-                return {
-                    newTodo: '',
-                    todos: this.getFromLocalStorage() ?? [],
-                    currentId: -1
-                }
-            },
-
-            watch: {
-                todos() {
-                    this.saveToLocalStorage()
-                }
-            },
-
-            methods: {
-                select(id) {
-                    if (this.currentId === id) {
-                        this.currentId = -1
-                    } else {
-                        this.currentId = id
-                    }
-                },
-
-                saveTodo() {
-                    this.todos.push(this.createTodo())
-                    this.newTodo = ''
-                },
-
-                createTodo() {
-                    return {
-                        id: new Date().getTime(),
-                        text: this.newTodo,
-                        completed: false
-                    }
-                },
-
-                complete(id) {
-                    const todo = this.todos.find((todo) => todo.id === id)
-                    todo.completed = !todo.completed
-                    this.saveToLocalStorage()
-                },
-
-                deleteTodo(id) {
-                    const index = this.todos.findIndex((todo) => todo.id === id)
-                    this.todos.splice(index, 1)
-                },
-
-                saveToLocalStorage() {
-                    localStorage.setItem(database, JSON.stringify(this.todos))
-                },
-
-                getFromLocalStorage() {
-                    return JSON.parse(localStorage.getItem(database))
-                }
-            }
-        })
-
-    </script>
+    <script src="/script.js"></script>
 </body>
 
 </html>
