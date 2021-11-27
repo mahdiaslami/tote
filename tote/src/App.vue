@@ -31,21 +31,10 @@
   </div>
 
   <div class="form">
-    <div class="title-input">
-      <div class="image">
-        <img
-          src="@/assets/writing-hand.gif"
-          alt="writing-hand"
-        >
-      </div>
-
-      <input
-        v-model="newTodo"
-        type="text"
-        dir="auto"
-        @keyup.enter="saveTodo"
-      >
-    </div>
+    <base-input
+      v-model="newTodo"
+      @enter-keyup="saveTodo"
+    />
 
     <button
       class="btn btn-save"
@@ -57,39 +46,46 @@
 </template>
 
 <script>
+import BaseInput from '@/components/BaseInput'
+
 export default {
   name: 'App',
+
+  components: {
+    BaseInput,
+  },
+
   data() {
     return {
       newTodo: '',
       todos: this.getFromLocalStorage() ?? [],
       currentId: -1,
-    };
+    }
   },
 
   watch: {
     todos() {
-      this.saveToLocalStorage();
+      this.saveToLocalStorage()
     },
   },
 
   created() {
-    this.database = document.location.pathname.split('/').pop();
-    document.title = `Todo: ${this.database}`;
+    this.database = document.location.pathname.split('/').pop()
+    document.title = `Todo: ${this.database}`
   },
 
   methods: {
     select(id) {
       if (this.currentId === id) {
-        this.currentId = -1;
+        this.currentId = -1
       } else {
-        this.currentId = id;
+        this.currentId = id
       }
     },
 
     saveTodo() {
-      this.todos.push(this.createTodo());
-      this.newTodo = '';
+      this.todos.push(this.createTodo())
+      this.newTodo = ''
     },
 
     createTodo() {
@@ -97,29 +93,29 @@ export default {
         id: new Date().getTime(),
         text: this.newTodo,
         completed: false,
-      };
+      }
     },
 
     complete(id) {
-      const todo = this.todos.find((item) => item.id === id);
-      todo.completed = !todo.completed;
-      this.saveToLocalStorage();
+      const todo = this.todos.find((item) => item.id === id)
+      todo.completed = !todo.completed
+      this.saveToLocalStorage()
     },
 
     deleteTodo(id) {
-      const index = this.todos.findIndex((todo) => todo.id === id);
-      this.todos.splice(index, 1);
+      const index = this.todos.findIndex((todo) => todo.id === id)
+      this.todos.splice(index, 1)
     },
 
     saveToLocalStorage() {
-      localStorage.setItem(this.database, JSON.stringify(this.todos));
+      localStorage.setItem(this.database, JSON.stringify(this.todos))
     },
 
     getFromLocalStorage() {
-      return JSON.parse(localStorage.getItem(this.database));
+      return JSON.parse(localStorage.getItem(this.database))
     },
   },
-};
+}
 </script>
 
 <style>
@@ -192,40 +188,9 @@ body {
     color: var(--c-green-dark);
 }
 
-.image {
-    padding: 0 15px;
-}
-
 .form {
     padding: 10px;
     display: flex;
-}
-
-.form .title-input {
-    border: 1px solid lightgrey;
-    border-radius: 50px;
-    display: flex;
-    flex-grow: 1;
-    align-items: center;
-    margin-right: 10px;
-    padding: 10px;
-    background-color: white;
-}
-
-.form .title-input .image img {
-    height: 40px;
-    width: 40px;
-    margin: -10px;
-}
-
-.form .title-input > input {
-    flex-grow: 1;
-    border: 0;
-    font-family: 'Montserrat', Vazir;
-}
-
-.form .title-input > input:focus {
-    outline: 0;
 }
 
 .form .btn-save {
