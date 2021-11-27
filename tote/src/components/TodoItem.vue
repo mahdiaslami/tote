@@ -55,3 +55,32 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.task {
+    background-color: var(--c-green);
+    border-radius: 20px;
+    box-shadow: 0px 1px 1px 0px var(--c-green-dark);
+    display: flex;
+    padding: 15px;
+    margin-bottom: 5px;
+}
+
+.content {
+    flex-grow: 1;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 30px;
+    padding: 0 10px;
+    unicode-bidi: embed;
+    margin: -5px 0;
+}
+
+.btn-delete {
+    border: 0;
+    background-color: unset;
+    font-size: 16px;
+    padding: 0;
+    color: var(--c-green-dark);
+}
+</style>
