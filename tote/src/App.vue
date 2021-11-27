@@ -1,14 +1,14 @@
 <template>
-  <todo-item
+  <template
     v-for="todo in todos"
     :key="todo.id"
-    :completed="todo.completed"
-    :focused="(todo.id === currentId)"
-    :text="todo.text"
-    @tick-click="completeTodo(todo.id)"
-    @click="() => {select(todo.id); return false;}"
-    @delete-click="deleteTodo(todo.id)"
-  />
+  >
+    <todo-item
+      :todo="todo"
+      :focused="(todo.id === currentId)"
+      @click="() => {select(todo.id); return false;}"
+    />
+  </template>
 
   <div class="form">
     <base-input
@@ -29,7 +29,7 @@
 import BaseInput from '@/components/BaseInput'
 import TodoItem from '@/components/TodoItem'
 import {
-  database, todos, addTodo, completeTodo, deleteTodo,
+  database, todos, addTodo,
 } from '@/hooks/useTodos'
 
 export default {
@@ -45,8 +45,6 @@ export default {
       database,
       todos,
       addTodo,
-      completeTodo,
-      deleteTodo,
     }
   },
 

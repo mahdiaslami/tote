@@ -5,23 +5,23 @@
     <input
       class="tick"
       type="checkbox"
-      :checked="completed"
-      @change="$emit('tickClick', completed)"
+      :checked="todo.completed"
+      @change="() => completeTodo(todo.id)"
     >
     <span
       class="content"
       :class="{
-        'bold linethrough': completed,
+        'bold linethrough': todo.completed,
         'underline': focused
       }"
       dir="auto"
       @click="$emit('click')"
     >
-      {{ text }}
+      {{ todo.text }}
     </span>
     <button
       class="btn btn-delete"
-      @click="$emit('deleteClick')"
+      @click="() => deleteTodo(todo.id)"
     >
       ✗
     </button>
@@ -29,26 +29,29 @@
 </template>
 
 <script>
+import { completeTodo, deleteTodo } from '@/hooks/useTodos'
+
 export default {
   props: {
-    completed: {
-      type: Boolean,
-      require: false,
-      default: false,
-    },
-
     focused: {
       type: Boolean,
       required: false,
       default: false,
     },
 
-    text: {
-      type: String,
+    todo: {
+      type: Object,
       required: true,
     },
   },
 
-  emits: ['tickClick', 'click', 'deleteClick'],
+  emits: ['click'],
+
+  setup() {
+    return {
+      completeTodo,
+      deleteTodo,
+    }
+  },
 }
 </script>
