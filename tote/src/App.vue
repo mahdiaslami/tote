@@ -5,7 +5,7 @@
     :completed="todo.completed"
     :focused="(todo.id === currentId)"
     :text="todo.text"
-    @tick-click="complete(todo.id)"
+    @tick-click="completeTodo(todo.id)"
     @click="() => {select(todo.id); return false;}"
     @delete-click="deleteTodo(todo.id)"
   />
@@ -28,6 +28,9 @@
 <script>
 import BaseInput from '@/components/BaseInput'
 import TodoItem from '@/components/TodoItem'
+import {
+  database, todos, addTodo, completeTodo, deleteTodo,
+} from '@/hooks/useTodos'
 
 export default {
   name: 'App',
@@ -37,22 +40,24 @@ export default {
     TodoItem,
   },
 
+  setup() {
+    return {
+      database,
+      todos,
+      addTodo,
+      completeTodo,
+      deleteTodo,
+    }
+  },
+
   data() {
     return {
       newTodo: '',
-      todos: this.getFromLocalStorage() ?? [],
       currentId: -1,
     }
   },
 
-  watch: {
-    todos() {
-      this.saveToLocalStorage()
-    },
-  },
-
   created() {
-    this.database = document.location.pathname.split('/').pop()
     document.title = `Todo: ${this.database}`
   },
 
@@ -66,35 +71,8 @@ export default {
     },
 
     saveTodo() {
-      this.todos.push(this.createTodo())
+      this.addTodo(this.newTodo)
       this.newTodo = ''
-    },
-
-    createTodo() {
-      return {
-        id: new Date().getTime(),
-        text: this.newTodo,
-        completed: false,
-      }
-    },
-
-    complete(id) {
-      const todo = this.todos.find((item) => item.id === id)
-      todo.completed = !todo.completed
-      this.saveToLocalStorage()
-    },
-
-    deleteTodo(id) {
-      const index = this.todos.findIndex((todo) => todo.id === id)
-      this.todos.splice(index, 1)
-    },
-
-    saveToLocalStorage() {
-      localStorage.setItem(this.database, JSON.stringify(this.todos))
-    },
-
-    getFromLocalStorage() {
-      return JSON.parse(localStorage.getItem(this.database))
     },
   },
 }
