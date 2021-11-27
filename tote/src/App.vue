@@ -34,7 +34,7 @@
     <div class="title-input">
       <div class="image">
         <img
-          src="/writing-hand.gif"
+          src="@/assets/writing-hand.gif"
           alt="writing-hand"
         >
       </div>
