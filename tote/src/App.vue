@@ -1,34 +1,14 @@
 <template>
-  <div
+  <todo-item
     v-for="todo in todos"
     :key="todo.id"
-    class="task"
-  >
-    <input
-      class="tick"
-      type="checkbox"
-      :checked="todo.completed"
-      @change="complete(todo.id)"
-    >
-    <span
-      class="content"
-      :class="[
-        todo.completed ?
-          'bold linethrough' : '',
-        (todo.id === currentId) ? 'underline' : ''
-      ]"
-      dir="auto"
-      @click="() => {select(todo.id); return false;}"
-    >
-      {{ todo.text }}
-    </span>
-    <button
-      class="btn btn-delete"
-      @click="deleteTodo(todo.id)"
-    >
-      ✗
-    </button>
-  </div>
+    :completed="todo.completed"
+    :focused="(todo.id === currentId)"
+    :text="todo.text"
+    @tick-click="complete(todo.id)"
+    @click="() => {select(todo.id); return false;}"
+    @delete-click="deleteTodo(todo.id)"
+  />
 
   <div class="form">
     <base-input
@@ -47,12 +27,14 @@
 
 <script>
 import BaseInput from '@/components/BaseInput'
+import TodoItem from '@/components/TodoItem'
 
 export default {
   name: 'App',
 
   components: {
     BaseInput,
+    TodoItem,
   },
 
   data() {
