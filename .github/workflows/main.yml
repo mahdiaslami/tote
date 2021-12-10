@@ -26,6 +26,11 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+          cache: 'npm'
+
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: echo Hello, world!
@@ -43,18 +48,8 @@ jobs:
       - name: Show where is it.
         run: pwd
 
-      - name: Add nvm
-        run: |
-          export NVM_DIR="/home/rezero/.nvm"
-          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-          [[ -r $NVM_DIR/bash_completion ]] && \. $NVM_DIR/bash_completion
-          echo "$NVM_DIR"
-          node -v
-          npm -v
-
       - name: Install npm packages.
         run: |
-          echo "$NVM_DIR"
           node -v
           npm -v
           npm install
