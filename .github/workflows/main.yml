@@ -43,6 +43,12 @@ jobs:
       - name: Show where is it.
         run: pwd
 
+      - name: Add nvm
+        run: |
+          export NVM_DIR="/home/rezero/.nvm"
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+          [[ -r $NVM_DIR/bash_completion ]] && \. $NVM_DIR/bash_completion
+
       - name: Install npm packages.
         run: npm install
 
