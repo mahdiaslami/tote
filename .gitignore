@@ -1,6 +1,8 @@
 .DS_Store
 node_modules
-/dist
+# Disabled because of our server resource is low, so we need to build app
+# in developer machine.
+# /dist
 
 
 # local env files
