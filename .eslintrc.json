@@ -1,0 +1,41 @@
+{
+  "root": true,
+  "env": {
+    "node": true
+  },
+  "extends": [
+    "plugin:vue/vue3-essential",
+    "plugin:vue/vue3-strongly-recommended",
+    "plugin:vue/vue3-recommended",
+    "@vue/airbnb"
+  ],
+  "parserOptions": {
+    "parser": "babel-eslint"
+  },
+  "rules": {
+    "eqeqeq": "off",
+    "import/extensions": [
+      "error",
+      "never"
+    ],
+    "import/prefer-default-export": "off",
+    "max-len": "warn",
+    "no-console": "warn",
+    "no-debugger": "warn",
+    "no-param-reassign": [
+      "error",
+      {
+        "props": false
+      }
+    ],
+    "no-unused-vars": "warn",
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "semi": [
+      "warn",
+      "never"
+    ]
+  }
+}
