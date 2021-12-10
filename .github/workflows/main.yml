@@ -48,9 +48,16 @@ jobs:
           export NVM_DIR="/home/rezero/.nvm"
           [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
           [[ -r $NVM_DIR/bash_completion ]] && \. $NVM_DIR/bash_completion
+          echo "$NVM_DIR"
+          node -v
+          npm -v
 
       - name: Install npm packages.
-        run: npm install
+        run: |
+          echo "$NVM_DIR"
+          node -v
+          npm -v
+          npm install
 
       - name: Build vue.
         run: npm run build
