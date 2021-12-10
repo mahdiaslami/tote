@@ -20,8 +20,11 @@ jobs:
       - name: Create directory if not exits into /var/www/tote
         run: mkdir -p /var/www/tote
 
-      - name: Show where is it.
-        run: pwd
+      - name: Show node version and current address.
+        run: |
+          node -v
+          npm -v
+          pwd
 
       - name: Copy files into release directory
         run: rsync -av ./dist/ /var/www/tote --exclude .git/
