@@ -45,14 +45,17 @@ jobs:
       - name: Create directory if not exits into /var/www/tote
         run: mkdir -p /var/www/tote
 
-      - name: Show where is it.
-        run: pwd
+      - name: Show node version and current address.
+        run: |
+          node -v
+          npm -v
+          pwd
 
       - name: Install npm packages.
         run: |
-          export NODE_OPTIONS=--max_old_space_size=2048
-          node -v
-          npm -v
+          rm -rf package-lock.json 
+          rm -rf node_modules
+          npm cache clean --force
           npm install
 
       - name: Build vue.
