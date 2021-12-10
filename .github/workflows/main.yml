@@ -43,8 +43,14 @@ jobs:
       - name: Show where is it.
         run: pwd
 
-      - name: Copy files into release directory
-        run: rsync -av ./ /var/www/tote --exclude .git/
+      - name: Install npm packages.
+        run: npm install
 
-      - name: Chamge owner of directory to www-data
+      - name: Build vue.
+        run: npm run build
+
+      - name: Copy files into release directory
+        run: rsync -av ./dist/ /var/www/tote --exclude .git/
+
+      - name: Change owner of directory to www-data
         run: chown -R www-data:www-data /var/www/tote
