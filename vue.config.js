@@ -9,6 +9,7 @@ module.exports = {
     manifestOptions: {
       start_url: '/',
       scope_url: '/',
+      background_color: '#e0f7e0',
       display: 'standalone',
       orientation: 'portrait',
       icons: [
