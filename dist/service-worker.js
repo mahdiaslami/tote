@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.17857ae73192eb372c2c6afa03a1037a.js"
+  "/precache-manifest.d0e602289dea1a1eb947e61f2b2e686f.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "tote"});
