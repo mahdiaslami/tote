@@ -1,5 +1,5 @@
 <template>
-  <div class="title-input">
+  <div class="title-input p-10">
     <div class="image">
       <img
         src="@/assets/writing-hand.gif"
@@ -46,10 +46,8 @@ export default {
     border: 1px solid lightgrey;
     border-radius: 50px;
     display: flex;
-    flex-grow: 1;
     align-items: center;
     margin-right: 10px;
-    padding: 10px;
     background-color: white;
 }
 

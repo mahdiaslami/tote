@@ -1,6 +1,6 @@
 <template>
   <button
-    class="btn-save"
+    class="btn-save p-10"
     @click="handleClick"
   >
     <slot />
@@ -29,7 +29,6 @@ export default {
     cursor: pointer;
     font-family: 'Montserrat', Vazir;
     font-weight: 500;
-    padding: 10px;
 }
 
 .btn-save:hover {

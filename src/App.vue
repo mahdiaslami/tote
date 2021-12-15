@@ -1,31 +1,36 @@
 <template>
-  <template
-    v-for="todo in todos"
-    :key="todo.id"
-  >
-    <todo-item
-      :todo="todo"
-      :focused="(todo.id === currentId)"
-      @click="() => {select(todo.id); return false;}"
-    />
-  </template>
+  <navbar />
 
-  <div class="form">
-    <base-input
-      v-model="newTodo"
-      @enter-keyup="saveTodo"
-    />
-
-    <base-button
-      @click="saveTodo"
+  <div>
+    <template
+      v-for="todo in todos"
+      :key="todo.id"
     >
-      Save
-    </base-button>
+      <todo-item
+        :todo="todo"
+        :focused="(todo.id === currentId)"
+        @click="() => {select(todo.id); return false;}"
+      />
+    </template>
+
+    <div class="flex p-10">
+      <base-input
+        v-model="newTodo"
+        @enter-keyup="saveTodo"
+      />
+
+      <base-button
+        @click="saveTodo"
+      >
+        Save
+      </base-button>
+    </div>
   </div>
 </template>
 
 <script>
 import BaseButton from '@/components/BaseButton'
+import Navbar from '@/components/Navbar'
 import BaseInput from '@/components/BaseInput'
 import TodoItem from '@/components/TodoItem'
 import {
@@ -37,6 +42,7 @@ export default {
 
   components: {
     BaseButton,
+    Navbar,
     BaseInput,
     TodoItem,
   },
@@ -76,10 +82,3 @@ export default {
   },
 }
 </script>
-
-<style>
-.form {
-    padding: 10px;
-    display: flex;
-}
-</style>

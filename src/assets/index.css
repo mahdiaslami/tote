@@ -24,7 +24,6 @@ body {
 #app {
     margin: 0 auto;
     min-width: 200px;
-    padding: 10px;
     width: 100%;
 }
 
@@ -40,6 +39,15 @@ body {
 
 .bold {
     font-weight: bold;
+}
+
+.flex {
+    display: flex;
+}
+
+.p-10 {
+    padding: 10px;
+
 }
 
 .linethrough {
