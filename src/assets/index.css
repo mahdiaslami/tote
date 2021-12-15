@@ -1,5 +1,7 @@
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 :root {
@@ -11,8 +13,6 @@
 
 html,
 body {
-    margin: 0;
-    padding: 0;
     width: 100%;
 }
 
@@ -32,12 +32,6 @@ body {
     #app {
         width: 500px;
     }
-}
-
-.btn {
-    cursor: pointer;
-    font-family: 'Montserrat', Vazir;
-    font-weight: 500;
 }
 
 /**

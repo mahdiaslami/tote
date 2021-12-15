@@ -20,7 +20,7 @@
       {{ todo.text }}
     </span>
     <button
-      class="btn btn-delete"
+      class="btn-delete"
       @click="() => deleteTodo(todo.id)"
     >
       ✗
@@ -56,14 +56,14 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .task {
     background-color: var(--c-green);
     border-radius: 20px;
     box-shadow: 0px 1px 1px 0px var(--c-green-dark);
     display: flex;
-    padding: 15px;
     margin-bottom: 5px;
+    padding: 15px;
 }
 
 .content {
@@ -71,16 +71,19 @@ export default {
     font-size: 16px;
     font-weight: 400;
     line-height: 30px;
+    margin: -5px 0;
     padding: 0 10px;
     unicode-bidi: embed;
-    margin: -5px 0;
 }
 
 .btn-delete {
-    border: 0;
     background-color: unset;
-    font-size: 16px;
-    padding: 0;
+    border: 0;
     color: var(--c-green-dark);
+    cursor: pointer;
+    font-family: 'Montserrat', Vazir;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 0;
 }
 </style>

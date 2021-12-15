@@ -16,16 +16,16 @@
       @enter-keyup="saveTodo"
     />
 
-    <button
-      class="btn btn-save"
+    <base-button
       @click="saveTodo"
     >
       Save
-    </button>
+    </base-button>
   </div>
 </template>
 
 <script>
+import BaseButton from '@/components/BaseButton'
 import BaseInput from '@/components/BaseInput'
 import TodoItem from '@/components/TodoItem'
 import {
@@ -36,6 +36,7 @@ export default {
   name: 'App',
 
   components: {
+    BaseButton,
     BaseInput,
     TodoItem,
   },
@@ -77,23 +78,8 @@ export default {
 </script>
 
 <style>
-
 .form {
     padding: 10px;
     display: flex;
 }
-
-.btn-save {
-    background-color: var(--c-green);
-    border: 0;
-    border-radius: 50px;
-    box-shadow: 0px 1px 1px 0px var(--c-green-dark);
-    padding: 10px;
-    color: var(--c-green-darker);
-}
-
-.btn-save:hover {
-    background-color: var(--c-green-dark);
-}
-
 </style>
