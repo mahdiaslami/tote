@@ -45,6 +45,10 @@ body {
     display: flex;
 }
 
+.flex-grow {
+    flex-grow: 1;
+}
+
 .p-10 {
     padding: 10px;
 

@@ -16,6 +16,7 @@
     <div class="flex p-10">
       <base-input
         v-model="newTodo"
+        class="flex-grow"
         @enter-keyup="saveTodo"
       />
 
