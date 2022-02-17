@@ -30,13 +30,13 @@
 </template>
 
 <script>
-import BaseButton from '@/components/BaseButton.vue'
-import Navbar from '@/components/Navbar.vue'
-import BaseInput from '@/components/BaseInput.vue'
-import TodoItem from '@/components/TodoItem.vue'
+import BaseButton from '@/components/BaseButton'
+import Navbar from '@/components/Navbar'
+import BaseInput from '@/components/BaseInput'
+import TodoItem from '@/components/TodoItem'
 import {
   database, todos, addTodo,
-} from '@/hooks/useTodos.js'
+} from '@/hooks/useTodos'
 
 export default {
   name: 'App',

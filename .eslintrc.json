@@ -1,16 +1,36 @@
 {
-  "root": true,
   "env": {
-    "node": true
+    "browser": true,
+    "es2021": true,
+    "node": false
   },
   "extends": [
     "plugin:vue/vue3-essential",
     "plugin:vue/vue3-strongly-recommended",
     "plugin:vue/vue3-recommended",
-    "@vue/airbnb"
+    "airbnb-base"
   ],
   "parserOptions": {
-    "parser": "babel-eslint"
+    "sourceType": "module"
+  },
+  "plugins": [
+    "vue"
+  ],
+  "settings": {
+    "import/resolver": {
+      "alias": {
+        "map": [
+          [
+            "@",
+            "./src"
+          ]
+        ],
+        "extensions": [
+          ".js",
+          ".vue"
+        ]
+      }
+    }
   },
   "rules": {
     "eqeqeq": "off",
@@ -18,6 +38,8 @@
       "error",
       "never"
     ],
+    "import/no-dynamic-require": "off",
+    "import/no-extraneous-dependencies": "off",
     "import/prefer-default-export": "off",
     "max-len": "warn",
     "no-console": "warn",
@@ -36,6 +58,7 @@
     "semi": [
       "warn",
       "never"
-    ]
+    ],
+    "vue/multi-word-component-names": "off"
   }
 }
