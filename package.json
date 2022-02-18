@@ -1,6 +1,6 @@
 {
-  "name": "tote-3",
-  "version": "0.0.0",
+  "name": "tote",
+  "version": "3.1.0",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
