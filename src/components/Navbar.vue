@@ -1,5 +1,7 @@
 <template>
-  <div class="navbar">Tote</div>
+  <p class="navbar">
+    Tote 3.1.1
+  </p>
 </template>
 
 <style scoped>
