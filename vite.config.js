@@ -5,7 +5,7 @@ import { VitePWA } from 'vite-plugin-pwa'
 
 const pwaOption = {
   workbox: {
-    globPatterns: ['assets/**/*.*'],
+    globPatterns: ['**.{js,css,html}', 'assets/**/*.*'],
   },
   manifest: {
     name: 'Tote',
