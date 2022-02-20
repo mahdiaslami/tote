@@ -27,6 +27,8 @@
       </base-button>
     </div>
   </div>
+
+  <reload-prompt />
 </template>
 
 <script>
@@ -34,6 +36,7 @@ import BaseButton from '@/components/BaseButton'
 import Navbar from '@/components/Navbar'
 import BaseInput from '@/components/BaseInput'
 import TodoItem from '@/components/TodoItem'
+import ReloadPrompt from '@/components/ReloadPrompt'
 import {
   database, todos, addTodo,
 } from '@/hooks/useTodos'
@@ -46,6 +49,7 @@ export default {
     Navbar,
     BaseInput,
     TodoItem,
+    ReloadPrompt,
   },
 
   setup() {
