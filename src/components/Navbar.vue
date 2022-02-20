@@ -1,6 +1,6 @@
 <template>
   <p class="navbar">
-    Tote 3.1.3
+    Tote 3.1.4
   </p>
 </template>
 
