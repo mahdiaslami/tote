@@ -1,8 +1,14 @@
 <template>
   <p class="navbar">
-    Tote 3.1.4
+    Tote {{ version }}
   </p>
 </template>
+
+<script setup>
+
+const version = __APP_VERSION__
+
+</script>
 
 <style scoped>
 .navbar {

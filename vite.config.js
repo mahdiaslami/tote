@@ -50,4 +50,7 @@ export default defineConfig({
     }],
     extensions: ['.vue', '.js'],
   },
+  define: {
+    __APP_VERSION__: JSON.stringify(process.env.npm_package_version),
+  },
 })
