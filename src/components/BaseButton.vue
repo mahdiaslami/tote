@@ -1,6 +1,7 @@
 <template>
   <button
-    class="btn-save p-2.5 bg-primary hover:bg-primary-dark text-primary-darker shadow"
+    class="b-0 rounded-full cursor-pointer p-2.5 bg-primary
+      hover:bg-primary-dark text-primary-darker shadow font-medium"
     @click="handleClick"
   >
     <slot />
@@ -18,13 +19,3 @@ export default {
   },
 }
 </script>
-
-<style>
-.btn-save {
-    border: 0;
-    border-radius: 50px;
-    cursor: pointer;
-    font-family: 'Montserrat', Vazir;
-    font-weight: 500;
-}
-</style>
