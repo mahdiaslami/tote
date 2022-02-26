@@ -1,5 +1,5 @@
 <template>
-  <p class="navbar text-primary-dark">
+  <p class="text-primary-dark p-5 font-black mb-2.5 shadow-md">
     Tote {{ version }}
   </p>
 </template>
@@ -9,12 +9,3 @@
 const version = __APP_VERSION__
 
 </script>
-
-<style scoped>
-.navbar {
-    padding: 20px;
-    font-weight: 900;
-    margin-bottom: 10px;
-    box-shadow: 0px 0px 5px;
-}
-</style>
