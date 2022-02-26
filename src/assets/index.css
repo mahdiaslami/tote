@@ -23,15 +23,3 @@ body {
 body {
     font-family: 'Montserrat', Vazir;
 }
-
-#app {
-    margin: 0 auto;
-    min-width: 200px;
-    width: 100%;
-}
-
-@media (min-width: 640px) {
-    #app {
-        width: 500px;
-    }
-}

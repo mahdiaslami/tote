@@ -22,6 +22,10 @@ module.exports = {
           darker: withOpacityValue('--color-primary-darker'),
         },
       },
+
+      spacing: {
+        125: '500px',
+      },
     },
   },
   plugins: [],
