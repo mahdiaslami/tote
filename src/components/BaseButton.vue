@@ -1,6 +1,6 @@
 <template>
   <button
-    class="btn-save p-2.5"
+    class="btn-save p-2.5 bg-primary hover:bg-primary-dark text-primary-darker shadow"
     @click="handleClick"
   >
     <slot />
@@ -21,17 +21,10 @@ export default {
 
 <style>
 .btn-save {
-    background-color: var(--c-green);
     border: 0;
     border-radius: 50px;
-    box-shadow: 0px 1px 1px 0px var(--c-green-dark);
-    color: var(--c-green-darker);
     cursor: pointer;
     font-family: 'Montserrat', Vazir;
     font-weight: 500;
-}
-
-.btn-save:hover {
-    background-color: var(--c-green-dark);
 }
 </style>

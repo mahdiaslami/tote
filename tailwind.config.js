@@ -1,3 +1,12 @@
+function withOpacityValue(variable) {
+  return ({ opacityValue }) => {
+    if (opacityValue === undefined) {
+      return `rgb(var(${variable}))`
+    }
+    return `rgb(var(${variable}) / ${opacityValue})`
+  }
+}
+
 module.exports = {
   content: [
     './index.html',
@@ -7,10 +16,10 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          light: '#e6ffe6',
-          DEFAULT: '#e0f7e0',
-          dark: '#b2d8b2',
-          darker: '#677767',
+          light: withOpacityValue('--color-primary-light'),
+          DEFAULT: withOpacityValue('--color-primary-default'),
+          dark: withOpacityValue('--color-primary-dark'),
+          darker: withOpacityValue('--color-primary-darker'),
         },
       },
     },

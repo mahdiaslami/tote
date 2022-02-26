@@ -9,10 +9,10 @@
 }
 
 :root {
-    --c-green-light: #e6ffe6;
-    --c-green: #e0f7e0;
-    --c-green-dark: #b2d8b2;
-    --c-green-darker: #677767;
+    --color-primary-light: 230 255 230;
+    --color-primary-default: 224 247 224;
+    --color-primary-dark: 178 216 178;
+    --color-primary-darker: 103 119 103;
 }
 
 html,
@@ -21,7 +21,6 @@ body {
 }
 
 body {
-    background-color: var(--c-green-light);
     font-family: 'Montserrat', Vazir;
 }
 

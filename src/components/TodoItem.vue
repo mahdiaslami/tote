@@ -1,6 +1,6 @@
 <template>
   <div
-    class="task"
+    class="task bg-primary shadow"
   >
     <input
       class="tick"
@@ -20,7 +20,7 @@
       {{ todo.text }}
     </span>
     <button
-      class="btn-delete"
+      class="btn-delete text-primary-dark"
       @click="() => deleteTodo(todo.id)"
     >
       ✗
@@ -58,9 +58,7 @@ export default {
 
 <style>
 .task {
-    background-color: var(--c-green);
     border-radius: 20px;
-    box-shadow: 0px 1px 1px 0px var(--c-green-dark);
     display: flex;
     margin-bottom: 5px;
     padding: 15px;
@@ -79,7 +77,6 @@ export default {
 .btn-delete {
     background-color: unset;
     border: 0;
-    color: var(--c-green-dark);
     cursor: pointer;
     font-family: 'Montserrat', Vazir;
     font-size: 16px;
