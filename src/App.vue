@@ -13,7 +13,7 @@
       />
     </template>
 
-    <div class="flex p-10">
+    <div class="flex p-2.5">
       <base-input
         v-model="newTodo"
         class="flex-grow"

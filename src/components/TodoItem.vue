@@ -11,7 +11,7 @@
     <span
       class="content"
       :class="{
-        'bold linethrough': todo.completed,
+        'font-bold line-through': todo.completed,
         'underline': focused
       }"
       dir="auto"

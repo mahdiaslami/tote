@@ -36,32 +36,3 @@ body {
         width: 500px;
     }
 }
-
-/**
- * Utility
- */
-
-.bold {
-    font-weight: bold;
-}
-
-.flex {
-    display: flex;
-}
-
-.flex-grow {
-    flex-grow: 1;
-}
-
-.p-10 {
-    padding: 10px;
-
-}
-
-.linethrough {
-    text-decoration-line: line-through;
-}
-
-.underline {
-    text-decoration-line: underline;
-}

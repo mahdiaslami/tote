@@ -1,5 +1,5 @@
 <template>
-  <div class="title-input p-10">
+  <div class="title-input p-2.5">
     <div class="image">
       <img
         src="@/assets/writing-hand.gif"

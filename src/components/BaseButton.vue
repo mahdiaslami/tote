@@ -1,6 +1,6 @@
 <template>
   <button
-    class="btn-save p-10"
+    class="btn-save p-2.5"
     @click="handleClick"
   >
     <slot />
