@@ -1,7 +1,11 @@
 <template>
-  <div class="title-input p-2.5">
-    <div class="image">
+  <div
+    class="p-2.5 border border-solid border-gray-300 rounded-full flex items-center
+    mr-2.5 bg-white"
+  >
+    <div class="py-0 pl-1">
       <img
+        class="h-10 w-10 -my-2.5"
         src="@/assets/writing-hand.gif"
         alt="writing-hand"
       >
@@ -9,6 +13,7 @@
 
     <input
       v-model="value"
+      class="flex-grow border-0 focus:outline-none"
       type="text"
       dir="auto"
       @keyup.enter="$emit('enterKeyup')"
@@ -40,34 +45,3 @@ export default {
   },
 }
 </script>
-
-<style scoped>
-.title-input {
-    border: 1px solid lightgrey;
-    border-radius: 50px;
-    display: flex;
-    align-items: center;
-    margin-right: 10px;
-    background-color: white;
-}
-
-.image {
-    padding: 0 15px;
-}
-
-img {
-    height: 40px;
-    width: 40px;
-    margin: -10px;
-}
-
-input {
-    flex-grow: 1;
-    border: 0;
-    font-family: 'Montserrat', Vazir;
-}
-
-input:focus {
-    outline: 0;
-}
-</style>
