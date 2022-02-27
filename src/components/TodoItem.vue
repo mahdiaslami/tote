@@ -1,6 +1,6 @@
 <template>
   <div
-    class="task bg-primary shadow"
+    class="bg-primary shadow mb-1.5 p-3.5 rounded-2xl flex"
   >
     <input
       class="tick"
@@ -9,7 +9,7 @@
       @change="() => completeTodo(todo.id)"
     >
     <span
-      class="content"
+      class="flex-grow font-normal leading-7 -my-1 px-2.5"
       :class="{
         'font-bold line-through': todo.completed,
         'underline': focused
@@ -20,7 +20,7 @@
       {{ todo.text }}
     </span>
     <button
-      class="btn-delete text-primary-dark"
+      class="text-primary-dark border-0 cursor-pointer font-bold p-0"
       @click="() => deleteTodo(todo.id)"
     >
       ✗
@@ -55,32 +55,3 @@ export default {
   },
 }
 </script>
-
-<style>
-.task {
-    border-radius: 20px;
-    display: flex;
-    margin-bottom: 5px;
-    padding: 15px;
-}
-
-.content {
-    flex-grow: 1;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 30px;
-    margin: -5px 0;
-    padding: 0 10px;
-    unicode-bidi: embed;
-}
-
-.btn-delete {
-    background-color: unset;
-    border: 0;
-    cursor: pointer;
-    font-family: 'Montserrat', Vazir;
-    font-size: 16px;
-    font-weight: 500;
-    padding: 0;
-}
-</style>
