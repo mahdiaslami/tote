@@ -1,26 +1,37 @@
 <template>
   <div
     v-if="offlineReady || needRefresh"
-    class="pwa-toast"
+    class="fixed inset-x-0 bottom-0 m-4 p-3 shadow-2xl rounded border text-right
+      bg-primary"
     role="alert"
   >
-    <div class="message">
+    <div>
       <span v-if="offlineReady">
         برنامه آماده است که به صورت آفلاین کار کند.
       </span>
-      <span v-else>
+      <span
+        v-else
+        class="dir-rtl"
+      >
         محتوای جدید موجود است، روی Reload کلیک کنید تا بروز رسانی شود.
       </span>
     </div>
-    <button
-      v-if="needRefresh"
-      @click="updateServiceWorker()"
-    >
-      Reload
-    </button>
-    <button @click="close">
-      Close
-    </button>
+    <div class="pt-2.5 text-left">
+      <button
+        v-if="needRefresh"
+        class="bg-blue-600 text-white p-2.5 rounded-full text-xs font-bold mr-2"
+        @click="updateServiceWorker()"
+      >
+        Reload
+      </button>
+      <button
+        class="bg-yellow-500 text-white p-2.5 rounded-full text-xs font-bold"
+        @click="
+          close"
+      >
+        Close
+      </button>
+    </div>
   </div>
 </template>
 
