@@ -34,3 +34,7 @@ body {
     direction: ltr;
     unicode-bidi: embed;
 }
+
+.line-through.underline {
+    text-decoration: underline line-through;
+}

@@ -9,7 +9,7 @@
       @change="() => completeTodo(todo.id)"
     >
     <span
-      class="flex-grow font-normal leading-7 -my-1 px-2.5"
+      class="flex-grow leading-7 -my-1 px-2.5"
       :class="{
         'font-bold line-through': todo.completed,
         'underline': focused
