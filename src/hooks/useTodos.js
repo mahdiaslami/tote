@@ -1,4 +1,5 @@
 import { ref, watchEffect } from 'vue'
+import './useDatabase'
 
 const database = document.location.pathname.split('/').pop()
 
