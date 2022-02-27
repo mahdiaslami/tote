@@ -6,10 +6,10 @@
   >
     <div class="message">
       <span v-if="offlineReady">
-        App ready to work offline
+        برنامه آماده است که به صورت آفلاین کار کند.
       </span>
       <span v-else>
-        New content available, click on reload button to update.
+        محتوای جدید موجود است، روی Reload کلیک کنید تا بروز رسانی شود.
       </span>
     </div>
     <button
