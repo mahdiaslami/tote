@@ -32,7 +32,7 @@
   <reload-prompt />
 </template>
 
-<script>
+<script setup>
 import BaseButton from '@/components/BaseButton'
 import Navbar from '@/components/Navbar'
 import BaseInput from '@/components/BaseInput'
@@ -40,53 +40,28 @@ import TodoItem from '@/components/TodoItem'
 import ReloadPrompt from '@/components/ReloadPrompt'
 import MenuIcon from '@/components/icons/MenuIcon'
 import { useTodos } from '@/hooks/useTodos'
+import { ref, onMounted } from 'vue'
 
-export default {
-  name: 'App',
+const { database, todos, addTodo } = useTodos()
 
-  components: {
-    BaseButton,
-    Navbar,
-    BaseInput,
-    TodoItem,
-    ReloadPrompt,
-    MenuIcon,
-  },
+onMounted(() => {
+  document.title = `Todo: ${database}`
+})
 
-  setup() {
-    const { database, todos, addTodo } = useTodos()
+const currentId = ref(-1)
 
-    return {
-      database,
-      todos,
-      addTodo,
-    }
-  },
+function select(id) {
+  if (currentId.value === id) {
+    currentId.value = -1
+  } else {
+    currentId.value = id
+  }
+}
 
-  data() {
-    return {
-      newTodo: '',
-      currentId: -1,
-    }
-  },
+const newTodo = ref('')
 
-  created() {
-    document.title = `Todo: ${this.database}`
-  },
-
-  methods: {
-    select(id) {
-      if (this.currentId === id) {
-        this.currentId = -1
-      } else {
-        this.currentId = id
-      }
-    },
-
-    saveTodo() {
-      this.addTodo(this.newTodo)
-      this.newTodo = ''
-    },
-  },
+function saveTodo() {
+  addTodo(newTodo.value)
+  newTodo.value = ''
 }
 </script>
