@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { completeTodo, deleteTodo } from '@/hooks/useTodos'
+import { useTodos } from '@/hooks/useTodos'
 
 export default {
   props: {
@@ -48,6 +48,8 @@ export default {
   emits: ['click'],
 
   setup() {
+    const { completeTodo, deleteTodo } = useTodos()
+
     return {
       completeTodo,
       deleteTodo,

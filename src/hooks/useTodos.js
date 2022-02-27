@@ -1,14 +1,14 @@
 import { ref, watchEffect } from 'vue'
 
-export const database = document.location.pathname.split('/').pop()
+const database = document.location.pathname.split('/').pop()
 
-export const todos = ref(
+const todos = ref(
   JSON.parse(localStorage.getItem(database)) ?? [],
 )
 
 watchEffect(() => localStorage.setItem(database, JSON.stringify(todos.value)))
 
-export function addTodo(text) {
+function addTodo(text) {
   todos.value.push({
     id: new Date().getTime(),
     text,
@@ -16,12 +16,22 @@ export function addTodo(text) {
   })
 }
 
-export function completeTodo(id) {
+function completeTodo(id) {
   const todo = todos.value.find((item) => item.id === id)
   todo.completed = !todo.completed
 }
 
-export function deleteTodo(id) {
+function deleteTodo(id) {
   const index = todos.value.findIndex((todo) => todo.id === id)
   todos.value.splice(index, 1)
+}
+
+export function useTodos() {
+  return {
+    database, 
+    todos,
+    addTodo,
+    completeTodo,
+    deleteTodo
+  }
 }

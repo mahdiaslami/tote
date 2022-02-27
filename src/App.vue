@@ -39,9 +39,7 @@ import BaseInput from '@/components/BaseInput'
 import TodoItem from '@/components/TodoItem'
 import ReloadPrompt from '@/components/ReloadPrompt'
 import MenuIcon from '@/components/icons/MenuIcon'
-import {
-  database, todos, addTodo,
-} from '@/hooks/useTodos'
+import { useTodos } from '@/hooks/useTodos'
 
 export default {
   name: 'App',
@@ -56,6 +54,8 @@ export default {
   },
 
   setup() {
+    const { database, todos, addTodo } = useTodos()
+
     return {
       database,
       todos,
