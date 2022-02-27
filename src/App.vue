@@ -21,9 +21,10 @@
       />
 
       <base-button
+        class="px-3.5"
         @click="saveTodo"
       >
-        Save
+        <menu-icon class="text-2xl" />
       </base-button>
     </div>
   </div>
@@ -37,6 +38,7 @@ import Navbar from '@/components/Navbar'
 import BaseInput from '@/components/BaseInput'
 import TodoItem from '@/components/TodoItem'
 import ReloadPrompt from '@/components/ReloadPrompt'
+import MenuIcon from '@/components/icons/MenuIcon'
 import {
   database, todos, addTodo,
 } from '@/hooks/useTodos'
@@ -50,6 +52,7 @@ export default {
     BaseInput,
     TodoItem,
     ReloadPrompt,
+    MenuIcon,
   },
 
   setup() {
