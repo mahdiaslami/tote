@@ -29,7 +29,6 @@ function deleteTodo(id) {
 
 export function useTodos() {
   return {
-    database, 
     todos,
     addTodo,
     completeTodo,

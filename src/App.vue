@@ -40,13 +40,9 @@ import TodoItem from '@/components/TodoItem'
 import ReloadPrompt from '@/components/ReloadPrompt'
 import MenuIcon from '@/components/icons/MenuIcon'
 import { useTodos } from '@/hooks/useTodos'
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 
-const { database, todos, addTodo } = useTodos()
-
-onMounted(() => {
-  document.title = `Todo: ${database}`
-})
+const { todos, addTodo } = useTodos()
 
 const currentId = ref(-1)
 
