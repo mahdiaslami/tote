@@ -32,6 +32,6 @@ export function useTodos() {
     todos,
     addTodo,
     completeTodo,
-    deleteTodo
+    deleteTodo,
   }
 }
