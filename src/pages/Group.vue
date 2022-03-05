@@ -1,13 +1,13 @@
 <template>
-  <div>
-    <template
-      v-for="group in groups"
-      :key="group.id"
-    >
-      <div>
+  <div class="flex flex-col justify-end h-full">
+    <div class="flex-grow">
+      <div
+        v-for="group in groups"
+        :key="group.id"
+      >
         {{ group.title }}
       </div>
-    </template>
+    </div>
 
     <div class="flex p-2.5">
       <base-input
