@@ -1,15 +1,17 @@
 <template>
-  <div>
-    <template
-      v-for="todo in todos"
-      :key="todo.id"
-    >
-      <todo-item
-        :todo="todo"
-        :focused="(todo.id === currentId)"
-        @click="() => {select(todo.id); return false;}"
-      />
-    </template>
+  <div class="flex flex-col h-full">
+    <div class="flex-grow">
+      <template
+        v-for="todo in todos"
+        :key="todo.id"
+      >
+        <todo-item
+          :todo="todo"
+          :focused="(todo.id === currentId)"
+          @click="() => {select(todo.id); return false;}"
+        />
+      </template>
+    </div>
 
     <div class="flex p-2.5">
       <base-input
