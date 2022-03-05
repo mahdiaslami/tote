@@ -1,5 +1,9 @@
-if (!localStorage.databaseV2) {
-  const database = {
+import { useDatabase } from '@/hooks/useDatabase'
+
+const { database } = useDatabase()
+
+if (!localStorage.migrated) {
+  const newDatabase = {
     version: 2,
     groups: [],
     todos: [],
@@ -14,14 +18,18 @@ if (!localStorage.databaseV2) {
 
     const groupId = Date.now()
 
-    database.groups.push({
+    newDatabase.groups.push({
       id: groupId,
       title,
     })
 
     const array = JSON.parse(localStorage[key])
 
-    database.todos = array.map((todo) => ({
+    if (!Array.isArray(array)) {
+      return
+    }
+
+    newDatabase.todos = array.map((todo) => ({
       ...todo,
       group_id: groupId,
     }))
@@ -29,5 +37,8 @@ if (!localStorage.databaseV2) {
     // TODO: remove key data after migrating.
   })
 
-  localStorage.databaseV2 = JSON.stringify(database)
+  database.groups = newDatabase.groups
+  database.todos = newDatabase.todos
+
+  localStorage.migrated = true
 }
