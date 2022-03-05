@@ -20,7 +20,7 @@
 
       <base-button
         class="px-3.5"
-        @click="saveTodo"
+        @click="toggle"
       >
         <menu-icon class="text-2xl" />
       </base-button>
@@ -34,8 +34,10 @@ import BaseInput from '@/components/BaseInput'
 import TodoItem from '@/components/TodoItem'
 import MenuIcon from '@/components/icons/MenuIcon'
 import { useTodos } from '@/hooks/useTodos'
+import { useSidebar } from '@/hooks/useSidebar'
 import { ref } from 'vue'
 
+const { toggle } = useSidebar()
 const { todos, addTodo } = useTodos()
 
 const currentId = ref(-1)
