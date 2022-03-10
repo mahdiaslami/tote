@@ -2,7 +2,8 @@
   "env": {
     "browser": true,
     "es2021": true,
-    "node": false
+    "node": false,
+    "vue/setup-compiler-macros": true
   },
   "extends": [
     "plugin:vue/vue3-essential",
