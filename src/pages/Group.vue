@@ -1,11 +1,17 @@
 <template>
   <div class="flex flex-col justify-end h-full">
-    <div class="flex-grow">
+    <div class="flex flex-grow flex-wrap content-start px-1">
       <div
         v-for="group in groups"
         :key="group.id"
+        class="h-20 min-w-1/2 p-1"
       >
-        {{ group.title }}
+        <div
+          class="bg-primary border border-primary-dark text-primary-darker
+          h-full p-2 rounded"
+        >
+          {{ group.title }}
+        </div>
       </div>
     </div>
 
