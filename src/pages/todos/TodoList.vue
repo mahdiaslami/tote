@@ -27,10 +27,10 @@
 
 <script setup>
 import BaseInput from '@/components/BaseInput'
-import TodoItem from '@/components/TodoItem'
 import { useTodos } from '@/hooks/useTodos'
 import { useSidebar } from '@/hooks/useSidebar'
 import { ref } from 'vue'
+import TodoItem from './TodoItem'
 import MenuButton from './MenuButton'
 
 const { toggle } = useSidebar()
