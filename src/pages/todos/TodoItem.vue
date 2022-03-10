@@ -30,32 +30,24 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { useTodos } from '@/hooks/useTodos'
 
-export default {
-  props: {
-    focused: {
-      type: Boolean,
-      required: false,
-      default: false,
-    },
+const { completeTodo, deleteTodo } = useTodos()
 
-    todo: {
-      type: Object,
-      required: true,
-    },
+defineProps({
+  focused: {
+    type: Boolean,
+    required: false,
+    default: false,
   },
 
-  emits: ['click'],
-
-  setup() {
-    const { completeTodo, deleteTodo } = useTodos()
-
-    return {
-      completeTodo,
-      deleteTodo,
-    }
+  todo: {
+    type: Object,
+    required: true,
   },
-}
+})
+
+defineEmits(['click'])
+
 </script>
