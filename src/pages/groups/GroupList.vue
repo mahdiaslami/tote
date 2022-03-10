@@ -1,18 +1,11 @@
 <template>
   <div class="flex flex-col justify-end h-full">
     <div class="flex flex-grow flex-wrap content-start px-1">
-      <div
+      <group-item
         v-for="group in groups"
         :key="group.id"
-        class="h-20 min-w-1/2 p-1"
-      >
-        <div
-          class="border text-primary-darker
-          h-full p-2 rounded shadow"
-        >
-          {{ group.title }}
-        </div>
-      </div>
+        :group="group"
+      />
     </div>
 
     <div class="flex p-2.5">
@@ -29,6 +22,7 @@
 import BaseInput from '@/components/BaseInput'
 import { useGroups } from '@/hooks/useGroups'
 import { ref } from 'vue'
+import GroupItem from './GroupItem'
 
 const { groups, addGroup } = useGroups()
 
