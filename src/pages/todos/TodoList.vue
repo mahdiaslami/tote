@@ -20,24 +20,18 @@
         @enter-keyup="saveTodo"
       />
 
-      <base-button
-        class="px-3.5"
-        @click="toggle"
-      >
-        <menu-icon class="text-2xl" />
-      </base-button>
+      <menu-button @click="toggle" />
     </div>
   </div>
 </template>
 
 <script setup>
-import BaseButton from '@/components/BaseButton'
 import BaseInput from '@/components/BaseInput'
 import TodoItem from '@/components/TodoItem'
-import MenuIcon from '@/components/icons/MenuIcon'
 import { useTodos } from '@/hooks/useTodos'
 import { useSidebar } from '@/hooks/useSidebar'
 import { ref } from 'vue'
+import MenuButton from './MenuButton'
 
 const { toggle } = useSidebar()
 const { todos, addTodo } = useTodos()
