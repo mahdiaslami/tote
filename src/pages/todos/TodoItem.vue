@@ -8,6 +8,7 @@
       :checked="todo.completed"
       @change="() => completeTodo(todo.id)"
     >
+
     <span
       class="flex-grow leading-7 -my-1 px-2.5"
       :class="{
@@ -19,6 +20,7 @@
     >
       {{ todo.text }}
     </span>
+
     <button
       class="text-primary-dark border-0 cursor-pointer font-bold p-0"
       @click="() => deleteTodo(todo.id)"
