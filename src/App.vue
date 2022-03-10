@@ -1,7 +1,6 @@
 <template>
-  <navbar />
-
-  <sidebar />
+  <the-navbar />
+  <the-sidebar />
 
   <router-view />
 
@@ -9,7 +8,7 @@
 </template>
 
 <script setup>
-import Navbar from '@/components/Navbar'
-import Sidebar from '@/components/Sidebar'
+import TheNavbar from '@/components/TheNavbar'
+import TheSidebar from '@/components/TheSidebar'
 import ReloadPrompt from '@/components/ReloadPrompt'
 </script>
