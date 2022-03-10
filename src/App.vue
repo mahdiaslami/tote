@@ -3,8 +3,7 @@
 
   <sidebar />
 
-  <!-- <todo-list /> -->
-  <group-list />
+  <router-view />
 
   <reload-prompt />
 </template>
@@ -13,6 +12,4 @@
 import Navbar from '@/components/Navbar'
 import Sidebar from '@/components/Sidebar'
 import ReloadPrompt from '@/components/ReloadPrompt'
-import TodoList from '@/pages/todos/TodoList'
-import GroupList from '@/pages/groups/GroupList'
 </script>
