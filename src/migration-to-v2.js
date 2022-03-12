@@ -30,11 +30,13 @@ if (!localStorage.migrated) {
       return
     }
 
-    newDatabase.todos = array.map((todo) => ({
-      ...todo,
-      id: uuid(),
-      group_id: groupId,
-    }))
+    array.forEach(
+      (todo) => newDatabase.todos.push({
+        ...todo,
+        id: uuid(),
+        group_id: groupId,
+      }),
+    )
 
     // TODO: remove key data after migrating.
   })
