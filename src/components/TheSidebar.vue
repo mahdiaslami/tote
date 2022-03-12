@@ -4,9 +4,13 @@
     class="fixed inset-y-0 right-0 w-48 shadow
     backdrop-blur flex flex-col justify-end"
   >
-    <button class="p-2 ml-2 mb-2 rounded-l-full bg-green-300">
+    <router-link
+      :to="{ name: 'GroupList' }"
+      class="p-2 ml-2 mb-2 rounded-l-full bg-green-300"
+      @click="close"
+    >
       گروه ها
-    </button>
+    </router-link>
     <button
       class="p-2 ml-2 mb-2 rounded-l-full bg-yellow-500
       text-white"
