@@ -3,9 +3,21 @@ import TodoList from '@/pages/todos/TodoList'
 import GroupList from '@/pages/groups/GroupList'
 
 export const routes = [
-  { path: '/', redirect: '/todos' },
-  { path: '/groups', component: GroupList },
-  { path: '/todos', component: TodoList },
+  {
+    name: 'Home',
+    path: '/',
+    redirect: '/groups',
+  },
+  {
+    name: 'GroupList',
+    path: '/groups',
+    component: GroupList,
+  },
+  {
+    name: 'TodoList',
+    path: '/groups/{id}/todos',
+    component: TodoList,
+  },
 ]
 
 export const router = createRouter({
