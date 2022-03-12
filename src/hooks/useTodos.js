@@ -2,10 +2,11 @@ import { useDatabase } from './useDatabase'
 
 const { todos } = useDatabase()
 
-function addTodo(text) {
+function addTodo(text, groupId) {
   todos.push({
     id: new Date().getTime(),
     text,
+    group_id: groupId,
     completed: false,
   })
 }
@@ -20,11 +21,18 @@ function deleteTodo(id) {
   todos.splice(index, 1)
 }
 
+function filterByGroupId(groupId) {
+  return todos.filter(
+    (todo) => todo.group_id == groupId,
+  )
+}
+
 export function useTodos() {
   return {
     todos,
     addTodo,
     completeTodo,
     deleteTodo,
+    filterByGroupId,
   }
 }
