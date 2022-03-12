@@ -1,5 +1,6 @@
 <template>
-  <div
+  <router-link
+    :to="getPathToTodos()"
     class="h-20 min-w-1/2 p-1"
   >
     <div
@@ -8,16 +9,21 @@
     >
       {{ group.title }}
     </div>
-  </div>
+  </router-link>
 </template>
 
 <script setup>
 
-defineProps({
+const props = defineProps({
   group: {
     type: Object,
     required: true,
   },
+})
+
+const getPathToTodos = () => ({
+  name: 'TodoList',
+  params: { id: props.group.id },
 })
 
 </script>
