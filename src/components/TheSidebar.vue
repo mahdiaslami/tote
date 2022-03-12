@@ -2,7 +2,7 @@
   <div
     v-show="isOpen"
     class="fixed inset-y-0 right-0 w-48 shadow
-    backdrop-blur flex flex-col justify-end"
+    backdrop-blur flex flex-col justify-end text-center"
   >
     <router-link
       :to="{ name: 'GroupList' }"
