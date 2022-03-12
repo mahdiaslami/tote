@@ -52,6 +52,7 @@
         "props": false
       }
     ],
+    "no-plusplus": "off",
     "no-undef": "warn",
     "no-unused-vars": "warn",
     "quotes": [
