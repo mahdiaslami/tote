@@ -1,4 +1,5 @@
 import { useDatabase } from '@/hooks/useDatabase'
+import { v4 as uuid } from 'uuid'
 
 const { database } = useDatabase()
 
@@ -16,7 +17,7 @@ if (!localStorage.migrated) {
       title = 'default'
     }
 
-    const groupId = Date.now()
+    const groupId = uuid()
 
     newDatabase.groups.push({
       id: groupId,
@@ -31,6 +32,7 @@ if (!localStorage.migrated) {
 
     newDatabase.todos = array.map((todo) => ({
       ...todo,
+      id: uuid(),
       group_id: groupId,
     }))
 
