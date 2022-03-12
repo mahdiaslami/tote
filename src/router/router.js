@@ -15,7 +15,7 @@ export const routes = [
   },
   {
     name: 'TodoList',
-    path: '/groups/{id}/todos',
+    path: '/groups/:id/todos',
     component: TodoList,
   },
 ]
