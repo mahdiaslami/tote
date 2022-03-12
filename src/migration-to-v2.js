@@ -17,18 +17,18 @@ if (!localStorage.migrated) {
       title = 'default'
     }
 
+    const array = JSON.parse(localStorage[key])
+
+    if (!Array.isArray(array)) {
+      return
+    }
+
     const groupId = uuid()
 
     newDatabase.groups.push({
       id: groupId,
       title,
     })
-
-    const array = JSON.parse(localStorage[key])
-
-    if (!Array.isArray(array)) {
-      return
-    }
 
     array.forEach(
       (todo) => newDatabase.todos.push({
