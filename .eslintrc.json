@@ -55,6 +55,7 @@
     "no-plusplus": "off",
     "no-undef": "warn",
     "no-unused-vars": "warn",
+    "no-use-before-define": "off",
     "quotes": [
       "error",
       "single"
