@@ -10,15 +10,28 @@ function addGroup(title) {
   })
 }
 
+function updateGroup(id, title) {
+  const index = findIndex(id)
+  groups[index] = {
+    id,
+    title,
+  }
+}
+
 function deleteGroup(id) {
-  const index = groups.findIndex((todo) => todo.id === id)
+  const index = findIndex(id)
   groups.splice(index, 1)
+}
+
+function findIndex(id) {
+  return groups.findIndex((todo) => todo.id === id)
 }
 
 export function useGroups() {
   return {
     groups,
     addGroup,
+    updateGroup,
     deleteGroup,
   }
 }

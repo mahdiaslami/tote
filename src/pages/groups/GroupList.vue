@@ -5,14 +5,17 @@
         v-for="group in groups"
         :key="group.id"
         :group="group"
+        @edit-click="editGroup"
       />
     </div>
 
     <div class="flex p-2.5">
       <base-input
-        v-model="newGroup"
+        v-model="title"
         class="flex-grow"
+        :clearable="editing"
         @enter-keyup="saveGroup"
+        @clear-click="clear"
       />
     </div>
   </div>
@@ -21,15 +24,33 @@
 <script setup>
 import BaseInput from '@/components/BaseInput'
 import { useGroups } from '@/hooks/useGroups'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import GroupItem from './GroupItem'
 
-const { groups, addGroup } = useGroups()
+const { groups, addGroup, updateGroup } = useGroups()
 
-const newGroup = ref('')
+const id = ref(null)
+const title = ref('')
+
+const editing = computed(() => id.value !== null)
+
+function clear() {
+  title.value = ''
+  id.value = null
+}
 
 function saveGroup() {
-  addGroup(newGroup.value)
-  newGroup.value = ''
+  if (editing.value) {
+    updateGroup(id.value, title.value)
+  } else {
+    addGroup(title.value)
+  }
+  clear()
 }
+
+function editGroup(group) {
+  title.value = group.title
+  id.value = group.id
+}
+
 </script>
