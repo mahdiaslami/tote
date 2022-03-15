@@ -5,7 +5,7 @@
         v-for="group in groups"
         :key="group.id"
         :group="group"
-        @edit-click="editGroup"
+        @edit-click="edit"
       />
     </div>
 
@@ -14,7 +14,7 @@
         v-model="title"
         class="flex-grow"
         :clearable="editing"
-        @enter-keyup="saveGroup"
+        @enter-keyup="save"
         @clear-click="clear"
       />
     </div>
@@ -39,7 +39,7 @@ function clear() {
   id.value = null
 }
 
-function saveGroup() {
+function save() {
   if (editing.value) {
     updateGroup(id.value, title.value)
   } else {
@@ -48,7 +48,7 @@ function saveGroup() {
   clear()
 }
 
-function editGroup(group) {
+function edit(group) {
   title.value = group.title
   id.value = group.id
 }
