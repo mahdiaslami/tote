@@ -1,10 +1,11 @@
+import { v4 as uuid } from 'uuid'
 import { useDatabase } from './useDatabase'
 
 const { todos } = useDatabase()
 
 function addTodo(text, groupId) {
   todos.push({
-    id: new Date().getTime(),
+    id: uuid(),
     text,
     group_id: groupId,
     completed: false,
