@@ -18,7 +18,7 @@ function updateGroup(id, title) {
   }
 }
 
-function deleteGroup(id) {
+function removeGroup(id) {
   const index = findIndex(id)
   groups.splice(index, 1)
 }
@@ -32,6 +32,6 @@ export function useGroups() {
     groups,
     addGroup,
     updateGroup,
-    deleteGroup,
+    removeGroup,
   }
 }

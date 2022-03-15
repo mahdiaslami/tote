@@ -6,6 +6,7 @@
         :key="group.id"
         :group="group"
         @edit-click="edit"
+        @remove-click="remove"
       />
     </div>
 
@@ -27,7 +28,9 @@ import { useGroups } from '@/hooks/useGroups'
 import { ref, computed } from 'vue'
 import GroupItem from './GroupItem'
 
-const { groups, addGroup, updateGroup } = useGroups()
+const {
+  groups, addGroup, updateGroup, removeGroup,
+} = useGroups()
 
 const id = ref(null)
 const title = ref('')
@@ -51,6 +54,10 @@ function save() {
 function edit(group) {
   title.value = group.title
   id.value = group.id
+}
+
+function remove(group) {
+  removeGroup(group.id)
 }
 
 </script>
