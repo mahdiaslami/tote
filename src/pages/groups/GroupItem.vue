@@ -5,23 +5,30 @@
   >
     <div
       class="border text-primary-darker
-          h-full p-2 rounded shadow flex justify-between items-start"
+          h-full p-2 rounded shadow flex justify-between items-stretch"
     >
       <div>
         {{ group.title }}
       </div>
 
-      <button @click.prevent="$emit('editClick', group)">
-        <edit-icon class="text-sm w-6" />
-      </button>
+      <div class="flex flex-col justify-between">
+        <button @click.prevent="$emit('editClick', group)">
+          <edit-icon class="text-sm w-6" />
+        </button>
+
+        <button @click.prevent="$emit('removeClick', group)">
+          <delete-icon class="text-sm w-6" />
+        </button>
+      </div>
     </div>
   </router-link>
 </template>
 
 <script setup>
 import EditIcon from '@/components/icons/EditIcon'
+import DeleteIcon from '@/components/icons/DeleteIcon'
 
-defineEmits(['editClick'])
+defineEmits(['editClick', 'removeClick'])
 
 const props = defineProps({
   group: {
