@@ -18,10 +18,19 @@
       dir="auto"
       @keyup.enter="$emit('enterKeyup')"
     >
+
+    <button
+      v-show="clearable"
+      class="pt-2 -my-2"
+      @click="$emit('clearClick')"
+    >
+      <clear-icon />
+    </button>
   </div>
 </template>
 
 <script setup>
+import ClearIcon from '@/components/icons/ClearIcon'
 import { computed } from 'vue'
 
 const props = defineProps({
@@ -29,9 +38,14 @@ const props = defineProps({
     type: String,
     required: true,
   },
+
+  clearable: {
+    type: Boolean,
+    default: false,
+  },
 })
 
-const emits = defineEmits(['update:modelValue', 'enterKeyup'])
+const emits = defineEmits(['update:modelValue', 'enterKeyup', 'clearClick'])
 
 const value = computed({
   get() {
