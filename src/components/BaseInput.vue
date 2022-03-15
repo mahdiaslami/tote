@@ -21,27 +21,25 @@
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    modelValue: {
-      type: String,
-      required: true,
-    },
+<script setup>
+import { computed } from 'vue'
+
+const props = defineProps({
+  modelValue: {
+    type: String,
+    required: true,
+  },
+})
+
+const emits = defineEmits(['update:modelValue', 'enterKeyup'])
+
+const value = computed({
+  get() {
+    return props.modelValue
   },
 
-  emits: ['update:modelValue', 'enterKeyup'],
-
-  computed: {
-    value: {
-      get() {
-        return this.modelValue
-      },
-
-      set(val) {
-        return this.$emit('update:modelValue', val)
-      },
-    },
+  set(val) {
+    return emits('update:modelValue', val)
   },
-}
+})
 </script>
