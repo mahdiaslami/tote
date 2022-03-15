@@ -5,14 +5,23 @@
   >
     <div
       class="border text-primary-darker
-          h-full p-2 rounded shadow"
+          h-full p-2 rounded shadow flex justify-between items-start"
     >
-      {{ group.title }}
+      <div>
+        {{ group.title }}
+      </div>
+
+      <button @click.prevent="$emit('editClick', group)">
+        <edit-icon class="text-sm w-6" />
+      </button>
     </div>
   </router-link>
 </template>
 
 <script setup>
+import EditIcon from '@/components/icons/EditIcon'
+
+defineEmits(['editClick'])
 
 const props = defineProps({
   group: {
