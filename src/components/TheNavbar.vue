@@ -1,5 +1,5 @@
 <template>
-  <p class="text-primary-dark p-5 font-black mb-2.5 shadow-md">
+  <p class="text-primary-dark p-5 font-bold mb-2.5 shadow-md">
     Tote {{ version }}
   </p>
 </template>
