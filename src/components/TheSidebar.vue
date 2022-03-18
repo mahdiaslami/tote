@@ -1,7 +1,7 @@
 <template>
   <div
     v-show="isOpen"
-    class="fixed inset-y-0 right-0 w-48 shadow
+    class="fixed inset-y-0 right-0 w-48 shadow-lg
     backdrop-blur flex flex-col justify-end text-center"
   >
     <router-link
