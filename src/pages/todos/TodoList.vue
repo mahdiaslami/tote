@@ -20,7 +20,10 @@
         @enter-keyup="saveTodo"
       />
 
-      <menu-button @click="toggle" />
+      <menu-button
+        class="lg:hidden"
+        @click="toggle"
+      />
     </div>
   </div>
 </template>
