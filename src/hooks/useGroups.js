@@ -1,7 +1,9 @@
 import { v4 as uuid } from 'uuid'
 import { useDatabase } from './useDatabase'
+import { useConfirm } from './useConfirm'
 
 const { groups } = useDatabase()
+const { confirm } = useConfirm()
 
 function addGroup(title) {
   groups.push({
@@ -19,8 +21,10 @@ function updateGroup(id, title) {
 }
 
 function removeGroup(id) {
-  const index = findIndex(id)
-  groups.splice(index, 1)
+  confirm('آیا از حذف این گروه اطمینان دارید؟', () => {
+    const index = findIndex(id)
+    groups.splice(index, 1)
+  })
 }
 
 function findIndex(id) {
