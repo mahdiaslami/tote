@@ -37,7 +37,7 @@
 
 <script setup>
 import { useRegisterSW } from 'virtual:pwa-register/vue'
-
+// TODO: Make content persian.
 const {
   offlineReady,
   needRefresh,
