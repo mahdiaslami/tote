@@ -8,6 +8,7 @@ if (!localStorage.migrated) {
     version: 2,
     groups: [],
     todos: [],
+    default_group_id: null,
   }
 
   Object.keys(localStorage).forEach((key) => {
@@ -38,11 +39,16 @@ if (!localStorage.migrated) {
       }),
     )
 
+    newDatabase.default_group_id = groupId
+
     // TODO: remove key data after migrating.
   })
 
   database.groups = newDatabase.groups
   database.todos = newDatabase.todos
+  database.default_group_id = newDatabase.default_group_id
 
   localStorage.migrated = true
+
+  location.reload()
 }

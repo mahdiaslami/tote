@@ -34,14 +34,16 @@ import { useTodos } from '@/hooks/useTodos'
 import { useSidebar } from '@/hooks/useSidebar'
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
+import { useGroups } from '@/hooks/useGroups'
 import TodoItem from './TodoItem'
 import MenuButton from './MenuButton'
 
 const route = useRoute()
 const { toggle } = useSidebar()
+const { getDefaultGroupId } = useGroups()
 const { filterByGroupId, addTodo } = useTodos()
 
-const groupId = route.params.id
+const groupId = route.params.id ?? getDefaultGroupId()
 
 const currentId = ref(-1)
 

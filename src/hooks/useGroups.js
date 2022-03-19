@@ -2,7 +2,7 @@ import { v4 as uuid } from 'uuid'
 import { useDatabase } from './useDatabase'
 import { useConfirm } from './useConfirm'
 
-const { groups } = useDatabase()
+const { database, groups } = useDatabase()
 const { confirm } = useConfirm()
 
 function addGroup(title) {
@@ -31,11 +31,16 @@ function findIndex(id) {
   return groups.findIndex((todo) => todo.id === id)
 }
 
+function getDefaultGroupId() {
+  return database.default_group_id
+}
+
 export function useGroups() {
   return {
     groups,
     addGroup,
     updateGroup,
     removeGroup,
+    getDefaultGroupId,
   }
 }

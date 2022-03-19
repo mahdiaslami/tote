@@ -6,7 +6,7 @@ export const routes = [
   {
     name: 'Home',
     path: '/',
-    redirect: '/groups',
+    component: TodoList,
   },
   {
     name: 'GroupList',

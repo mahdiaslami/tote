@@ -4,6 +4,7 @@ let initialDatabase = {
   version: 2,
   todos: [],
   groups: [],
+  default_group_id: null,
 }
 
 if (localStorage.databaseV2) {
