@@ -40,10 +40,10 @@ import MenuButton from './MenuButton'
 
 const route = useRoute()
 const { toggle } = useSidebar()
-const { getDefaultGroupId } = useGroups()
+const { defaultGroupId } = useGroups()
 const { filterByGroupId, addTodo } = useTodos()
 
-const groupId = route.params.id ?? getDefaultGroupId()
+const groupId = route.params.id ?? defaultGroupId
 
 const currentId = ref(-1)
 

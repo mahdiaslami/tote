@@ -1,9 +1,20 @@
 import { v4 as uuid } from 'uuid'
+import { computed } from 'vue'
 import { useDatabase } from './useDatabase'
 import { useConfirm } from './useConfirm'
 
 const { database, groups } = useDatabase()
 const { confirm } = useConfirm()
+
+const defaultGroupId = computed({
+  get() {
+    return database.default_group_id
+  },
+
+  set(value) {
+    database.default_group_id = value
+  },
+})
 
 function addGroup(title) {
   groups.push({
@@ -31,16 +42,12 @@ function findIndex(id) {
   return groups.findIndex((todo) => todo.id === id)
 }
 
-function getDefaultGroupId() {
-  return database.default_group_id
-}
-
 export function useGroups() {
   return {
     groups,
+    defaultGroupId,
     addGroup,
     updateGroup,
     removeGroup,
-    getDefaultGroupId,
   }
 }
