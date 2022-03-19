@@ -4,13 +4,6 @@
     class="fixed inset-y-0 right-0 w-48 shadow-lg
     backdrop-blur flex flex-col justify-end text-center"
   >
-    <div
-      v-for="(user, index) in users"
-      :key="index"
-    >
-      {{ user.name }}
-    </div>
-
     <router-link
       :to="{ name: 'GroupList' }"
       class="p-2 ml-2 mb-2 rounded-l-full bg-green-300"
@@ -31,16 +24,8 @@
 <script setup>
 import { ref } from 'vue'
 import { useSidebar } from '@/hooks/useSidebar'
-import { db } from '@/dexie'
 
 const users = ref([])
-
-db.users.toArray().then(
-  (result) => {
-    console.log(result)
-    users.value = result
-  },
-)
 
 const { isOpen, close } = useSidebar()
 
