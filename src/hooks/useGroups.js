@@ -43,6 +43,11 @@ function findIndex(id) {
 }
 
 export function useGroups() {
+  if (groups.length === 0) {
+    addGroup('default')
+    defaultGroupId.value = groups[0].id
+  }
+
   return {
     groups,
     defaultGroupId,

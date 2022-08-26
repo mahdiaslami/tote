@@ -43,7 +43,7 @@ const { toggle } = useSidebar()
 const { defaultGroupId } = useGroups()
 const { filterByGroupId, addTodo } = useTodos()
 
-const groupId = route.params.id ?? defaultGroupId
+const groupId = route.params.id ?? defaultGroupId.value
 
 const currentId = ref(-1)
 
