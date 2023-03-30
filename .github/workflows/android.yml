@@ -29,8 +29,14 @@ jobs:
     - name: Build web app
       run: npm run build
 
-    - name: Build Android app
-      run: npx cap sync android && npx cap copy android && npx cap open android
+    - name: Copy Android
+      run: npx cap sync android && npx cap copy android
+
+    - name: Build Android Dev APK
+      run: npx cap build andoid
+
+    - name: List files and directories
+      run: ls android/
 
     - name: Archive artifacts
       uses: actions/upload-artifact@v2
