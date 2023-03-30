@@ -33,7 +33,7 @@ jobs:
       run: npx cap sync android && npx cap copy android
 
     - name: Build Android Dev APK
-      run: npx cap build andoid
+      run: npx cap build android
 
     - name: List files and directories
       run: ls android/
