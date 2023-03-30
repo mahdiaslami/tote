@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">tote</string>
+    <string name="title_activity_main">tote</string>
+    <string name="package_name">ir.rezero.tote</string>
+    <string name="custom_url_scheme">ir.rezero.tote</string>
+</resources>
