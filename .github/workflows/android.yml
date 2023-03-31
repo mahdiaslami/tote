@@ -30,13 +30,13 @@ jobs:
       run: npm run build
 
     - name: Copy Android
-      run: npx cap sync android && npx cap copy android
+      run: npx cap sync android && npx cap copy android && cd android && ./gradlew assembleRelease
 
-    - name: Build Android Dev APK
-      run: npx cap build android
+    # - name: Build Android Dev APK
+    #   run: npx cap build android
 
     - name: List files and directories
-      run: ls android/
+      run: ls android/app/build/outputs/apk/release
 
     - name: Archive artifacts
       uses: actions/upload-artifact@v2
