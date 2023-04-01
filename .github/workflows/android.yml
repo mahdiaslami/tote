@@ -29,8 +29,12 @@ jobs:
     - name: Build web app
       run: npm run build
 
-    - name: Copy Android
-      run: npx cap sync android && npx cap copy android && cd android && ./gradlew assembleRelease
+    - name: Build Android app
+      run: |
+        npx cap add android
+        npx cap copy
+        npx cap open android
+        ./gradlew assembleRelease
 
     - name: List files and directories
       run: ls android/app/build/outputs/apk/release
