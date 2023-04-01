@@ -18,6 +18,9 @@ jobs:
         java-version: '11'
         distribution: 'adopt'
 
+    - name: Set up Android SDK
+      uses: android-actions/setup-android@v2
+
     - name: Install Node.js
       uses: actions/setup-node@v3
       with:
@@ -36,8 +39,15 @@ jobs:
         npx cap open android
         ./gradlew assembleRelease
 
-    - name: List files and directories
-      run: ls android/app/build/outputs/apk/release
+    - name: Sign APK file
+      run: |
+        jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore test.keystore app/build/outputs/apk/release/app-release-unsigned.apk myalias -storepass ${{ secrets.KEYSTORE_PASSWORD }}
+        jarsigner -verify -verbose app/build/outputs/apk/release/app-release-unsigned.apk
+
+    - name: Rename released file
+      run: |
+        cd app/build/outputs/apk/release
+        mv app-release-unsigned.apk tote.apk
 
     - name: Archive artifacts
       uses: actions/upload-artifact@v3
