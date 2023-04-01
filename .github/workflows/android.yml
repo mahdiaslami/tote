@@ -34,13 +34,14 @@ jobs:
 
     - name: Build Android app
       run: |
-        npx cap add android
-        npx cap copy
-        npx cap open android
+        npx cap sync android
+        npx cap copy android
+        cd android
         ./gradlew assembleRelease
 
     - name: Sign APK file
       run: |
+        cd android
         jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore test.keystore app/build/outputs/apk/release/app-release-unsigned.apk myalias -storepass ${{ secrets.KEYSTORE_PASSWORD }}
         jarsigner -verify -verbose app/build/outputs/apk/release/app-release-unsigned.apk
 
