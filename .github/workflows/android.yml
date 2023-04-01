@@ -41,13 +41,12 @@ jobs:
 
     - name: Sign APK file
       run: |
-        cd android
-        jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore test.keystore app/build/outputs/apk/release/app-release-unsigned.apk myalias -storepass ${{ secrets.KEYSTORE_PASSWORD }}
-        jarsigner -verify -verbose app/build/outputs/apk/release/app-release-unsigned.apk
+        jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore test.keystore android/app/build/outputs/apk/release/app-release-unsigned.apk myalias -storepass ${{ secrets.KEYSTORE_PASSWORD }}
+        jarsigner -verify -verbose android/app/build/outputs/apk/release/app-release-unsigned.apk
 
     - name: Rename released file
       run: |
-        cd app/build/outputs/apk/release
+        cd android/app/build/outputs/apk/release
         mv app-release-unsigned.apk tote.apk
 
     - name: Archive artifacts
