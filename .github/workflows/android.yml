@@ -1,0 +1,54 @@
+name: Build Android app with CapacitorJS
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-android:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'adopt'
+
+    - name: Set up Android SDK
+      uses: android-actions/setup-android@v2
+
+    - name: Install Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 'lts/*'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build web app
+      run: npm run build
+
+    - name: Build Android app
+      run: |
+        npx cap sync android
+        npx cap copy android
+        cd android
+        ./gradlew assembleRelease
+
+    - name: Sign APK file
+      run: |
+        jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore test.keystore android/app/build/outputs/apk/release/app-release-unsigned.apk myalias -storepass ${{ secrets.KEYSTORE_PASSWORD }}
+        jarsigner -verify -verbose android/app/build/outputs/apk/release/app-release-unsigned.apk
+
+    - name: Rename released file
+      run: |
+        cd android/app/build/outputs/apk/release
+        mv app-release-unsigned.apk tote.apk
+
+    - name: Archive artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: app-release
+        path: android/app/build/outputs/apk/release/
