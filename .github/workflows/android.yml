@@ -1,9 +1,7 @@
 name: Build Android app with CapacitorJS
 
 on:
-  push:
-    branches:
-      - android
+  workflow_dispatch:
 
 jobs:
   build-android:
