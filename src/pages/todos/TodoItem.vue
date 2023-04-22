@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-primary shadow mb-1.5 p-3.5 rounded-2xl flex"
+    class="bg-pri shadow mb-1.5 p-3.5 rounded-2xl flex"
   >
     <input
       class="tick"
@@ -22,7 +22,7 @@
     </span>
 
     <button
-      class="text-primary-dark border-0 cursor-pointer font-bold p-0"
+      class="text-ternary border-0 cursor-pointer font-bold p-0"
       @click="() => deleteTodo(todo.id)"
     >
       ✗

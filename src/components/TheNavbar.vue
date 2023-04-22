@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-between text-primary-dark p-5 font-bold mb-2.5 shadow-md">
+  <div class="flex justify-between text-ternary p-5 font-bold mb-2.5 shadow-md">
     <p>
       Tote {{ version }}
     </p>

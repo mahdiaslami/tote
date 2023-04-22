@@ -21,6 +21,9 @@ module.exports = {
           dark: withOpacityValue('--color-primary-dark'),
           darker: withOpacityValue('--color-primary-darker'),
         },
+        pri: '#fff',
+        secondary: '#f2f4f7',
+        ternary: '#7c818e',
       },
 
       minWidth: {

@@ -4,7 +4,7 @@
     class="h-20 min-w-1/2 p-1"
   >
     <div
-      class="border text-primary-darker bg-primary
+      class="border text-ternary bg-pri
           h-full p-2 rounded shadow flex justify-between items-stretch"
     >
       <div>
