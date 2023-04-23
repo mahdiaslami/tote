@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-pri shadow mb-1.5 p-3.5 rounded-2xl flex"
+    class="bg-primary shadow mb-1.5 p-3.5 rounded-2xl flex"
   >
     <input
       class="tick"

@@ -1,12 +1,3 @@
-function withOpacityValue(variable) {
-  return ({ opacityValue }) => {
-    if (opacityValue === undefined) {
-      return `rgb(var(${variable}))`
-    }
-    return `rgb(var(${variable}) / ${opacityValue})`
-  }
-}
-
 module.exports = {
   content: [
     './index.html',
@@ -15,7 +6,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        pri: '#fff',
+        primary: '#fff',
         secondary: '#f2f4f7',
         ternary: '#7c818e',
       },
