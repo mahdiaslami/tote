@@ -22,7 +22,7 @@
     </span>
 
     <button
-      class="text-primary-dark border-0 cursor-pointer font-bold p-0"
+      class="text-ternary border-0 cursor-pointer font-bold p-0"
       @click="() => deleteTodo(todo.id)"
     >
       ✗

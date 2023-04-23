@@ -2,7 +2,7 @@
   <div
     v-if="offlineReady || needRefresh"
     class="fixed inset-x-0 bottom-0 m-4 p-3 shadow-2xl rounded border text-right
-      bg-primary"
+      bg-secondary"
     role="alert"
   >
     <div>
