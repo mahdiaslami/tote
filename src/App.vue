@@ -1,3 +1,11 @@
+<script setup>
+import TheConfirm from '@/components/TheConfirm'
+import TheNavbar from '@/components/TheNavbar'
+import TheSidebar from '@/components/TheSidebar'
+import ReloadPrompt from '@/components/ReloadPrompt'
+
+</script>
+
 <template>
   <the-navbar />
   <the-sidebar />
@@ -7,11 +15,3 @@
   <reload-prompt />
   <the-confirm />
 </template>
-
-<script setup>
-import TheConfirm from '@/components/TheConfirm'
-import TheNavbar from '@/components/TheNavbar'
-import TheSidebar from '@/components/TheSidebar'
-import ReloadPrompt from '@/components/ReloadPrompt'
-
-</script>
