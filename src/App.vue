@@ -1,8 +1,8 @@
 <script setup>
-import TheConfirm from '@/components/TheConfirm'
-import TheNavbar from '@/components/TheNavbar'
-import TheSidebar from '@/components/TheSidebar'
-import ReloadPrompt from '@/components/ReloadPrompt'
+import TheConfirm from '@/components/TheConfirm.vue'
+import TheNavbar from '@/components/TheNavbar.vue'
+import TheSidebar from '@/components/TheSidebar.vue'
+import ReloadPrompt from '@/components/ReloadPrompt.vue'
 
 </script>
 

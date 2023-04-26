@@ -26,20 +26,12 @@
             "@",
             "./src"
           ]
-        ],
-        "extensions": [
-          ".js",
-          ".vue"
         ]
       }
     }
   },
   "rules": {
     "eqeqeq": "off",
-    "import/extensions": [
-      "error",
-      "never"
-    ],
     "import/no-dynamic-require": "off",
     "import/no-extraneous-dependencies": "off",
     "import/prefer-default-export": "off",

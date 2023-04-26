@@ -36,11 +36,11 @@
 </template>
 
 <script setup>
-import EditIcon from '@/components/icons/EditIcon'
-import DeleteIcon from '@/components/icons/DeleteIcon'
-import StarIcon from '@/components/icons/StarIcon'
-import StarBorderIcon from '@/components/icons/StarBorderIcon'
-import { useGroups } from '@/hooks/useGroups'
+import EditIcon from '@/components/icons/EditIcon.vue'
+import DeleteIcon from '@/components/icons/DeleteIcon.vue'
+import StarIcon from '@/components/icons/StarIcon.vue'
+import StarBorderIcon from '@/components/icons/StarBorderIcon.vue'
+import { useGroups } from '@/hooks/useGroups.js'
 
 const { defaultGroupId } = useGroups()
 

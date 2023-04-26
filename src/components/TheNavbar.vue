@@ -11,7 +11,7 @@
 </template>
 
 <script setup>
-import CategoryIcon from '@/components/icons/CategoryIcon'
+import CategoryIcon from '@/components/icons/CategoryIcon.vue'
 
 const version = __APP_VERSION__
 

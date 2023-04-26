@@ -29,14 +29,14 @@
 </template>
 
 <script setup>
-import BaseInput from '@/components/BaseInput'
-import { useTodos } from '@/hooks/useTodos'
-import { useSidebar } from '@/hooks/useSidebar'
+import BaseInput from '@/components/BaseInput.vue'
+import { useTodos } from '@/hooks/useTodos.js'
+import { useSidebar } from '@/hooks/useSidebar.js'
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
-import { useGroups } from '@/hooks/useGroups'
-import TodoItem from './TodoItem'
-import MenuButton from './MenuButton'
+import { useGroups } from '@/hooks/useGroups.js'
+import TodoItem from './TodoItem.vue'
+import MenuButton from './MenuButton.vue'
 
 const route = useRoute()
 const { toggle } = useSidebar()

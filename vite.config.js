@@ -48,7 +48,6 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
-    extensions: ['.vue', '.js'],
   },
   define: {
     __APP_VERSION__: JSON.stringify(process.env.npm_package_version),
