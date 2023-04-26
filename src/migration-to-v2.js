@@ -1,4 +1,4 @@
-import { useDatabase } from '@/hooks/useDatabase'
+import { useDatabase } from '@/hooks/useDatabase.js'
 import { v4 as uuid } from 'uuid'
 
 const { database } = useDatabase()

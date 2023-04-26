@@ -23,7 +23,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import { useSidebar } from '@/hooks/useSidebar'
+import { useSidebar } from '@/hooks/useSidebar.js'
 
 const users = ref([])
 

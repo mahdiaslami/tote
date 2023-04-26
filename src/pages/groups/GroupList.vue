@@ -23,10 +23,10 @@
 </template>
 
 <script setup>
-import BaseInput from '@/components/BaseInput'
-import { useGroups } from '@/hooks/useGroups'
+import BaseInput from '@/components/BaseInput.vue'
+import { useGroups } from '@/hooks/useGroups.js'
 import { ref, computed } from 'vue'
-import GroupItem from './GroupItem'
+import GroupItem from './GroupItem.vue'
 
 const {
   groups, addGroup, updateGroup, removeGroup,

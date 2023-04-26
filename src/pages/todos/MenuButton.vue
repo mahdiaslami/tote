@@ -9,7 +9,7 @@
 </template>
 
 <script setup>
-import MenuIcon from '@/components/icons/MenuIcon'
+import MenuIcon from '@/components/icons/MenuIcon.vue'
 
 const emit = defineEmits(['click'])
 

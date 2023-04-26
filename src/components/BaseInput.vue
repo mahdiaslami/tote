@@ -30,7 +30,7 @@
 </template>
 
 <script setup>
-import ClearIcon from '@/components/icons/ClearIcon'
+import ClearIcon from '@/components/icons/ClearIcon.vue'
 import { computed } from 'vue'
 
 const props = defineProps({

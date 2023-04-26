@@ -28,7 +28,7 @@
 </template>
 
 <script setup>
-import { useConfirm } from '@/hooks/useConfirm'
+import { useConfirm } from '@/hooks/useConfirm.js'
 
 const {
   visible,

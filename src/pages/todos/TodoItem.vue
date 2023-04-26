@@ -31,7 +31,7 @@
 </template>
 
 <script setup>
-import { useTodos } from '@/hooks/useTodos'
+import { useTodos } from '@/hooks/useTodos.js'
 
 const { completeTodo, deleteTodo } = useTodos()
 
