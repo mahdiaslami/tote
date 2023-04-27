@@ -6,7 +6,7 @@
       class="tick"
       type="checkbox"
       :checked="todo.completed"
-      @change="() => completeTodo(todo.id)"
+      @change="todos.complete(todo.id)"
     >
 
     <span
@@ -23,7 +23,7 @@
 
     <button
       class="text-ternary border-0 cursor-pointer font-bold p-0"
-      @click="() => deleteTodo(todo.id)"
+      @click="todos.remove(todo.id)"
     >
       ✗
     </button>
@@ -31,14 +31,13 @@
 </template>
 
 <script setup>
-import { useTodos } from '@/hooks/useTodos.js'
+import { useTodosStore } from '@/stores/todos'
 
-const { completeTodo, deleteTodo } = useTodos()
+const todos = useTodosStore()
 
 defineProps({
   focused: {
     type: Boolean,
-    required: false,
     default: false,
   },
 

@@ -2,7 +2,7 @@
   <div class="flex flex-col h-full">
     <div class="flex-grow">
       <template
-        v-for="todo in filterByGroupId(groupId)"
+        v-for="todo in todos.filterByGroupId(groupId)"
         :key="todo.id"
       >
         <todo-item
@@ -30,18 +30,18 @@
 
 <script setup>
 import BaseInput from '@/components/BaseInput.vue'
-import { useTodos } from '@/hooks/useTodos.js'
 import { useSidebar } from '@/hooks/useSidebar.js'
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { useGroups } from '@/hooks/useGroups.js'
 import TodoItem from './TodoItem.vue'
 import MenuButton from './MenuButton.vue'
+import { useTodosStore } from '@/stores/todos'
 
 const route = useRoute()
 const { toggle } = useSidebar()
 const { defaultGroupId } = useGroups()
-const { filterByGroupId, addTodo } = useTodos()
+const todos = useTodosStore()
 
 const groupId = route.params.id ?? defaultGroupId.value
 
@@ -58,7 +58,7 @@ function select(id) {
 const newTodo = ref('')
 
 function saveTodo() {
-  addTodo(newTodo.value, groupId)
+  todos.add(newTodo.value, groupId)
   newTodo.value = ''
 }
 </script>
