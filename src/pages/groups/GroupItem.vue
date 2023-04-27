@@ -14,7 +14,7 @@
       <div class="flex flex-col justify-between -my-2">
         <button @click.prevent="setAsDefault(group.id)">
           <star-icon
-            v-if="group.id === defaultGroupId"
+            v-if="group.id === groups.default"
             class="text-sm w-6"
           />
           <star-border-icon
@@ -40,9 +40,9 @@ import EditIcon from '@/components/icons/EditIcon.vue'
 import DeleteIcon from '@/components/icons/DeleteIcon.vue'
 import StarIcon from '@/components/icons/StarIcon.vue'
 import StarBorderIcon from '@/components/icons/StarBorderIcon.vue'
-import { useGroups } from '@/hooks/useGroups.js'
+import { useGroupsStore } from '@/stores/groups'
 
-const { defaultGroupId } = useGroups()
+const groups = useGroupsStore()
 
 defineEmits(['editClick', 'removeClick'])
 
@@ -59,7 +59,8 @@ const getPathToTodos = () => ({
 })
 
 function setAsDefault(groupId) {
-  defaultGroupId.value = groupId
+  console.log(groups)
+  groups.default = groupId
 }
 
 </script>

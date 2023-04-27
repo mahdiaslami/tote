@@ -33,17 +33,17 @@ import BaseInput from '@/components/BaseInput.vue'
 import { useSidebar } from '@/hooks/useSidebar.js'
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
-import { useGroups } from '@/hooks/useGroups.js'
 import TodoItem from './TodoItem.vue'
 import MenuButton from './MenuButton.vue'
 import { useTodosStore } from '@/stores/todos'
+import { useGroupsStore } from '@/stores/groups'
 
 const route = useRoute()
 const { toggle } = useSidebar()
-const { defaultGroupId } = useGroups()
+const groups = useGroupsStore()
 const todos = useTodosStore()
 
-const groupId = route.params.id ?? defaultGroupId.value
+const groupId = route.params.id ?? groups.default
 
 const currentId = ref(-1)
 

@@ -2,7 +2,7 @@
   <div class="flex flex-col justify-end h-full">
     <div class="flex flex-grow flex-wrap content-start px-1">
       <group-item
-        v-for="group in groups"
+        v-for="group in groups.get()"
         :key="group.id"
         :group="group"
         @edit-click="edit"
@@ -24,13 +24,11 @@
 
 <script setup>
 import BaseInput from '@/components/BaseInput.vue'
-import { useGroups } from '@/hooks/useGroups.js'
 import { ref, computed } from 'vue'
 import GroupItem from './GroupItem.vue'
+import { useGroupsStore } from '@/stores/groups'
 
-const {
-  groups, addGroup, updateGroup, removeGroup,
-} = useGroups()
+const groups = useGroupsStore()
 
 const id = ref(null)
 const title = ref('')
@@ -44,9 +42,9 @@ function clear() {
 
 function save() {
   if (editing.value) {
-    updateGroup(id.value, title.value)
+    groups.update(id.value, title.value)
   } else {
-    addGroup(title.value)
+    groups.add(title.value)
   }
   clear()
 }
@@ -57,7 +55,7 @@ function edit(group) {
 }
 
 function remove(group) {
-  removeGroup(group.id)
+  groups.remove(group.id)
 }
 
 </script>
