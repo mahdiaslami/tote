@@ -1,10 +1,8 @@
 import { v4 as uuid } from 'uuid'
 import { computed } from 'vue'
 import { useDatabase } from './useDatabase'
-import { useConfirm } from './useConfirm'
 
 const { database, groups } = useDatabase()
-const { confirm } = useConfirm()
 
 const defaultGroupId = computed({
   get() {
@@ -32,7 +30,7 @@ function updateGroup(id, title) {
 }
 
 function removeGroup(id) {
-  confirm('آیا از حذف این گروه اطمینان دارید؟', () => {
+  utils.confirm('آیا از حذف این گروه اطمینان دارید؟', () => {
     const index = findIndex(id)
     groups.splice(index, 1)
   })

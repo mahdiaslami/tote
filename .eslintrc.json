@@ -5,6 +5,9 @@
     "node": false,
     "vue/setup-compiler-macros": true
   },
+  "globals": {
+    "utils": "readonly"
+  },
   "extends": [
     "plugin:vue/vue3-essential",
     "plugin:vue/vue3-strongly-recommended",
