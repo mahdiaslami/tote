@@ -14,9 +14,9 @@ app.use(createPinia())
 app.use(router)
 
 window.utils = {
-    confirm(msg, callback) {
-        useConfirmStore().confirm(msg, callback)
-    }
+  confirm(msg, callback) {
+    useConfirmStore().confirm(msg, callback)
+  }
 }
 
 app.mount('#app')
