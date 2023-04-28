@@ -22,7 +22,7 @@
 
       <menu-button
         class="lg:hidden"
-        @click="toggle"
+        @click="sidebar.toggle()"
       />
     </div>
   </div>
@@ -30,7 +30,7 @@
 
 <script setup>
 import BaseInput from '@/components/BaseInput.vue'
-import { useSidebar } from '@/hooks/useSidebar.js'
+import { useSidebarStore } from '@/stores/sidebar'
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import TodoItem from './TodoItem.vue'
@@ -39,7 +39,7 @@ import { useTodosStore } from '@/stores/todos'
 import { useGroupsStore } from '@/stores/groups'
 
 const route = useRoute()
-const { toggle } = useSidebar()
+const sidebar = useSidebarStore()
 const groups = useGroupsStore()
 const todos = useTodosStore()
 
