@@ -38,6 +38,7 @@
     "import/no-dynamic-require": "off",
     "import/no-extraneous-dependencies": "off",
     "import/prefer-default-export": "off",
+    "indent": ["warn", 2],
     "max-len": "warn",
     "no-console": "warn",
     "no-debugger": "warn",
