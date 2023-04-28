@@ -20,3 +20,10 @@ window.utils = {
 }
 
 app.mount('#app')
+
+// Request persistent storage for site
+if (navigator.storage && navigator.storage.persist) {
+  navigator.storage.persist().then((isPersisted) => {
+    console.log(`Persisted storage granted: ${isPersisted}`)
+  })
+}
