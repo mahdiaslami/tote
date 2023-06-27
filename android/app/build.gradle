@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
+    namespace "ir.rezero.tote"
     compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
         applicationId "ir.rezero.tote"
