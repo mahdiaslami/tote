@@ -26,6 +26,8 @@ This command will prompt you for the password that you used when you generated t
 
 Replace mykeystore.keystore and myalias with your keystore file name and alias.
 
+NOTICE: We use android build process to sign apk.
+
 3. Verify that the APK is signed correctly with the updated signature algorithm using the jarsigner tool:
 
 ```
@@ -33,3 +35,84 @@ jarsigner -verify -verbose app-release-unsigned.apk
 ```
 
 This command should output information about the signature of the APK, and should indicate that the signature is valid.
+
+## Build Android Action
+
+If you want to use GitHub Actions to build an Android app, follow these steps:
+
+### Add Action
+
+Copy the `.github/workflows/android.yml` file to your repository to set up the build workflow.
+
+### Variables
+
+Add the following variables to your repository by following these steps:
+
+1. Go to **Settings**.
+2. Then, go to **Secrets and Variables**.
+3. In the action section, add the following variables:
+
+
+```
+KEYSTORE=// base64 format of keystore
+KEYSTORE_PASSWORD=
+SIGNING_KEY_ALIAS=
+SIGNING_KEY_PASSWORD=
+SIGNING_STORE_PASSWORD=
+```
+
+These variables are essential for configuring the Android build process and signing your app. Make sure to replace the placeholders with the actual values you need for your project.
+
+### Config
+
+#### `settings.gradle`
+
+In the `settings.gradle` file, add the `rootProject.name` key. The value of this key is used for the name of the APK file after building.
+
+```diff
+// android/settings.gradle
+
++rootProject.name = 'tote'
+
+ include ':app'
+ include ':capacitor-cordova-android-plugins'
+ project(':capacitor-cordova-android-plugins').projectDir = new File('./capacitor-cordova-android-plugins/')
+```
+
+#### `build.gradle`
+
+In the `build.gradle` file, add the following configuration. The signingConfigs section is used for configuring the signing of the APK file. Additionally, there is a modification to set the name of the APK.
+
+```diff
+// android/app/build.gradle
+
+@@ -16,10 +16,28 @@ android {
+             ignoreAssetsPattern '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
+         }
+     }
++
++    signingConfigs {
++        release {
++            storeFile = file("keystore/android_keystore.jks")
++            storePassword System.getenv("SIGNING_STORE_PASSWORD")
++            keyAlias System.getenv("SIGNING_KEY_ALIAS")
++            keyPassword System.getenv("SIGNING_KEY_PASSWORD")
++        }
++    }
++
+     buildTypes {
+         release {
+             minifyEnabled false
+             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
++
++            applicationVariants.all { variant ->
++                variant.outputs.all {
++                    outputFileName = "${rootProject.name}.apk"
++                }
++            }
++
++            signingConfig signingConfigs.release
+         }
+     }
+ }
+```

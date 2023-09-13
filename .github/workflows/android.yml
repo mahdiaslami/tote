@@ -1,4 +1,4 @@
-name: Build Android app by CapacitorJS
+name: Build Android
 
 on:
   workflow_dispatch:
@@ -8,47 +8,55 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - name: Set up JDK 17
-      uses: actions/setup-java@v3
-      with:
-        java-version: '17'
-        distribution: 'adopt'
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: "17"
+          distribution: "adopt"
 
-    - name: Set up Android SDK
-      uses: android-actions/setup-android@v2
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v2
 
-    - name: Install Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: 'lts/*'
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "lts/*"
 
-    - name: Install dependencies
-      run: npm install
+      - name: Install dependencies
+        run: npm install
 
-    - name: Build web app
-      run: npm run build
+      - name: Build web app
+        run: npm run build
 
-    - name: Build Android app
-      run: |
-        npx cap sync android
-        npx cap copy android
-        cd android
-        ./gradlew assembleRelease
+      # Here we need to decode keystore.jks from base64 string and place it
+      # in the folder specified in the release signing configuration
+      - name: Decode Keystore
+        id: decode_keystore
+        uses: timheuer/base64-to-file@v1.2
+        with:
+          fileName: "android_keystore.jks"
+          fileDir: "./android/app/keystore/"
+          encodedString: ${{ secrets.KEYSTORE }}
 
-    - name: Sign APK file
-      run: |
-        jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore test.keystore android/app/build/outputs/apk/release/app-release-unsigned.apk myalias -storepass ${{ secrets.KEYSTORE_PASSWORD }}
-        jarsigner -verify -verbose android/app/build/outputs/apk/release/app-release-unsigned.apk
+      - name: Build Android app
+        run: |
+          npx cap sync android
+          npx cap copy android
+          cd android
+          ./gradlew assembleRelease
+        env:
+          SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
+          SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
+          SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
 
-    - name: Rename released file
-      run: |
-        cd android/app/build/outputs/apk/release
-        mv app-release-unsigned.apk tote.apk
+      # Show information about the APK's signing certificates
+      - name: Verify Signature
+        run: $ANDROID_SDK_ROOT/build-tools/33.0.1/apksigner verify --print-certs android/app/build/outputs/apk/release/tote.apk
 
-    - name: Archive artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: app-release
-        path: android/app/build/outputs/apk/release/
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: app-release
+          path: android/app/build/outputs/apk/release/
