@@ -1,4 +1,4 @@
-name: Build Android app by CapacitorJS
+name: Build Android
 
 on:
   workflow_dispatch:
@@ -30,22 +30,30 @@ jobs:
       - name: Build web app
         run: npm run build
 
+      # Here we need to decode keystore.jks from base64 string and place it
+      # in the folder specified in the release signing configuration
+      - name: Decode Keystore
+        id: decode_keystore
+        uses: timheuer/base64-to-file@v1.2
+        with:
+          fileName: "android_keystore.jks"
+          fileDir: "./android/app/keystore/"
+          encodedString: ${{ secrets.KEYSTORE }}
+
       - name: Build Android app
         run: |
           npx cap sync android
           npx cap copy android
           cd android
           ./gradlew assembleRelease
+        env:
+          SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
+          SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
+          SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
 
-      - name: Sign APK file
-        run: |
-          jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore test.keystore android/app/build/outputs/apk/release/app-release-unsigned.apk myalias -storepass ${{ secrets.KEYSTORE_PASSWORD }}
-          jarsigner -verify -verbose android/app/build/outputs/apk/release/app-release-unsigned.apk
-
-      - name: Rename released file
-        run: |
-          cd android/app/build/outputs/apk/release
-          mv app-release-unsigned.apk tote.apk
+      # Show information about the APK's signing certificates
+      - name: Verify Signature
+        run: $ANDROID_SDK_ROOT/build-tools/33.0.1/apksigner verify --print-certs android/app/build/outputs/apk/release/tote.apk
 
       - name: Archive artifacts
         uses: actions/upload-artifact@v3
