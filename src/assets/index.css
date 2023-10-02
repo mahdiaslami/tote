@@ -16,20 +16,6 @@ body {
     min-height: 0;
 }
 
-.font-montserrat-vazir {
-    font-family: 'Montserrat', Vazirmatn;
-}
-
-.dir-rtl {
-    direction: rtl;
-    unicode-bidi: embed;
-}
-
-.dir-ltr {
-    direction: ltr;
-    unicode-bidi: embed;
-}
-
 .line-through.underline {
     text-decoration: underline line-through;
 }

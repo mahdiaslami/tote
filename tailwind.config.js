@@ -1,24 +1,16 @@
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     './index.html',
-    './src/**/*.{vue,js,ts,jsx,tsx}',
+    './src/**/*.{js,ts,jsx,tsx,vue}',
   ],
   theme: {
+    fontFamily: {
+      default: ['Montserrat', 'Vazirmatn'],
+    },
+
     extend: {
-      colors: {
-        primary: '#fff',
-        secondary: '#f2f4f7',
-        ternary: '#7c818e',
-      },
-
-      minWidth: {
-        '1/2': '50%',
-        '1/3': '30%',
-      },
-
-      spacing: {
-        125: '500px',
-      },
+      
     },
   },
   plugins: [],

@@ -3,6 +3,6 @@
 </script>
 <template>
   <div>
-    Hello World!
+    مهدی اسلمی Hello
   </div>
 </template>
