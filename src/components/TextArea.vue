@@ -32,7 +32,7 @@ const p = ref(null)
     <p
       ref="p"
       contenteditable="true"
-      class="z-10 px-1 -mx-1"
+      class="z-10 px-1 -mx-1 outline-none"
       @input="(ev) => emit('update:modelValue', ev.target.innerText)"
       @keyup="(ev) => emit('keyup', ev)"
     >
