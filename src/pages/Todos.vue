@@ -27,8 +27,8 @@ function save() {
 
 </script>
 <template>
-  <div class="flex flex-col h-full pt-10">
-    <div class="h-full px-1 overflow-y-scroll">
+  <div class="flex flex-col h-full">
+    <div class="h-full px-1 pt-5 overflow-y-scroll">
       <div
         v-for="todo in data.todos"
         :key="todo.id"
