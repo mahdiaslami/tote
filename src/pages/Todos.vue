@@ -10,17 +10,19 @@ const data = reactive({
 })
 
 function save() {
-  data.todos.push({
-    id: Date.now(),
-    completed_at: null,
-    content: data.content,
+  if (data.content.trim()) {
+    data.todos.push({
+      id: Date.now(),
+      completed_at: null,
+      content: data.content,
+  
+      toggleComplete() {
+        this.completed_at = this.completed_at ? null : Date.now()
+      }
+    })
 
-    toggleComplete() {
-      this.completed_at = this.completed_at ? null : Date.now()
-    }
-  })
-
-  data.content = ''
+    data.content = ''
+  }
 }
 
 </script>
