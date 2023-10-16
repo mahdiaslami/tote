@@ -27,8 +27,8 @@ function save() {
 
 </script>
 <template>
-  <div class="flex flex-col h-full px-1 pt-10">
-    <div class="h-full overflow-y-scroll">
+  <div class="flex flex-col h-full pt-10">
+    <div class="h-full px-1 overflow-y-scroll">
       <div
         v-for="todo in data.todos"
         :key="todo.id"
@@ -39,12 +39,12 @@ function save() {
           @click="todo.toggleComplete()"
         >
           <TickIcon
-            :class="[todo.completed_at ? 'text-green-600' : 'text-gray-300']"
+            :class="[todo.completed_at ? 'text-success' : 'text-mute']"
           />
         </a>
         <p
           dir="auto"
-          class="font-light text-gray-900"
+          class="font-light text-pen"
           :class="[todo.completed_at ? 'line-through' :'']"
         >
           {{ todo.content }}
@@ -53,15 +53,15 @@ function save() {
       </div>
     </div>
 
-    <div class="flex flex-row items-end min-h-0 bg-gray-50">
+    <div class="flex flex-row items-end bg-secondary">
       <AppTextArea
         v-model="data.content"
-        class="w-full h-auto p-4 font-light outline-none min-h-16 max-h-32 bg-gray-50"
+        class="w-full h-auto p-4 font-light min-h-16 max-h-32"
         placeholder="کار من"
         @keyup.enter="save"
       />
       <button class="flex items-center justify-center w-14 h-14">
-        <ArrowUpwardIcon class="text-2xl font-thin text-gray-500" />
+        <ArrowUpwardIcon class="text-2xl font-thin text-mute" />
       </button>
     </div>
   </div>

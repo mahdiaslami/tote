@@ -25,7 +25,7 @@ const p = ref(null)
   >
     <span
       v-show="modelValue.length === 0"
-      class="absolute text-gray-400 select-none"
+      class="absolute select-none text-mute"
       @click="p.focus()"
     >{{ placeholder }}</span>
 
