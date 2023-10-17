@@ -1,7 +1,7 @@
 <script setup>
-import TickIcon from '@/components/icons/TickIcon.vue'
 import ArrowUpwardIcon from '@/components/icons/ArrowUpwardIcon.vue'
 import AppTextArea from '@/components/TextArea.vue'
+import Todo from '@/components/Todo.vue'
 import { reactive } from 'vue'
 
 const data = reactive({
@@ -28,29 +28,12 @@ function save() {
 </script>
 <template>
   <div class="flex flex-col h-full">
-    <div class="h-full px-1 pt-5 overflow-y-scroll">
-      <div
+    <div class="h-full overflow-y-scroll">
+      <Todo
         v-for="todo in data.todos"
         :key="todo.id"
-        class="flex flex-row w-full mb-4"
-      >
-        <a
-          class="w-10 h-10 px-2"
-          @click="todo.toggleComplete()"
-        >
-          <TickIcon
-            :class="[todo.completed_at ? 'text-success' : 'text-mute']"
-          />
-        </a>
-        <p
-          dir="auto"
-          class="font-light text-pen"
-          :class="[todo.completed_at ? 'line-through' :'']"
-        >
-          {{ todo.content }}
-        </p>
-        <div class="flex-shrink-0 w-10" />
-      </div>
+        :todo="todo"
+      />
     </div>
 
     <div class="flex flex-row items-end bg-secondary">
