@@ -31,7 +31,7 @@ onMounted(() => {
     }
   })
 
-  hammer.on('panend pancancel panup pandown', handelEnd)
+  hammer.on('panend panup pandown', handelEnd)
 
   function handelEnd(ev) {
     data.transition = true
@@ -43,6 +43,7 @@ onMounted(() => {
     }
 
     nextTick(() => data.deltaX = 0)
+    hammer.stop(true)
   }
 })
 
