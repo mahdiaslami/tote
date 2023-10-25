@@ -51,9 +51,9 @@ onMounted(() => {
 <template>
   <div
     ref="div"
-    class="flex flex-row items-start w-full px-1 py-4"
+    class="flex flex-row items-start w-full px-1 py-4 bg-primary"
     :class="{
-      'bg-success bg-opacity-5': todo.completed_at,
+      'bg-success-2': todo.completed_at,
       'transition-transform duration-100': data.transition
     }"
     :style="{ transform: `translate(${data.deltaX}px)` }"

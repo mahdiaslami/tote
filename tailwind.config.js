@@ -14,7 +14,11 @@ export default {
       colors: {
         primary: '#fafafa',
         secondary: '#f1f5f9',
-        success: '#059669',
+        success: {
+          'DEFAULT': '#059669',
+          1: '#059669',
+          2: '#ecfdf5',
+        },
         mute: '#94a3b8',
         pen: '#262626'
       }
