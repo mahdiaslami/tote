@@ -27,7 +27,18 @@ export default {
         },
         mute: '#94a3b8',
         pen: '#262626'
-      }
+      },
+
+      keyframes: {
+        wiggle: {
+          '0%, 100%': { transform: 'rotate(-3deg)' },
+          '50%': { transform: 'rotate(3deg)' },
+        }
+      },
+
+      animation: {
+        wiggle: 'wiggle 0.2s ease-in-out infinite',
+      },
     },
   },
   plugins: [],

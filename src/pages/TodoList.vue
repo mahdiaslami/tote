@@ -1,7 +1,7 @@
 <script setup>
 import ArrowUpwardIcon from '@/components/icons/ArrowUpwardIcon.vue'
 import AppTextArea from '@/components/TextArea.vue'
-import Todo from '@/components/SimpleTodo.vue'
+import Todo from '@/components/PannableTodo.vue'
 import { onMounted, reactive } from 'vue'
 
 const data = reactive({
@@ -40,25 +40,11 @@ function addTodo(content) {
 <template>
   <div class="flex flex-col h-full">
     <div class="h-full overflow-x-hidden overflow-y-scroll">
-      <div
+      <Todo
         v-for="todo in data.todos"
         :key="todo.id"
-        class="relative bg-gradient-to-r from-danger-1 to-info-1"
-      >
-        <img
-          class="absolute top-0 object-contain w-12 h-full p-2 right-6"
-          src="@/assets/pencil.png"
-        >
-
-        <img
-          class="absolute top-0 object-contain w-12 h-full p-2 left-6"
-          src="@/assets/bin.png"
-        >
-
-        <Todo
-          :todo="todo"
-        />
-      </div>
+        :todo="todo"
+      />
     </div>
 
     <div class="flex flex-row items-end bg-secondary">
