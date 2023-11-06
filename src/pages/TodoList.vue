@@ -1,7 +1,7 @@
 <script setup>
 import ArrowUpwardIcon from '@/components/icons/ArrowUpwardIcon.vue'
 import AppTextArea from '@/components/TextArea.vue'
-import Todo from '@/components/Todo.vue'
+import Todo from '@/components/SimpleTodo.vue'
 import { onMounted, reactive } from 'vue'
 
 const data = reactive({
