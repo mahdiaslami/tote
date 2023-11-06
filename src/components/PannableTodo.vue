@@ -27,7 +27,7 @@ const transition = reactive({
   },
 
   enable() {
-    data.transition = true
+    this.value = true
     nextTick(() => data.deltaX = 0)
   }
 })
