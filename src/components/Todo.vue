@@ -26,19 +26,19 @@ onMounted(() => {
     data.transition = false
     data.deltaX = ev.deltaX / 3
 
-    if (ev.isFinal) {
-      handelEnd(ev)
+    if (ev.isFinal || Math.abs(ev.deltaX) > 300) {
+      handleEnd(ev)
     }
   })
 
-  hammer.on('panend panup pandown', handelEnd)
+  hammer.on('panend panup pandown', handleEnd)
 
-  function handelEnd(ev) {
+  function handleEnd(ev) {
     data.transition = true
 
-    if (ev.deltaX > 100) {
+    if (ev.deltaX > 250) {
       emit('panright', props.todo)
-    } else if (ev.deltaX < -100) {
+    } else if (ev.deltaX < -250) {
       emit('panleft', props.todo)
     }
 

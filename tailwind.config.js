@@ -19,6 +19,12 @@ export default {
           1: '#059669',
           2: '#ecfdf5',
         },
+        info: {
+          1: '#cffafe',
+        },
+        danger: {
+          1: '#fbcfe8',
+        },
         mute: '#94a3b8',
         pen: '#262626'
       }
