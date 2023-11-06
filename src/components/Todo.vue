@@ -19,14 +19,28 @@ const data = reactive({
   transition: true,
 })
 
+const animation = {
+  disable() {
+    data.transition = false
+  },
+
+  start() {
+    data.transition = true
+    nextTick(() => data.deltaX = 0)
+  }
+}
+
 onMounted(() => {
   const hammer = new Hammer(div.value)
 
   hammer.on('panright panleft', (ev) => {
-    data.transition = false
-    data.deltaX = ev.deltaX / 3
+    animation.disable()
 
-    if (ev.isFinal || Math.abs(ev.deltaX) > 300) {
+    if (Math.abs(data.deltaX) < 75) {
+      data.deltaX = ev.deltaX / 3
+    }
+
+    if (ev.isFinal) {
       handleEnd(ev)
     }
   })
@@ -34,16 +48,15 @@ onMounted(() => {
   hammer.on('panend panup pandown', handleEnd)
 
   function handleEnd(ev) {
-    data.transition = true
-
     if (ev.deltaX > 250) {
       emit('panright', props.todo)
     } else if (ev.deltaX < -250) {
       emit('panleft', props.todo)
     }
 
-    nextTick(() => data.deltaX = 0)
     hammer.stop(true)
+
+    animation.start()
   }
 })
 
