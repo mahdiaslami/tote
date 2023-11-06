@@ -71,26 +71,28 @@ onMounted(() => {
 </script>
 
 <template>
-  <div
-    class="relative bg-gradient-to-r from-danger-1 to-info-1"
-  >
-    <img
-      class="absolute top-0 right-0 object-contain h-full pr-6 w-14"
-      :class="{'animate-wiggle': data.wiggle}"
-      src="@/assets/pencil.png"
+  <div>
+    <div
+      class="relative bg-gradient-to-r from-danger-1 to-info-1"
     >
+      <img
+        class="absolute top-0 right-0 object-contain h-full pr-6 w-14"
+        :class="{'animate-wiggle': data.wiggle}"
+        src="@/assets/pencil.png"
+      >
 
-    <img
-      class="absolute top-0 left-0 object-contain h-full pl-6 w-14"
-      :class="{'animate-wiggle': data.wiggle}"
-      src="@/assets/bin.png"
-    >
+      <img
+        class="absolute top-0 left-0 object-contain h-full pl-6 w-14"
+        :class="{'animate-wiggle': data.wiggle}"
+        src="@/assets/bin.png"
+      >
 
-    <SimpleTodo
-      ref="simpleTodo"
-      :class="{'transition-transform duration-100': transition.value}"
-      :style="{ transform: `translate(${data.deltaX}px)` }"
-      :todo="todo"
-    />
+      <SimpleTodo
+        ref="simpleTodo"
+        :class="{'transition-transform duration-100': transition.value}"
+        :style="{ transform: `translate(${data.deltaX}px)` }"
+        :todo="todo"
+      />
+    </div>
   </div>
 </template>

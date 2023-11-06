@@ -28,6 +28,13 @@ function save() {
   }
 }
 
+function remove(todo) {
+  const index = data.todos.indexOf(todo)
+  if (index >= 0) {
+    data.todos.splice(index, 1)
+  }
+}
+
 function createTodo(content, id = null) {
   return {
     id: id ?? Date.now(),
@@ -43,15 +50,20 @@ function createTodo(content, id = null) {
 </script>
 <template>
   <div class="flex flex-col h-full">
-    <div class="h-full overflow-x-hidden overflow-y-scroll">
+    <TransitionGroup
+      name="fade"
+      tag="div"
+      class="relative h-full overflow-x-hidden overflow-y-scroll"
+    >
       <Todo
         v-for="todo in data.todos"
+        v-show="!todo.deleted_at"
         :key="todo.id"
         :todo="todo"
         @edit="(ev) => console.log('edit', ev)"
-        @delete="(todo) => data.todos.splice(data.todos.indexOf(todo), 1)"
+        @delete="remove"
       />
-    </div>
+    </TransitionGroup>
 
     <div class="flex flex-row items-end bg-secondary">
       <AppTextArea
@@ -66,3 +78,25 @@ function createTodo(content, id = null) {
     </div>
   </div>
 </template>
+
+<style>
+
+/* 1. declare transition */
+.fade-move,
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.5s cubic-bezier(0.55, 0, 0.1, 1);
+}
+
+/* 2. declare enter from and leave to state */
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+/* 3. ensure leaving items are taken out of layout flow so that moving
+      animations can be calculated correctly. */
+.fade-leave-active {
+  position: absolute;
+}
+</style>
