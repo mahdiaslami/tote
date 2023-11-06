@@ -2,16 +2,22 @@
 import ArrowUpwardIcon from '@/components/icons/ArrowUpwardIcon.vue'
 import AppTextArea from '@/components/TextArea.vue'
 import Todo from '@/components/PannableTodo.vue'
-import { onMounted, reactive } from 'vue'
+import { onMounted, reactive, watch } from 'vue'
 
 const data = reactive({
-  todos: [],
+  todos: JSON.parse(localStorage.getItem('v1/todos')) ?? [],
   content: '',
   selected: null,
 })
 
 onMounted(() => {
-  if (! localStorage.getItem('first-open')) {
+  watch(
+    data.todos,
+    (value) =>  localStorage.setItem('v1/todos', JSON.stringify(value)),
+    { immediate: true }
+  )
+
+  if (! localStorage.getItem('v1/setting/first-open')) {
     data.todos = [
       createTodo('سلام رفیق! من یک برنامه خیلی کوچولو برای مدیریت کار هام', 1),
       createTodo('هر وقت کاری خواستی اضافه کنی از پایین صفحه جایی که نوشته «کار من» می تونی اضافه کنی', 2),
@@ -20,7 +26,7 @@ onMounted(() => {
       createTodo('برای حذف کار هم به سمت چپ حلش بده', 5),
     ]
 
-    localStorage.setItem('first-open', 1)
+    localStorage.setItem('v1/setting/first-open', 1)
   }
 })
 
