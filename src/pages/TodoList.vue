@@ -7,6 +7,7 @@ import { onMounted, reactive } from 'vue'
 const data = reactive({
   todos: [],
   content: '',
+  selected: null,
 })
 
 onMounted(() => {
@@ -25,9 +26,15 @@ onMounted(() => {
 
 function save() {
   if (data.content.trim()) {
-    data.todos.push(
-      createTodo(data.content.trim())
-    )
+
+    if (data.selected) {
+      data.selected.content = data.content
+    } else {
+      data.todos.push(
+        createTodo(data.content.trim())
+      )
+    }
+
     data.content = ''
   }
 }
@@ -37,6 +44,11 @@ function remove(todo) {
   if (index >= 0) {
     data.todos.splice(index, 1)
   }
+}
+
+function edit(todo) {
+  data.selected = todo
+  data.content = todo.content
 }
 
 function createTodo(content, id = null) {
@@ -64,7 +76,7 @@ function createTodo(content, id = null) {
         v-show="!todo.deleted_at"
         :key="todo.id"
         :todo="todo"
-        @edit="(ev) => console.log('edit', ev)"
+        @edit="edit"
         @delete="remove"
       />
     </TransitionGroup>
@@ -76,7 +88,10 @@ function createTodo(content, id = null) {
         placeholder="کار من"
         @keyup.enter="save"
       />
-      <button class="flex items-center justify-center w-14 h-14">
+      <button
+        class="flex items-center justify-center w-14 h-14"
+        @click="save"
+      >
         <ArrowUpwardIcon class="text-2xl font-thin text-mute" />
       </button>
     </div>
