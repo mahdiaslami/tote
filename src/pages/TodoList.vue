@@ -10,30 +10,34 @@ const data = reactive({
 })
 
 onMounted(() => {
-  addTodo('سلام رفیق! من یک برنامه خیلی کوچولو برای مدیریت کار هام')
-  addTodo('هر وقت کاری خواستی اضافه کنی از پایین صفحه جایی که نوشته «کار من» می تونی اضافه کنی')
-  addTodo('وقتی کاری رو تموم کردی روی تیک سمت راستش ضربه بزن تا یک خط روش بکشم')
-  addTodo('اگر لازم شد کاری رو ویرایش کنی اونو به سمت راست هلش بده')
-  addTodo('برای حذف کار هم به سمت چپ حلش بده')
+  data.todos = [
+    createTodo('سلام رفیق! من یک برنامه خیلی کوچولو برای مدیریت کار هام', 1),
+    createTodo('هر وقت کاری خواستی اضافه کنی از پایین صفحه جایی که نوشته «کار من» می تونی اضافه کنی', 2),
+    createTodo('وقتی کاری رو تموم کردی روی تیک سمت راستش ضربه بزن تا یک خط روش بکشم', 3),
+    createTodo('اگر لازم شد کاری رو ویرایش کنی اونو به سمت راست هلش بده', 4),
+    createTodo('برای حذف کار هم به سمت چپ حلش بده', 5),
+  ]
 })
 
 function save() {
   if (data.content.trim()) {
-    addTodo(data.content)
+    data.todos.push(
+      createTodo(data.content.trim())
+    )
     data.content = ''
   }
 }
 
-function addTodo(content) {
-  data.todos.push({
-    id: Date.now(),
+function createTodo(content, id = null) {
+  return {
+    id: id ?? Date.now(),
     completed_at: null,
     content: content,
 
     toggleComplete() {
       this.completed_at = this.completed_at ? null : Date.now()
     }
-  })
+  }
 }
 
 </script>
@@ -44,6 +48,8 @@ function addTodo(content) {
         v-for="todo in data.todos"
         :key="todo.id"
         :todo="todo"
+        @edit="(ev) => console.log('edit', ev)"
+        @delete="(todo) => data.todos.splice(data.todos.indexOf(todo), 1)"
       />
     </div>
 
