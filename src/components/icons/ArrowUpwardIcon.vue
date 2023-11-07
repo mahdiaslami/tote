@@ -1,5 +1,5 @@
 <template>
   <span class="material-icons-outlined">
-    &#xe838;
+    &#xe5d8;
   </span>
 </template>

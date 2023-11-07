@@ -49,6 +49,7 @@
       }
     ],
     "no-plusplus": "off",
+    "no-trailing-spaces":"warn",
     "no-undef": "warn",
     "no-unused-vars": "warn",
     "no-use-before-define": "off",
