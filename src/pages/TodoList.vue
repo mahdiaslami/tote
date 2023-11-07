@@ -42,6 +42,7 @@ function save() {
     }
 
     data.content = ''
+    data.selected = null
   }
 }
 
