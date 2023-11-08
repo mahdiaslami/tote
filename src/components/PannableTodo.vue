@@ -38,8 +38,8 @@ onMounted(() => {
   hammer.on('panright panleft panup pandown', (ev) => {
     transition.disable()
 
-    if (! guessEventName(ev.deltaX / 3)) {
-      data.deltaX = ev.deltaX / 3
+    if (! guessEventName(ev.deltaX / 2.5)) {
+      data.deltaX = ev.deltaX / 2.5
       data.wiggle = false
     } else {
       data.wiggle = true
@@ -47,7 +47,7 @@ onMounted(() => {
   })
 
   hammer.on('panend', (ev) => {
-    const eventName = guessEventName(ev.deltaX / 3)
+    const eventName = guessEventName(ev.deltaX / 2.5)
 
     if (eventName) {
       emit(eventName, props.todo)
