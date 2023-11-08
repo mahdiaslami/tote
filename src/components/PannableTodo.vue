@@ -10,7 +10,7 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['edit', 'delete'])
+const emit = defineEmits(['edit', 'delete', 'click'])
 
 const simpleTodo = ref(null)
 
@@ -92,6 +92,7 @@ onMounted(() => {
         :class="{'transition-transform duration-100': transition.value}"
         :style="{ transform: `translate(${data.deltaX}px)` }"
         :todo="todo"
+        @click="emit('click', todo)"
       />
     </div>
   </div>

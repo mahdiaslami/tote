@@ -85,6 +85,7 @@ function createTodo(content, id = null) {
         :todo="todo"
         @edit="edit"
         @delete="remove"
+        @click="todo.toggleComplete()"
       />
     </TransitionGroup>
 

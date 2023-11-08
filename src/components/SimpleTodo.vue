@@ -8,6 +8,8 @@ defineProps({
   }
 })
 
+const emit = defineEmits(['click'])
+
 </script>
 
 <template>
@@ -15,15 +17,13 @@ defineProps({
     ref="container"
     class="flex flex-row items-start w-full px-1 py-4 bg-primary"
     :class="{'bg-success-2': todo.completed_at}"
+    @click.prevent="emit('click', todo)"
   >
-    <button
-      class="h-6 px-2"
-      @click.prevent="todo.toggleComplete()"
-    >
+    <div class="h-6 px-2">
       <TickIcon
         :class="[todo.completed_at ? 'text-success' : 'text-mute']"
       />
-    </button>
+    </div>
     <p
       dir="auto"
       class="font-light text-pen"
