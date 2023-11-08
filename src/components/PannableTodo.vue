@@ -10,7 +10,7 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['edit', 'delete'])
+const emit = defineEmits(['edit', 'delete', 'click'])
 
 const simpleTodo = ref(null)
 
@@ -38,8 +38,8 @@ onMounted(() => {
   hammer.on('panright panleft panup pandown', (ev) => {
     transition.disable()
 
-    if (! guessEventName(ev.deltaX / 3)) {
-      data.deltaX = ev.deltaX / 3
+    if (! guessEventName(ev.deltaX / 2.5)) {
+      data.deltaX = ev.deltaX / 2.5
       data.wiggle = false
     } else {
       data.wiggle = true
@@ -47,7 +47,7 @@ onMounted(() => {
   })
 
   hammer.on('panend', (ev) => {
-    const eventName = guessEventName(ev.deltaX / 3)
+    const eventName = guessEventName(ev.deltaX / 2.5)
 
     if (eventName) {
       emit(eventName, props.todo)
@@ -92,6 +92,7 @@ onMounted(() => {
         :class="{'transition-transform duration-100': transition.value}"
         :style="{ transform: `translate(${data.deltaX}px)` }"
         :todo="todo"
+        @click="emit('click', todo)"
       />
     </div>
   </div>

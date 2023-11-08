@@ -63,11 +63,12 @@ function createTodo(content, id = null) {
     id: id ?? Date.now(),
     completed_at: null,
     content: content,
-
-    toggleComplete() {
-      this.completed_at = this.completed_at ? null : Date.now()
-    }
   }
+}
+
+function toggleComplete(todo)
+{
+  todo.completed_at = todo.completed_at ? null : Date.now()
 }
 
 </script>
@@ -85,6 +86,7 @@ function createTodo(content, id = null) {
         :todo="todo"
         @edit="edit"
         @delete="remove"
+        @click="toggleComplete(todo)"
       />
     </TransitionGroup>
 
