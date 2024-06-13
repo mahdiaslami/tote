@@ -13,11 +13,11 @@ const data = reactive({
 onMounted(() => {
   watch(
     data.todos,
-    (value) =>  localStorage.setItem('v1/todos', JSON.stringify(value)),
+    (value) => localStorage.setItem('v1/todos', JSON.stringify(value)),
     { immediate: true }
   )
 
-  if (! localStorage.getItem('v1/setting/first-open')) {
+  if (!localStorage.getItem('v1/setting/first-open')) {
     data.todos = [
       createTodo('سلام رفیق! من یک برنامه خیلی کوچولو برای مدیریت کار هام', 1),
       createTodo('هر وقت کاری خواستی اضافه کنی از پایین صفحه جایی که نوشته «کار من» می تونی اضافه کنی', 2),
@@ -66,41 +66,32 @@ function createTodo(content, id = null) {
   }
 }
 
-function toggleComplete(todo)
-{
+function toggleComplete(todo) {
   todo.completed_at = todo.completed_at ? null : Date.now()
 }
 
 </script>
 <template>
   <div class="flex flex-col h-full">
-    <TransitionGroup
-      name="fade"
+    <TransitionGroup name="fade"
       tag="div"
-      class="relative h-full overflow-x-hidden overflow-y-scroll"
-    >
-      <Todo
-        v-for="todo in data.todos"
+      class="relative h-full overflow-x-hidden overflow-y-scroll">
+      <Todo v-for="todo in data.todos"
         v-show="!todo.deleted_at"
         :key="todo.id"
         :todo="todo"
         @edit="edit"
         @delete="remove"
-        @click="toggleComplete(todo)"
-      />
+        @click="toggleComplete(todo)" />
     </TransitionGroup>
 
     <div class="flex flex-row items-end bg-secondary">
-      <AppTextArea
-        v-model="data.content"
+      <AppTextArea v-model="data.content"
         class="flex-grow h-auto p-4 font-light min-h-14 max-h-32"
         placeholder="کار من"
-        @keyup.enter="save"
-      />
-      <button
-        class="flex items-center justify-center w-14 h-14"
-        @click="save"
-      >
+        @keyup.enter="save" />
+      <button class="flex items-center justify-center w-14 h-14"
+        @click="save">
         <ArrowUpwardIcon class="text-2xl font-thin text-mute" />
       </button>
     </div>
@@ -108,7 +99,6 @@ function toggleComplete(todo)
 </template>
 
 <style>
-
 /* 1. declare transition */
 .fade-move,
 .fade-enter-active,
