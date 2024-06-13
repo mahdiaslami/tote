@@ -73,7 +73,7 @@ onMounted(() => {
 <template>
   <div>
     <div
-      class="relative bg-gradient-to-r from-danger-1 to-info-1"
+      class="relative bg-gradient-to-r from-danger to-info"
     >
       <img
         class="absolute top-0 right-0 object-contain h-full pr-6 w-14"

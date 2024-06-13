@@ -13,18 +13,10 @@ export default {
     extend: {
       colors: {
         primary: '#fafafa',
-        secondary: '#f1f5f9',
-        success: {
-          'DEFAULT': '#059669',
-          1: '#059669',
-          2: '#ecfdf5',
-        },
-        info: {
-          1: '#cffafe',
-        },
-        danger: {
-          1: '#fbcfe8',
-        },
+        secondary: '#eeeeff',
+        success: '#059669',
+        info:'#cffafe',
+        danger: '#fbcfe8',
         mute: '#94a3b8',
         pen: '#262626'
       },

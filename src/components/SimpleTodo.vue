@@ -16,7 +16,6 @@ const emit = defineEmits(['click'])
   <div
     ref="container"
     class="flex flex-row items-start w-full px-1 py-4 bg-primary"
-    :class="{'bg-success-2': todo.completed_at}"
     @click.prevent="emit('click', todo)"
   >
     <div class="h-6 px-2">
@@ -26,8 +25,8 @@ const emit = defineEmits(['click'])
     </div>
     <p
       dir="auto"
-      class="font-light text-pen"
-      :class="[todo.completed_at ? 'line-through' :'']"
+      class="font-light"
+      :class="[todo.completed_at ? 'line-through text-mute' :'text-pen']"
     >
       {{ todo.content }}
     </p>
