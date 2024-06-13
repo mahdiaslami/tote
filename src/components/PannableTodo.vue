@@ -38,11 +38,16 @@ onMounted(() => {
   hammer.on('panright panleft panup pandown', (ev) => {
     transition.disable()
 
-    if (! guessEventName(ev.deltaX / 2.5)) {
+    if (!guessEventName(ev.deltaX / 2.5)) {
       data.deltaX = ev.deltaX / 2.5
       data.wiggle = false
     } else {
       data.wiggle = true
+    }
+
+    if (ev.isFinal) {
+      hammer.stop(true)
+      transition.enable()
     }
   })
 
@@ -72,28 +77,15 @@ onMounted(() => {
 
 <template>
   <div>
-    <div
-      class="relative bg-gradient-to-r from-danger to-info"
-    >
-      <img
-        class="absolute top-0 right-0 object-contain h-full pr-6 w-14"
-        :class="{'animate-wiggle': data.wiggle}"
-        src="@/assets/pencil.png"
-      >
+    <div class="relative bg-gradient-to-r from-danger to-info">
+      <img class="absolute top-0 right-0 object-contain h-full pr-6 w-14" :class="{ 'animate-wiggle': data.wiggle }"
+        src="@/assets/pencil.png">
 
-      <img
-        class="absolute top-0 left-0 object-contain h-full pl-6 w-14"
-        :class="{'animate-wiggle': data.wiggle}"
-        src="@/assets/bin.png"
-      >
+      <img class="absolute top-0 left-0 object-contain h-full pl-6 w-14" :class="{ 'animate-wiggle': data.wiggle }"
+        src="@/assets/bin.png">
 
-      <SimpleTodo
-        ref="simpleTodo"
-        :class="{'transition-transform duration-100': transition.value}"
-        :style="{ transform: `translate(${data.deltaX}px)` }"
-        :todo="todo"
-        @click="emit('click', todo)"
-      />
+      <SimpleTodo ref="simpleTodo" :class="{ 'transition-transform duration-100': transition.value }"
+        :style="{ transform: `translate(${data.deltaX}px)` }" :todo="todo" @click="emit('click', todo)" />
     </div>
   </div>
 </template>
