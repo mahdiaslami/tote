@@ -63,9 +63,9 @@ onMounted(() => {
   })
 
   function guessEventName(deltaX) {
-    if (deltaX > 75) {
+    if (deltaX > 56) {
       return 'delete'
-    } else if (deltaX < -75) {
+    } else if (deltaX < -56) {
       return 'edit'
     }
 
@@ -77,14 +77,20 @@ onMounted(() => {
 
 <template>
   <div>
-    <div class="relative bg-gradient-to-r from-danger to-info">
-      <img class="absolute top-0 right-0 object-contain h-full pr-6 w-14"
-        :class="{ 'animate-wiggle': data.wiggle }"
-        src="@/assets/pencil.png">
+    <div class="relative">
+      <div class="absolute top-0 right-0 h-full overflow-hidden"
+        :style="{ width: `${data.deltaX < 0 ? Math.abs(data.deltaX) : 0}px` }">
+        <img class="object-contain h-full pr-6"
+          :class="{ 'animate-wiggle': data.wiggle }"
+          src="@/assets/pencil.png">
+      </div>
 
-      <img class="absolute top-0 left-0 object-contain h-full pl-6 w-14"
-        :class="{ 'animate-wiggle': data.wiggle }"
-        src="@/assets/bin.png">
+      <div class="absolute top-0 left-0 h-full overflow-hidden"
+        :style="{ width: `${data.deltaX > 0 ? data.deltaX : 0}px` }">
+        <img class="object-contain h-full pl-6"
+          :class="{ 'animate-wiggle': data.wiggle }"
+          src="@/assets/bin.png">
+      </div>
 
       <SimpleTodo ref="simpleTodo"
         :class="{ 'transition-transform duration-100': transition.value }"
