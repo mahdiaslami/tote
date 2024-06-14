@@ -72,7 +72,7 @@ function toggleComplete(todo) {
 
 </script>
 <template>
-  <div class="flex flex-col h-full">
+  <div class="flex flex-col h-full overflow-y-auto overflow-x-hidden">
     <TransitionGroup name="fade"
       tag="div"
       class="relative h-full overflow-x-hidden overflow-y-scroll">
@@ -87,7 +87,7 @@ function toggleComplete(todo) {
 
     <div class="flex flex-row items-end bg-secondary">
       <AppTextArea v-model="data.content"
-        class="flex-grow h-auto p-4 font-light min-h-14 max-h-32"
+        class="w-full h-auto p-4 font-light min-h-14"
         placeholder="کار من"
         @keyup.enter="save" />
       <button class="flex items-center justify-center w-14 h-14"
