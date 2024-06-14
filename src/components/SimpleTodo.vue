@@ -1,5 +1,6 @@
 <script setup>
 import TickIcon from '@/components/icons/TickIcon.vue'
+import FiberManualRecordIcon from './icons/FiberManualRecordIcon.vue';
 
 defineProps({
   todo: {
@@ -17,7 +18,10 @@ const emit = defineEmits(['click'])
     class="flex flex-row items-start px-1 py-4"
     @click.prevent="emit('click', todo)">
     <div class="h-6 px-2">
-      <TickIcon :class="[todo.completed_at ? 'text-success' : 'text-mute']" />
+      <TickIcon v-if="todo.completed_at"
+        class="text-success" />
+      <FiberManualRecordIcon v-else
+        class="text-mute" />
     </div>
     <p dir="auto"
       class="font-light"
