@@ -12,13 +12,13 @@ export default {
 
     extend: {
       colors: {
-        primary: '#fafafa',
-        secondary: '#eeeeff',
-        success: '#059669',
-        info:'#cffafe',
-        danger: '#fbcfe8',
-        mute: '#94a3b8',
-        pen: '#262626'
+        primary: 'rgb(var(--color-primary) / <alpha-value>)',
+        secondary: 'rgb(var(--color-secondary) / <alpha-value>)',
+        success: 'rgb(var(--color-success) / <alpha-value>)',
+        info: 'rgb(var(--color-info) / <alpha-value>)',
+        danger: 'rgb(var(--color-danger) / <alpha-value>)',
+        mute: 'rgb(var(--color-mute) / <alpha-value>)',
+        pen: 'rgb(var(--color-pen) / <alpha-value>)'
       },
 
       keyframes: {
