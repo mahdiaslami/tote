@@ -72,18 +72,20 @@ function toggleComplete(todo) {
 
 </script>
 <template>
-  <div class="flex flex-col h-full overflow-y-auto overflow-x-hidden">
-    <TransitionGroup name="fade"
-      tag="div"
-      class="relative h-full overflow-x-hidden overflow-y-scroll">
-      <Todo v-for="todo in data.todos"
-        v-show="!todo.deleted_at"
-        :key="todo.id"
-        :todo="todo"
-        @edit="edit"
-        @delete="remove"
-        @click="toggleComplete(todo)" />
-    </TransitionGroup>
+  <div class="flex flex-col h-full ">
+    <div class="relative overflow-y-auto overflow-x-hidden">
+      <TransitionGroup name="fade"
+        tag="div"
+        class="paper-lines">
+        <Todo v-for="todo in data.todos"
+          v-show="!todo.deleted_at"
+          :key="todo.id"
+          :todo="todo"
+          @edit="edit"
+          @delete="remove"
+          @click="toggleComplete(todo)" />
+      </TransitionGroup>
+    </div>
 
     <div class="flex flex-row items-end bg-secondary">
       <AppTextArea v-model="data.content"
@@ -116,5 +118,10 @@ function toggleComplete(todo) {
       animations can be calculated correctly. */
 .fade-leave-active {
   position: absolute;
+}
+
+.paper-lines {
+  background: linear-gradient(white, white 7px, rgba(0, 0, 0, 0) 7px), repeating-linear-gradient(white, white 22px, rgb(var(--color-line)) 23px, rgb(var(--color-line)) 24px);
+  background-position: 0 0, 0 6px;
 }
 </style>
