@@ -1,4 +1,4 @@
-rootProject.name = 'tote'
+rootProject.name = 'Tote'
 
 include ':app'
 include ':capacitor-cordova-android-plugins'
