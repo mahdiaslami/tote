@@ -73,10 +73,10 @@ function toggleComplete(todo) {
 </script>
 <template>
   <div class="flex flex-col h-full ">
-    <div class="relative overflow-y-auto overflow-x-hidden">
+    <div class="relative flex-grow overflow-y-auto overflow-x-hidden">
       <TransitionGroup name="fade"
         tag="div"
-        class="paper-lines">
+        class="h-full paper-lines">
         <Todo v-for="todo in data.todos"
           v-show="!todo.deleted_at"
           :key="todo.id"
@@ -89,10 +89,10 @@ function toggleComplete(todo) {
 
     <div class="flex flex-row items-end bg-secondary">
       <AppTextArea v-model="data.content"
-        class="w-full h-auto p-4 font-light min-h-14"
+        class="w-full h-auto p-3 font-light min-h-12"
         placeholder="کار من"
         @keyup.enter="save" />
-      <button class="flex items-center justify-center w-14 h-14"
+      <button class="flex items-center justify-center w-14 h-12"
         @click="save">
         <ArrowUpwardIcon class="text-2xl font-thin text-mute" />
       </button>
@@ -121,7 +121,10 @@ function toggleComplete(todo) {
 }
 
 .paper-lines {
-  background: linear-gradient(white, white 7px, rgba(0, 0, 0, 0) 7px), repeating-linear-gradient(white, white 22px, rgb(var(--color-line)) 23px, rgb(var(--color-line)) 24px);
-  background-position: 0 0, 0 6px;
+  background:
+    linear-gradient(to left, rgba(0, 0, 0, 0) 32px, rgb(var(--color-line-through)) 32px, rgba(0, 0, 0, 0) 33px, rgba(0, 0, 0, 0)),
+    linear-gradient(rgb(var(--color-primary)), rgb(var(--color-primary)) 7px, rgba(0, 0, 0, 0) 7px),
+    repeating-linear-gradient(rgb(var(--color-primary)), rgb(var(--color-primary)) 22px, rgb(var(--color-line)) 23px, rgb(var(--color-line)) 24px);
+  background-position: 0 0, 0 0, 0 6px;
 }
 </style>

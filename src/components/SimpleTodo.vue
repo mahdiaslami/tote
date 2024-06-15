@@ -15,13 +15,13 @@ const emit = defineEmits(['click'])
 
 <template>
   <div ref="container"
-    class="flex flex-row items-start px-1 py-3"
+    class="flex flex-row items-start py-3"
     @click.prevent="emit('click', todo)">
-    <div class="h-6 px-2">
+    <div class="h-6 pr-1 pl-3">
       <TickIcon v-if="todo.completed_at"
         class="text-success" />
       <FiberManualRecordIcon v-else
-        class="text-mute mt-1.5" />
+        class="text-mute mt-1" />
     </div>
     <p dir="auto"
       class="font-light"
