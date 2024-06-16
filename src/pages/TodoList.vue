@@ -79,6 +79,7 @@ function toggleComplete(todo) {
         class="min-h-full paper-lines">
         <Todo v-for="todo in data.todos"
           v-show="!todo.deleted_at"
+          class="py-3"
           :key="todo.id"
           :todo="todo"
           @edit="edit"

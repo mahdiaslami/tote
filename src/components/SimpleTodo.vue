@@ -15,7 +15,7 @@ const emit = defineEmits(['click'])
 
 <template>
   <div ref="container"
-    class="flex flex-row items-start py-3"
+    class="flex flex-row items-start"
     @click.prevent="emit('click', todo)">
     <div class="h-6 pr-1 pl-3">
       <TickIcon v-if="todo.completed_at"
