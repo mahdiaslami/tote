@@ -76,7 +76,7 @@ function toggleComplete(todo) {
     <div class="relative flex-grow overflow-y-auto overflow-x-hidden">
       <TransitionGroup name="fade"
         tag="div"
-        class="h-full paper-lines">
+        class="min-h-full paper-lines">
         <Todo v-for="todo in data.todos"
           v-show="!todo.deleted_at"
           :key="todo.id"
