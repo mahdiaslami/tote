@@ -123,9 +123,10 @@ function toggleComplete(todo) {
 
 .paper-lines {
   background:
-    linear-gradient(to left, rgba(0, 0, 0, 0) 32px, rgb(var(--color-line-through)) 32px, rgba(0, 0, 0, 0) 33px, rgba(0, 0, 0, 0)),
+    linear-gradient(to left, rgb(var(--color-primary)) 34px, rgba(0, 0, 0, 0) 34px, rgba(0, 0, 0, 0)),
+    linear-gradient(to right, rgb(var(--color-primary)) 34px, rgba(0, 0, 0, 0) 34px, rgba(0, 0, 0, 0)),
     linear-gradient(rgb(var(--color-primary)), rgb(var(--color-primary)) 7px, rgba(0, 0, 0, 0) 7px),
     repeating-linear-gradient(rgb(var(--color-primary)), rgb(var(--color-primary)) 22px, rgb(var(--color-line)) 23px, rgb(var(--color-line)) 24px);
-  background-position: 0 0, 0 0, 0 6px;
+  background-position: 0 0, 0 0, 0 0, 0 6px;
 }
 </style>
