@@ -123,10 +123,9 @@ function toggleComplete(todo) {
 
 .paper-lines {
   background:
-    linear-gradient(to left, rgb(var(--color-primary)) 34px, rgba(0, 0, 0, 0) 34px, rgba(0, 0, 0, 0)),
-    linear-gradient(to right, rgb(var(--color-primary)) 34px, rgba(0, 0, 0, 0) 34px, rgba(0, 0, 0, 0)),
-    linear-gradient(rgb(var(--color-primary)), rgb(var(--color-primary)) 7px, rgba(0, 0, 0, 0) 7px),
-    repeating-linear-gradient(rgb(var(--color-primary)), rgb(var(--color-primary)) 22px, rgb(var(--color-line)) 23px, rgb(var(--color-line)) 24px);
-  background-position: 0 0, 0 0, 0 0, 0 6px;
+    linear-gradient(#00000000, #00000000 7px) left top / 100% 7px no-repeat,
+    linear-gradient(#00000000, #00000000 22px, rgb(var(--color-line)) 23px, rgb(var(--color-line)) 24px, #00000000 24px) center 6px / calc(100% - 64px) 24px repeat-y,
+    linear-gradient(rgb(var(--color-primary) / 0.95), rgb(var(--color-primary) / 0.90) 100%) left top,
+    url("@/assets/pattern.png") left top repeat;
 }
 </style>
