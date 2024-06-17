@@ -17,8 +17,8 @@ export default {
         success: 'rgb(var(--color-success) / <alpha-value>)',
         info: 'rgb(var(--color-info) / <alpha-value>)',
         danger: 'rgb(var(--color-danger) / <alpha-value>)',
-        mute: 'rgb(var(--color-mute) / <alpha-value>)',
-        pen: 'rgb(var(--color-pen) / <alpha-value>)'
+        mute: 'rgb(var(--color-pen-secondary) / <alpha-value>)',
+        pen: 'rgb(var(--color-pen-primary) / <alpha-value>)'
       },
 
       keyframes: {

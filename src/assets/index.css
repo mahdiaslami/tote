@@ -5,24 +5,22 @@
 @layer base {
     :root {
         /* For rgb(R G B / <alpha-value>) */
-        /* #fafafa */
-        --color-primary: 250 250 250;
-        /* #eeeeff */
-        --color-secondary: 245 245 245;
+        /* #f5f9fc */
+        --color-primary: 245 249 252;
+        /* #ffffff */
+        --color-secondary: 255 255 255;
+        /* #eeeedd */
+        --color-line: 238 238 221;
         /* #059669 */
         --color-success: 5 150 105;
-        /* #eeeeee */
-        --color-line: 238 238 238;
-        /* #f6d5b9 */
-        --color-line-through: 246 213 185;
-        /* #cffafe */
-        --color-info: 207 250 254;
-        /* #fbcfe8 */
-        --color-danger:251 207 232;
-        /* #94a3b8 */
-        --color-mute: 148 163 184;
+        /* #7f7fff */
+        --color-info: 127 127 255;
+        /* #ff4c4c */
+        --color-danger: 255	76 76;
         /* #262626 */
-        --color-pen: 38 38 38;
+        --color-pen-primary: 38 38 38;
+        /* #94a3b8 */
+        --color-pen-secondary: 148 163 184;
     }
 }
 
