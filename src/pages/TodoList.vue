@@ -4,44 +4,24 @@ import CloudOffIcon from '@/components/icons/CloudOffIcon.vue'
 import AppTextArea from '@/components/TextArea.vue'
 import Todo from '@/components/PannableTodo.vue'
 import { PersianDate } from '@/class/persiandate.js'
-import { onMounted, reactive, watch } from 'vue'
+import { useTodoStore } from '@/store/todo.js'
+import { reactive } from 'vue'
+
+const todoStore = useTodoStore()
 
 const data = reactive({
-  todos: JSON.parse(localStorage.getItem('v1/todos')) ?? [],
   content: '',
   selected: null,
   date: new PersianDate()
-})
-
-onMounted(() => {
-  watch(
-    data.todos,
-    (value) => localStorage.setItem('v1/todos', JSON.stringify(value)),
-    { immediate: true }
-  )
-
-  if (!localStorage.getItem('v1/setting/first-open')) {
-    data.todos = [
-      createTodo('سلام رفیق! من یک برنامه خیلی کوچولو برای مدیریت کار هام', 1),
-      createTodo('هر وقت کاری خواستی اضافه کنی از پایین صفحه جایی که نوشته «کار من» می تونی اضافه کنی', 2),
-      createTodo('وقتی کاری رو تموم کردی روی تیک سمت راستش ضربه بزن تا یک خط روش بکشم', 3),
-      createTodo('اگر لازم شد کاری رو ویرایش کنی اونو به سمت راست هلش بده', 4),
-      createTodo('برای حذف کار هم به سمت چپ حلش بده', 5),
-    ]
-
-    localStorage.setItem('v1/setting/first-open', 1)
-  }
 })
 
 function save() {
   if (data.content.trim()) {
 
     if (data.selected) {
-      data.selected.content = data.content
+      todoStore.update(data.selected.id, { ...data.selected, content: data.content })
     } else {
-      data.todos.push(
-        createTodo(data.content.trim())
-      )
+      todoStore.addNew(data.content.trim())
     }
 
     data.content = ''
@@ -50,10 +30,7 @@ function save() {
 }
 
 function remove(todo) {
-  const index = data.todos.indexOf(todo)
-  if (index >= 0) {
-    data.todos.splice(index, 1)
-  }
+  todoStore.remove(todo.id)
 }
 
 function edit(todo) {
@@ -61,16 +38,8 @@ function edit(todo) {
   data.content = todo.content
 }
 
-function createTodo(content, id = null) {
-  return {
-    id: id ?? Date.now(),
-    completed_at: null,
-    content: content,
-  }
-}
-
-function toggleComplete(todo) {
-  todo.completed_at = todo.completed_at ? null : Date.now()
+function toggleCompleted(todo) {
+  todoStore.toggleCompleted(todo.id)
 }
 
 </script>
@@ -92,14 +61,14 @@ function toggleComplete(todo) {
       <TransitionGroup name="fade"
         tag="div"
         class="group min-h-full paper">
-        <Todo v-for="(todo, tindex) in data.todos"
+        <Todo v-for="todo in todoStore.all()"
           v-show="!todo.deleted_at"
           class="py-3 first:pt-1.5"
           :key="todo.id"
           :todo="todo"
           @edit="edit"
           @delete="remove"
-          @click="toggleComplete(todo)" />
+          @click="toggleCompleted(todo)" />
       </TransitionGroup>
     </div>
 
