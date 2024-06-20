@@ -54,7 +54,7 @@ function toggleCompleted(todo) {
         class="group flex-grow paper">
         <Todo v-for="todo in todoStore.all()"
           v-show="!todo.deleted_at"
-          class="py-3 first:pt-1.5"
+          class="py-3 first:pt-7.5"
           :key="todo.id"
           :todo="todo"
           @edit="edit"
