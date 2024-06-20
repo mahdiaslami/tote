@@ -1,8 +1,8 @@
 <script setup>
 import ArrowUpwardIcon from '@/components/icons/ArrowUpwardIcon.vue'
-import CloudOffIcon from '@/components/icons/CloudOffIcon.vue'
 import AppTextArea from '@/components/TextArea.vue'
 import Todo from '@/components/PannableTodo.vue'
+import Header from '@/components/DateHeader.vue'
 import { PersianDate } from '@/class/persiandate.js'
 import { useTodoStore } from '@/store/todo.js'
 import { reactive } from 'vue'
@@ -45,22 +45,13 @@ function toggleCompleted(todo) {
 </script>
 <template>
   <div class="flex flex-col h-full ">
-    <div class="relative flex-grow overflow-y-auto overflow-x-hidden">
-      <div class="flex flex-row h-18 bg-secondary sticky w-full top-0 left-0 z-10 border-b"
-        :class="[data.date.isHoliday() ? 'text-danger border-danger' : 'border-success']">
-        <div class="text-4xl p-4 w-18 text-center">{{ data.date.getPersianDate() }}</div>
-        <div class="flex flex-col justify-center flex-grow">
-          <div class="my-1">{{ data.date.getPersianWeekday() }}</div>
-          <div class="my-1 text-sm">{{ data.date.getPersianMonthName() }} {{ data.date.getPersianFullYear() }}</div>
-        </div>
-        <div class="text-4xl p-4 w-18 text-center">
-          <CloudOffIcon class="text-mute" />
-        </div>
-      </div>
+    <div class="flex flex-col relative flex-grow overflow-y-auto overflow-x-hidden">
+      <Header class="sticky top-0 left-0 z-10 w-full"
+        :date="data.date" />
 
       <TransitionGroup name="fade"
         tag="div"
-        class="group min-h-full paper">
+        class="group flex-grow paper">
         <Todo v-for="todo in todoStore.all()"
           v-show="!todo.deleted_at"
           class="py-3 first:pt-1.5"
