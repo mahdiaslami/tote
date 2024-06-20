@@ -32,6 +32,10 @@ export default {
       animation: {
         wiggle: 'wiggle 0.2s ease-in-out infinite',
       },
+
+      spacing: {
+        '18': '4.5rem',
+      }
     },
   },
   plugins: [],

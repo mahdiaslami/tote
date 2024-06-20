@@ -1,13 +1,16 @@
 <script setup>
 import ArrowUpwardIcon from '@/components/icons/ArrowUpwardIcon.vue'
+import CloudOffIcon from '@/components/icons/CloudOffIcon.vue'
 import AppTextArea from '@/components/TextArea.vue'
 import Todo from '@/components/PannableTodo.vue'
+import { PersianDate } from '@/class/persiandate.js'
 import { onMounted, reactive, watch } from 'vue'
 
 const data = reactive({
   todos: JSON.parse(localStorage.getItem('v1/todos')) ?? [],
   content: '',
   selected: null,
+  date: new PersianDate()
 })
 
 onMounted(() => {
@@ -74,12 +77,24 @@ function toggleComplete(todo) {
 <template>
   <div class="flex flex-col h-full ">
     <div class="relative flex-grow overflow-y-auto overflow-x-hidden">
+      <div class="flex flex-row h-18 bg-secondary sticky w-full top-0 left-0 z-10 border-b"
+        :class="[data.date.isHoliday() ? 'text-danger border-danger' : 'border-success']">
+        <div class="text-4xl p-4 w-18 text-center">{{ data.date.getPersianDate() }}</div>
+        <div class="flex flex-col justify-center flex-grow">
+          <div class="my-1">{{ data.date.getPersianWeekday() }}</div>
+          <div class="my-1 text-sm">{{ data.date.getPersianMonthName() }} {{ data.date.getPersianFullYear() }}</div>
+        </div>
+        <div class="text-4xl p-4 w-18 text-center">
+          <CloudOffIcon class="text-mute" />
+        </div>
+      </div>
+
       <TransitionGroup name="fade"
         tag="div"
-        class="min-h-full paper-lines">
-        <Todo v-for="todo in data.todos"
+        class="group min-h-full paper">
+        <Todo v-for="(todo, tindex) in data.todos"
           v-show="!todo.deleted_at"
-          class="py-3"
+          class="py-3 first:pt-1.5"
           :key="todo.id"
           :todo="todo"
           @edit="edit"
@@ -121,10 +136,9 @@ function toggleComplete(todo) {
   position: absolute;
 }
 
-.paper-lines {
+.paper {
   background:
-    linear-gradient(#00000000, #00000000 7px) left top / 100% 7px no-repeat,
-    linear-gradient(#00000000, #00000000 22px, rgb(var(--color-line)) 23px, rgb(var(--color-line)) 24px, #00000000 24px) center 6px / calc(100% - 64px) 24px repeat-y,
+    linear-gradient(#00000000, #00000000 23px, rgb(var(--color-line)) 24px, rgb(var(--color-line)) 24px, #00000000 25px) center top / calc(100% - 64px) 24px repeat-y,
     linear-gradient(rgb(var(--color-primary) / 0.95), rgb(var(--color-primary) / 0.90) 100%) left top,
     url("@/assets/pattern.png") left top repeat;
 }

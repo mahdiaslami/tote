@@ -13,4 +13,4 @@ createApp(App)
   .mount('#app')
 
 StatusBar.setStyle({ style: Style.Light })
-StatusBar.setBackgroundColor({ color: '#fafafa' })
+StatusBar.setBackgroundColor({ color: '#ffffff' })
