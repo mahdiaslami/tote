@@ -31,4 +31,12 @@ export class PersianDate extends Date {
     isHoliday() {
         return this.getDay() === 5
     }
+
+    move(value) {
+        this.setDate(this.getDate() + value)
+    }
+
+    duplicate() {
+        return new PersianDate(this.getTime())
+    }
 }

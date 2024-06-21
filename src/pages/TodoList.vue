@@ -12,8 +12,39 @@ const todoStore = useTodoStore()
 const data = reactive({
   content: '',
   selected: null,
-  date: new PersianDate()
+  dates: [
+    newDate(0),
+    newDate(1),
+    newDate(-1),
+  ],
+  currentDate: newDate(0)
 })
+
+function handleSlideChange(ev) {
+  const [swiper] = ev.detail
+
+  const cur = swiper.realIndex
+  const next = (cur + 1) % 3
+  const prev = (cur + 2) % 3
+
+  data.currentDate = data.dates[cur]
+
+  let temp = data.currentDate.duplicate()
+  temp.move(1)
+  data.dates[next] = temp
+
+  temp = data.currentDate.duplicate()
+  temp.move(-1)
+  data.dates[prev] = temp
+}
+
+
+function newDate(value) {
+  const date = new PersianDate()
+  date.move(value)
+
+  return date
+}
 
 function save() {
   if (data.content.trim()) {
@@ -21,7 +52,7 @@ function save() {
     if (data.selected) {
       todoStore.update(data.selected.id, { ...data.selected, content: data.content })
     } else {
-      todoStore.addNew(data.content.trim())
+      todoStore.addNew(data.content.trim(), data.currentDate)
     }
 
     data.content = ''
@@ -45,23 +76,32 @@ function toggleCompleted(todo) {
 </script>
 <template>
   <div class="flex flex-col h-full ">
-    <div class="flex flex-col relative flex-grow overflow-y-auto overflow-x-hidden">
-      <Header class="sticky top-0 left-0 z-10 w-full"
-        :date="data.date" />
+    <swiper-container class="min-h-0 flex-grow"
+      loop="true"
+      @swiperslidechange="handleSlideChange">
+      <swiper-slide class="h-full"
+        v-for="(date, dindex) in data.dates"
+        :key="dindex"
+        :data-index="dindex">
+        <div class="flex flex-col relative h-full overflow-y-auto overflow-x-hidden border-r">
+          <Header class="sticky top-0 left-0 z-10 w-full"
+            :date="date" />
 
-      <TransitionGroup name="fade"
-        tag="div"
-        class="group flex-grow paper">
-        <Todo v-for="todo in todoStore.all()"
-          v-show="!todo.deleted_at"
-          class="py-3 first:pt-7.5"
-          :key="todo.id"
-          :todo="todo"
-          @edit="edit"
-          @delete="remove"
-          @click="toggleCompleted(todo)" />
-      </TransitionGroup>
-    </div>
+          <TransitionGroup name="fade"
+            tag="div"
+            class="group flex-grow paper swiper-no-swiping">
+            <Todo v-for="todo in todoStore.get(date)"
+              v-show="!todo.deleted_at"
+              class="py-3 first:pt-7.5"
+              :key="todo.id"
+              :todo="todo"
+              @edit="edit"
+              @delete="remove"
+              @click="toggleCompleted(todo)" />
+          </TransitionGroup>
+        </div>
+      </swiper-slide>
+    </swiper-container>
 
     <div class="flex flex-row items-end bg-secondary">
       <AppTextArea v-model="data.content"

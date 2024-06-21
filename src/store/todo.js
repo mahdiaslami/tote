@@ -1,32 +1,45 @@
-import { reactive, watch } from "vue"
+import { onDeactivated, reactive, watch } from "vue"
 import { v4 as uuidv4 } from 'uuid';
 
 const store = reactive({
     todos: JSON.parse(localStorage.getItem('v1/todos')) ?? [],
 
-    all(date = null) {
+    get(date = null) {
         const dateGroup = this._getDateGroup(date)
+        const isToday = dateGroup == this._todayGroup()
 
-        return this.todos.filter((t) => !t.date_group || t.date_group == dateGroup)
+        return this.todos.filter((t) => {
+            if (t.date_group) {
+                return t.date_group == dateGroup
+            }
+
+            // only show static todos in today page
+            if (isToday) {
+                return true
+            }
+
+            return false
+        })
+    },
+
+    _todayGroup() {
+        return this._getDateGroup(new Date())
     },
 
     _getDateGroup(date) {
-        if (!date) {
-            date = new Date()
-        }
-
         const options = { numberingSystem: 'latn', year: "numeric", month: "2-digit", day: "2-digit" }
         const group = date.toLocaleDateString('fa-IR', options)
 
         return group
     },
 
-    addNew(content, dateGroup = null) {
+    addNew(content, date = null) {
         this.todos.push({
             id: uuidv4(),
             completed_at: null,
             content: content,
-            date_group: dateGroup,
+            // date_group of static todos is null
+            date_group: date ? this._getDateGroup(date) : null,
         })
     },
 
@@ -48,6 +61,9 @@ const store = reactive({
         const index = this.todos.findIndex((a) => a.id == id)
         const todo = this.todos[index]
         todo.completed_at = todo.completed_at ? null : Date.now()
+        // set date group of static todo to today group to prevent
+        // repeating it anymore
+        todo.date_group = this._todayGroup()
     },
 
 })
