@@ -4,15 +4,29 @@ import { v4 as uuidv4 } from 'uuid';
 const store = reactive({
     todos: JSON.parse(localStorage.getItem('v1/todos')) ?? [],
 
-    all() {
-        return this.todos
+    all(date = null) {
+        const dateGroup = this._getDateGroup(date)
+
+        return this.todos.filter((t) => !t.date_group || t.date_group == dateGroup)
     },
 
-    addNew(content) {
+    _getDateGroup(date) {
+        if (!date) {
+            date = new Date()
+        }
+
+        const options = { numberingSystem: 'latn', year: "numeric", month: "2-digit", day: "2-digit" }
+        const group = date.toLocaleDateString('fa-IR', options)
+
+        return group
+    },
+
+    addNew(content, dateGroup = null) {
         this.todos.push({
             id: uuidv4(),
             completed_at: null,
             content: content,
+            date_group: dateGroup,
         })
     },
 
