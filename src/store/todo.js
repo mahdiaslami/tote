@@ -1,4 +1,5 @@
 import { reactive, watch } from "vue"
+import { v4 as uuidv4 } from 'uuid';
 
 const store = reactive({
     todos: JSON.parse(localStorage.getItem('v1/todos')) ?? [],
@@ -7,9 +8,9 @@ const store = reactive({
         return this.todos
     },
 
-    addNew(content, id = null) {
+    addNew(content) {
         this.todos.push({
-            id: id ?? Date.now(),
+            id: uuidv4(),
             completed_at: null,
             content: content,
         })
@@ -46,11 +47,11 @@ watch(
 if (!localStorage.getItem('v1/setting/first-open')) {
     store.truncate()
 
-    store.addNew('سلام رفیق! من یک برنامه خیلی کوچولو برای مدیریت کار هام', 1)
-    store.addNew('هر وقت کاری خواستی اضافه کنی از پایین صفحه جایی که نوشته «کار من» می تونی اضافه کنی', 2)
-    store.addNew('وقتی کاری رو تموم کردی روی تیک سمت راستش ضربه بزن تا یک خط روش بکشم', 3)
-    store.addNew('اگر لازم شد کاری رو ویرایش کنی اونو به سمت راست هلش بده', 4)
-    store.addNew('برای حذف کار هم به سمت چپ حلش بده', 5)
+    store.addNew('سلام رفیق! من یک برنامه خیلی کوچولو برای مدیریت کار هام')
+    store.addNew('هر وقت کاری خواستی اضافه کنی از پایین صفحه جایی که نوشته «کار من» می تونی اضافه کنی')
+    store.addNew('وقتی کاری رو تموم کردی روی تیک سمت راستش ضربه بزن تا یک خط روش بکشم')
+    store.addNew('اگر لازم شد کاری رو ویرایش کنی اونو به سمت راست هلش بده')
+    store.addNew('برای حذف کار هم به سمت چپ حلش بده')
 
     localStorage.setItem('v1/setting/first-open', 1)
 }
