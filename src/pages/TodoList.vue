@@ -2,7 +2,7 @@
 import ArrowUpwardIcon from '@/components/icons/ArrowUpwardIcon.vue'
 import AppTextArea from '@/components/TextArea.vue'
 import Todo from '@/components/PannableTodo.vue'
-import Header from '@/components/DateHeader.vue'
+import Header from '@/components/Header.vue'
 import { PersianDate } from '@/class/persiandate.js'
 import { useTodoStore } from '@/store/todo.js'
 import { reactive } from 'vue'
