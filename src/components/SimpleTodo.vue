@@ -24,7 +24,7 @@ const emit = defineEmits(['click'])
         class="text-mute mt-1" />
     </div>
     <p dir="auto"
-      class="font-light"
+      class="font-light break-words min-w-0"
       :class="[todo.completed_at ? 'line-through text-mute' : 'text-pen']">
       {{ todo.content }}
     </p>

@@ -20,7 +20,7 @@ const p = ref(null)
 </script>
 
 <template>
-  <div class="relative">
+  <div class="relative min-w-0">
     <span v-show="modelValue.length === 0"
       class="absolute select-none text-mute"
       @click="p.focus()">{{ placeholder }}</span>

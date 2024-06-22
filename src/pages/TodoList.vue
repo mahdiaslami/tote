@@ -103,16 +103,19 @@ function toggleCompleted(todo) {
       </swiper-slide>
     </swiper-container>
 
-    <div class="flex flex-row items-end bg-secondary">
+    <div class="relative flex flex-row items-end bg-secondary">
       <AppTextArea v-model="data.content"
         class="w-full h-auto p-3 font-light min-h-12"
         placeholder="کار من"
         @keyup.enter="save" />
-      <button class="flex items-center justify-center w-14 h-12"
+      <button class="flex items-center justify-center w-14 h-12 select-none"
+        @contextmenu.prevent="console.log('here')"
         @click="save">
         <ArrowUpwardIcon class="text-2xl font-thin text-mute" />
       </button>
     </div>
+
+    <div class="absolute w-28 left-2 top-0">ثبت کار اجباری</div>
   </div>
 </template>
 
