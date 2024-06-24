@@ -1,5 +1,8 @@
-import { onDeactivated, reactive, watch } from "vue"
+import { reactive, watch } from "vue"
 import { v4 as uuidv4 } from 'uuid';
+import { migrate } from "@/migrations";
+
+migrate()
 
 const store = reactive({
     todos: JSON.parse(localStorage.getItem('v1/todos')) ?? [],
