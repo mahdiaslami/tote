@@ -15,10 +15,20 @@ export function migrate() {
 }
 
 const migrations = [
+    // add date_group key
     (todos) => {
         return todos.map(el => ({
             ...el,
             date_group: el.date_group ?? null
         }));
-    }
+    },
+
+    // add type key
+    (todos) => {
+        return todos.map(el => ({
+            ...el,
+            type: el.type ?? (el.date_group ? 'daily' : 'mandatory')
+        }));
+    },
+
 ]

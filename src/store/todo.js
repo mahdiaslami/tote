@@ -16,7 +16,8 @@ const store = reactive({
                 return t.date_group == dateGroup
             }
 
-            // only show static todos in today page
+            // todos wihout date_group is mandatory, and have to show only in
+            // today page not tomorrow or other days when user swiping
             if (isToday) {
                 return true
             }
@@ -41,8 +42,9 @@ const store = reactive({
             id: uuidv4(),
             completed_at: null,
             content: content,
-            // date_group of static todos is null
-            date_group: date ? this._getDateGroup(date) : null,
+            type: date ? 'daily' : 'mandatory',
+            // date_group of mandatory todos is null
+            date_group: date && this._getDateGroup(date),
         })
     },
 
@@ -64,9 +66,16 @@ const store = reactive({
         const index = this.todos.findIndex((a) => a.id == id)
         const todo = this.todos[index]
         todo.completed_at = todo.completed_at ? null : Date.now()
-        // set date group of static todo to today group to prevent
-        // repeating it anymore
-        todo.date_group = this._todayGroup()
+
+        // set date group of mandatory todo to today group to prevent
+        // repeating it anymore when its completed
+        if (todo.type == 'mandatory') {
+            if (todo.completed_at == null) {
+                todo.date_group = null
+            } else {
+                todo.date_group = this._todayGroup()
+            }
+        }
     },
 
 })
