@@ -180,35 +180,6 @@ function edit(todo) {
 </template>
 
 <style>
-.fade-move,
-.fade-enter-active,
-.fade-leave-active {
-  transition: all 0.5s cubic-bezier(0.55, 0, 0.1, 1);
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-
-.fade-leave-active {
-  position: absolute;
-}
-
-.left-slide-enter-active,
-.left-slide-leave-active {
-  transition: transform 0.5s cubic-bezier(0.55, 0, 0.1, 1);
-}
-
-.left-slide-enter-from,
-.left-slide-leave-to {
-  transform: translateX(-100%);
-}
-
-.left-slide-leave-active {
-  position: absolute;
-}
-
 .paper {
   background:
     linear-gradient(#00000000, #00000000 23px, rgb(var(--color-line)) 24px, rgb(var(--color-line)) 24px, #00000000 25px) center top / calc(100% - 64px) 24px repeat-y,
