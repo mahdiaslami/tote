@@ -113,7 +113,6 @@ function edit(todo) {
 
 <style>
 /* 1. declare transition */
-.fade-move,
 .fade-enter-active,
 .fade-leave-active {
   transition: all 0.5s cubic-bezier(0.55, 0, 0.1, 1);
@@ -129,6 +128,7 @@ function edit(todo) {
       animations can be calculated correctly. */
 .fade-leave-active {
   position: absolute;
+  width: 100%;
 }
 
 .paper {
