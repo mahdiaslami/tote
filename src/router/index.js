@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import TodoList from '@/pages/todo/List.vue'
+import TodoListPage from '@/pages/todo/ListPage.vue'
 
 export const routes = [
   {
     name: 'Home',
     path: '/',
-    component: TodoList,
+    component: TodoListPage,
   },
 ]
 
