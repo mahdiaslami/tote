@@ -137,7 +137,19 @@ function edit(todo) {
       </swiper-slide>
     </swiper-container>
 
-    <div class="relative flex flex-row items-end bg-secondary min-w-0 overflow-x-clip">
+    <div class="relative h-0 min-w-0 overflow-x-clip">
+      <Transition name="left-slide">
+        <div v-if="data.gotoTodayVisiable"
+          class="absolute left-0 -top-10 z-10 shadow-md rounded-r-full flex flex-row text-pen text-xs">
+          <button type="button"
+            @click="handleGotoToday"
+            class="relative px-4 py-2 rounded-r-full font-medium transition-colors
+              bg-info text-white">بازگشت به روز جاری</button>
+        </div>
+      </Transition>
+    </div>
+
+    <div class="relative flex flex-row items-end bg-secondary">
       <Transition name="fade">
         <div v-if="data.content.trim() != '' && data.currentDate.isToday()"
           class="absolute right-2 -top-10 z-10 bg-secondary shadow-md
@@ -151,17 +163,6 @@ function edit(todo) {
             @click="data.daily = false"
             class="-ml-px relative px-4 py-2 rounded-l-md font-medium transition-colors"
             :class="{ 'bg-info text-white': !data.daily }">اجباری</button>
-        </div>
-      </Transition>
-
-      <Transition name="left-slide">
-        <div v-if="data.gotoTodayVisiable"
-          class="absolute left-0 -top-10 z-10 shadow-md
-        rounded-r-full flex flex-row text-pen text-xs">
-          <button type="button"
-            @click="handleGotoToday"
-            class="relative px-4 py-2 rounded-r-full font-medium transition-colors
-              bg-info text-white">بازگشت به روز جاری</button>
         </div>
       </Transition>
 
