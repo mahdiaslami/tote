@@ -62,7 +62,7 @@ function save() {
       content: data.content
     })
   } else {
-    todoStore.addNew(content, data.daily && data.currentDate.isToday() ? data.currentDate : null)
+    todoStore.addNew(content, data.daily || !data.currentDate.isToday() ? data.currentDate : null)
   }
 
   data.content = ''
