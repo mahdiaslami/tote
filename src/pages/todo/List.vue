@@ -60,17 +60,9 @@ function save() {
   }
 }
 
-function remove(todo) {
-  todoStore.remove(todo.id)
-}
-
 function edit(todo) {
   data.selected = todo
   data.content = todo.content
-}
-
-function toggleCompleted(todo) {
-  todoStore.toggleCompleted(todo.id)
 }
 
 </script>
@@ -96,8 +88,8 @@ function toggleCompleted(todo) {
               :key="todo.id"
               :todo="todo"
               @edit="edit"
-              @delete="remove"
-              @click="toggleCompleted(todo)" />
+              @delete="todoStore.remove(todo.id)"
+              @click="todoStore.toggleCompleted(todo.id)" />
           </TransitionGroup>
         </div>
       </swiper-slide>
