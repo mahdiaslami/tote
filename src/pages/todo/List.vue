@@ -1,6 +1,6 @@
 <script setup>
 import Todo from '@/components/PannableTodo.vue'
-import Header from '@/components/Header.vue'
+import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
 import { PersianDate } from '@/class/persiandate.js'
 import { useTodoStore } from '@/store/todo.js'
