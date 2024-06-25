@@ -64,9 +64,9 @@ function back() {
   let distance = data.currentDate.distanceToToday()
 
   if (distance > 0) {
-    swiperContainer.value.swiper.slideNext(300 / distance)
+    swiperContainer.value.swiper.slideNext(150 / distance)
   } else if ('shorter', distance < 0) {
-    swiperContainer.value.swiper.slidePrev(-300 / distance)
+    swiperContainer.value.swiper.slidePrev(-150 / distance)
   } else {
     gotoTodayRunning = false
   }
