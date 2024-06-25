@@ -50,7 +50,7 @@ const store = reactive({
 
     update(id, todo) {
         const index = this.todos.findIndex((a) => a.id == id)
-        this.todos[index] = todo
+        this.todos[index] = { ...this.todos[index], ...todo }
     },
 
     remove(id) {

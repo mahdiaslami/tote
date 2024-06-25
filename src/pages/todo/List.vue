@@ -1,8 +1,7 @@
 <script setup>
-import ArrowUpwardIcon from '@/components/icons/ArrowUpwardIcon.vue'
-import AppTextArea from '@/components/TextArea.vue'
 import Todo from '@/components/PannableTodo.vue'
 import Header from '@/components/Header.vue'
+import Footer from './components/Footer.vue'
 import { PersianDate } from '@/class/persiandate.js'
 import { useTodoStore } from '@/store/todo.js'
 import { reactive, ref } from 'vue'
@@ -12,11 +11,8 @@ const todoStore = useTodoStore()
 const swiperContainer = ref(null)
 
 const data = reactive({
-  content: '',
   currentDate: newDate(0),
-  daily: true,
-
-  selected: null,
+  selected: { id: null, content: '' },
 
   dates: [
     newDate(0),
@@ -80,29 +76,9 @@ function newDate(value) {
   return date
 }
 
-function save() {
-  const content = data.content.trim()
-
-  if (!content) {
-    return
-  }
-
-  if (data.selected) {
-    todoStore.update(data.selected.id, {
-      ...data.selected,
-      content: data.content
-    })
-  } else {
-    todoStore.addNew(content, data.daily || !data.currentDate.isToday() ? data.currentDate : null)
-  }
-
-  data.content = ''
-  data.selected = null
-}
 
 function edit(todo) {
-  data.selected = todo
-  data.content = todo.content
+  data.selected = { ...todo }
 }
 
 </script>
@@ -149,33 +125,10 @@ function edit(todo) {
       </Transition>
     </div>
 
-    <div class="relative flex flex-row items-end bg-secondary">
-      <Transition name="fade">
-        <div v-if="data.content.trim() != '' && data.currentDate.isToday()"
-          class="absolute right-2 -top-10 z-10 bg-secondary shadow-md
-        rounded-md flex flex-row text-pen text-xs">
-          <button type="button"
-            @click="data.daily = true"
-            class="relative px-4 py-2 rounded-r-md font-medium transition-colors"
-            :class="{ 'bg-info text-white': data.daily }">روزانه</button>
+    <Footer v-model:id="data.selected.id"
+      v-model:content="data.selected.content"
+      :date="data.currentDate" />
 
-          <button type="button"
-            @click="data.daily = false"
-            class="-ml-px relative px-4 py-2 rounded-l-md font-medium transition-colors"
-            :class="{ 'bg-info text-white': !data.daily }">اجباری</button>
-        </div>
-      </Transition>
-
-      <AppTextArea v-model="data.content"
-        class="w-full h-auto p-3 font-light min-h-12"
-        placeholder="کار من"
-        @keyup.enter="save" />
-
-      <button class="flex items-center justify-center w-14 h-12 select-none"
-        @click="save">
-        <ArrowUpwardIcon class="text-2xl font-thin text-mute" />
-      </button>
-    </div>
   </div>
 </template>
 
