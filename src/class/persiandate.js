@@ -32,6 +32,10 @@ export class PersianDate extends Date {
         return this.getDay() === 5
     }
 
+    isToday() {
+        return this.toDateString() == (new Date()).toDateString()
+    }
+
     move(value) {
         this.setDate(this.getDate() + value)
     }

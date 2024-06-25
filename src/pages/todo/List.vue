@@ -11,13 +11,16 @@ const todoStore = useTodoStore()
 
 const data = reactive({
   content: '',
+  currentDate: newDate(0),
+  daily: true,
+
   selected: null,
+
   dates: [
     newDate(0),
     newDate(1),
     newDate(-1),
   ],
-  currentDate: newDate(0)
 })
 
 function handleSlideChange(ev) {
@@ -47,17 +50,23 @@ function newDate(value) {
 }
 
 function save() {
-  if (data.content.trim()) {
+  const content = data.content.trim()
 
-    if (data.selected) {
-      todoStore.update(data.selected.id, { ...data.selected, content: data.content })
-    } else {
-      todoStore.addNew(data.content.trim(), data.currentDate)
-    }
-
-    data.content = ''
-    data.selected = null
+  if (!content) {
+    return
   }
+
+  if (data.selected) {
+    todoStore.update(data.selected.id, {
+      ...data.selected,
+      content: data.content
+    })
+  } else {
+    todoStore.addNew(content, data.daily && data.currentDate.isToday() ? data.currentDate : null)
+  }
+
+  data.content = ''
+  data.selected = null
 }
 
 function edit(todo) {
@@ -67,7 +76,7 @@ function edit(todo) {
 
 </script>
 <template>
-  <div class="flex flex-col h-full ">
+  <div class="flex flex-col h-full">
     <swiper-container class="min-h-0 flex-grow"
       loop="true"
       @swiperslidechange="handleSlideChange">
@@ -84,7 +93,7 @@ function edit(todo) {
             class="group flex-grow paper swiper-no-swiping">
             <Todo v-for="todo in todoStore.get(date)"
               v-show="!todo.deleted_at"
-              class="py-3 first:pt-7.5"
+              class="py-3 first:pt-7.5 w-full"
               :key="todo.id"
               :todo="todo"
               @edit="edit"
@@ -96,18 +105,33 @@ function edit(todo) {
     </swiper-container>
 
     <div class="relative flex flex-row items-end bg-secondary">
+      <Transition name="fade"
+        tag="div">
+        <div v-if="data.content.trim() != '' && data.currentDate.isToday()"
+          class="absolute right-2 -top-10 z-10 bg-secondary shadow-md
+        rounded-md flex flex-row text-pen text-xs">
+          <button type="button"
+            @click="data.daily = true"
+            class="relative px-4 py-2 rounded-r-md font-medium transition-colors"
+            :class="{ 'bg-info text-white': data.daily }">روزانه</button>
+
+          <button type="button"
+            @click="data.daily = false"
+            class="-ml-px relative px-4 py-2 rounded-l-md font-medium transition-colors"
+            :class="{ 'bg-info text-white': !data.daily }">اجباری</button>
+        </div>
+      </Transition>
+
       <AppTextArea v-model="data.content"
         class="w-full h-auto p-3 font-light min-h-12"
         placeholder="کار من"
         @keyup.enter="save" />
+
       <button class="flex items-center justify-center w-14 h-12 select-none"
-        @contextmenu.prevent="console.log('here')"
         @click="save">
         <ArrowUpwardIcon class="text-2xl font-thin text-mute" />
       </button>
     </div>
-
-    <div class="absolute w-28 left-2 top-0">ثبت کار اجباری</div>
   </div>
 </template>
 
@@ -128,7 +152,6 @@ function edit(todo) {
       animations can be calculated correctly. */
 .fade-leave-active {
   position: absolute;
-  width: 100%;
 }
 
 .paper {
