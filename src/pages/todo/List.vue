@@ -105,8 +105,7 @@ function edit(todo) {
     </swiper-container>
 
     <div class="relative flex flex-row items-end bg-secondary">
-      <Transition name="fade"
-        tag="div">
+      <Transition name="fade">
         <div v-if="data.content.trim() != '' && data.currentDate.isToday()"
           class="absolute right-2 -top-10 z-10 bg-secondary shadow-md
         rounded-md flex flex-row text-pen text-xs">
