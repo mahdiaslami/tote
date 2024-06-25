@@ -180,9 +180,10 @@ function edit(todo) {
 </template>
 
 <style>
+.fade-move,
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s cubic-bezier(0.55, 0, 0.1, 1);
+  transition: all 0.5s cubic-bezier(0.55, 0, 0.1, 1);
 }
 
 .fade-enter-from,
