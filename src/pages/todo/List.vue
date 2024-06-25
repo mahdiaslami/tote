@@ -50,10 +50,9 @@ function handleSlideChange(ev) {
 function handleSlideChangeTransitionEnd(ev) {
   if (gotoTodayRunning) {
     back()
-    data.gotoTodayVisiable = false
-  } else {
-    data.gotoTodayVisiable = !data.currentDate.isToday()
   }
+
+  data.gotoTodayVisiable = !data.currentDate.isToday()
 }
 
 function handleGotoToday() {
