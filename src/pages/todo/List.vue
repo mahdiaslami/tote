@@ -5,9 +5,11 @@ import Todo from '@/components/PannableTodo.vue'
 import Header from '@/components/Header.vue'
 import { PersianDate } from '@/class/persiandate.js'
 import { useTodoStore } from '@/store/todo.js'
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 
 const todoStore = useTodoStore()
+
+const swiperContainer = ref(null)
 
 const data = reactive({
   content: '',
@@ -21,7 +23,11 @@ const data = reactive({
     newDate(1),
     newDate(-1),
   ],
+
+  gotoTodayVisiable: false,
 })
+
+let gotoTodayRunning = false
 
 function handleSlideChange(ev) {
   const [swiper] = ev.detail
@@ -39,6 +45,32 @@ function handleSlideChange(ev) {
   temp = data.currentDate.duplicate()
   temp.move(-1)
   data.dates[prev] = temp
+}
+
+function handleSlideChangeTransitionEnd(ev) {
+  if (gotoTodayRunning) {
+    back()
+    data.gotoTodayVisiable = false
+  } else {
+    data.gotoTodayVisiable = !data.currentDate.isToday()
+  }
+}
+
+function handleGotoToday() {
+  gotoTodayRunning = true
+  back()
+}
+
+function back() {
+  let distance = data.currentDate.distanceToToday()
+
+  if (distance > 0) {
+    swiperContainer.value.swiper.slideNext(300 / distance)
+  } else if ('shorter', distance < 0) {
+    swiperContainer.value.swiper.slidePrev(-300 / distance)
+  } else {
+    gotoTodayRunning = false
+  }
 }
 
 
@@ -77,9 +109,11 @@ function edit(todo) {
 </script>
 <template>
   <div class="flex flex-col h-full">
-    <swiper-container class="min-h-0 flex-grow"
+    <swiper-container ref="swiperContainer"
+      class="min-h-0 flex-grow"
       loop="true"
-      @swiperslidechange="handleSlideChange">
+      @swiperslidechange="handleSlideChange"
+      @swiperslidechangetransitionend="handleSlideChangeTransitionEnd">
       <swiper-slide class="h-full"
         v-for="(date, dindex) in data.dates"
         :key="dindex"
@@ -104,7 +138,7 @@ function edit(todo) {
       </swiper-slide>
     </swiper-container>
 
-    <div class="relative flex flex-row items-end bg-secondary">
+    <div class="relative flex flex-row items-end bg-secondary min-w-0 overflow-x-clip">
       <Transition name="fade">
         <div v-if="data.content.trim() != '' && data.currentDate.isToday()"
           class="absolute right-2 -top-10 z-10 bg-secondary shadow-md
@@ -118,6 +152,17 @@ function edit(todo) {
             @click="data.daily = false"
             class="-ml-px relative px-4 py-2 rounded-l-md font-medium transition-colors"
             :class="{ 'bg-info text-white': !data.daily }">اجباری</button>
+        </div>
+      </Transition>
+
+      <Transition name="left-slide">
+        <div v-if="data.gotoTodayVisiable"
+          class="absolute left-0 -top-10 z-10 shadow-md
+        rounded-r-full flex flex-row text-pen text-xs">
+          <button type="button"
+            @click="handleGotoToday"
+            class="relative px-4 py-2 rounded-r-full font-medium transition-colors
+              bg-info text-white">بازگشت به روز جاری</button>
         </div>
       </Transition>
 
@@ -135,21 +180,31 @@ function edit(todo) {
 </template>
 
 <style>
-/* 1. declare transition */
 .fade-enter-active,
 .fade-leave-active {
-  transition: all 0.5s cubic-bezier(0.55, 0, 0.1, 1);
+  transition: opacity 0.5s cubic-bezier(0.55, 0, 0.1, 1);
 }
 
-/* 2. declare enter from and leave to state */
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
 }
 
-/* 3. ensure leaving items are taken out of layout flow so that moving
-      animations can be calculated correctly. */
 .fade-leave-active {
+  position: absolute;
+}
+
+.left-slide-enter-active,
+.left-slide-leave-active {
+  transition: transform 0.5s cubic-bezier(0.55, 0, 0.1, 1);
+}
+
+.left-slide-enter-from,
+.left-slide-leave-to {
+  transform: translateX(-100%);
+}
+
+.left-slide-leave-active {
   position: absolute;
 }
 
