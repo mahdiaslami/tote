@@ -1,12 +1,9 @@
 <script setup>
-import Todo from '@/components/PannableTodo.vue'
 import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
+import TodoList from './components/TodoList.vue'
 import { PersianDate } from '@/class/persiandate.js'
-import { useTodoStore } from '@/store/todo.js'
 import { reactive, ref } from 'vue'
-
-const todoStore = useTodoStore()
 
 const swiperContainer = ref(null)
 
@@ -76,11 +73,6 @@ function newDate(value) {
   return date
 }
 
-
-function edit(todo) {
-  data.selected = { ...todo }
-}
-
 </script>
 <template>
   <div class="flex flex-col h-full">
@@ -97,18 +89,9 @@ function edit(todo) {
           <Header class="sticky top-0 left-0 z-10 w-full"
             :date="date" />
 
-          <TransitionGroup name="fade"
-            tag="div"
-            class="group flex-grow paper swiper-no-swiping">
-            <Todo v-for="todo in todoStore.get(date)"
-              v-show="!todo.deleted_at"
-              class="py-3 first:pt-7.5 w-full"
-              :key="todo.id"
-              :todo="todo"
-              @edit="edit"
-              @delete="todoStore.remove(todo.id)"
-              @click="todoStore.toggleCompleted(todo.id)" />
-          </TransitionGroup>
+          <TodoList class="flex-grow swiper-no-swiping"
+            :date="date"
+            @select="(todo) => data.selected = { ...todo }" />
         </div>
       </swiper-slide>
     </swiper-container>
@@ -131,14 +114,3 @@ function edit(todo) {
 
   </div>
 </template>
-
-<style>
-.paper {
-  background:
-    linear-gradient(#00000000, #00000000 23px, rgb(var(--color-line)) 24px, rgb(var(--color-line)) 24px, #00000000 25px) center top / calc(100% - 64px) 24px repeat-y,
-    linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.75)),
-    url("@/assets/pattern.png") left top repeat,
-    linear-gradient(to bottom left, rgb(var(--color-info) / 0.3), rgb(var(--color-primary) / 0.8)),
-    linear-gradient(to bottom right, rgb(var(--color-success) / 0.3), rgb(var(--color-primary) / 0.8));
-}
-</style>
