@@ -108,7 +108,7 @@ function newDate(value) {
       <Transition name="left-slide">
         <div
           v-if="data.gotoTodayVisiable"
-          class="absolute left-0 z-10 flex flex-row text-xs rounded-r-full shadow-md -top-10 text-pen"
+          class="absolute left-0 z-10 flex flex-row text-xs rounded-r-full shadow-md -top-28 text-pen"
         >
           <button
             type="button"
