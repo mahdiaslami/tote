@@ -33,7 +33,7 @@ const emit = defineEmits(['click'])
     <p
       dir="auto"
       class="flex-grow min-w-0 text-right break-words text-dark-500"
-      :class="[todo.completed_at ? 'line-through text-mute' : 'text-pen']"
+      :class="{'line-through': todo.completed_at}"
     >
       {{ todo.content }}
     </p>
