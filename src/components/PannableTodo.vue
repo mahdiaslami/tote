@@ -2,6 +2,8 @@
 import { nextTick, onMounted, reactive, ref } from 'vue'
 import Hammer from 'hammerjs'
 import SimpleTodo from './SimpleTodo.vue'
+import IconPencil from '@/components/icons/IconPencil.vue'
+import IconTrash from '@/components/icons/IconTrash.vue'
 
 const props = defineProps({
   todo: {
@@ -77,26 +79,26 @@ onMounted(() => {
 
 <template>
   <div>
-    <div class="relative">
-      <div class="absolute top-0 right-0 h-full overflow-hidden"
-        :style="{ width: `${data.deltaX < 0 ? Math.abs(data.deltaX) : 0}px` }">
-        <img class="object-contain h-full pr-6"
-          :class="{ 'animate-wiggle': data.wiggle }"
-          src="@/assets/pencil.png">
-      </div>
+    <div class="relative rounded-lg bg-dark-900">
+      <IconPencil
+        class="absolute top-0 object-contain h-full overflow-hidden right-4 max-w-6 stroke-info"
+        :class="{ 'animate-wiggle': data.wiggle }"
+        :style="{ width: `${data.deltaX < 0 ? Math.abs(data.deltaX) : 0}px` }"
+      />
 
-      <div class="absolute top-0 left-0 h-full overflow-hidden"
-        :style="{ width: `${data.deltaX > 0 ? data.deltaX : 0}px` }">
-        <img class="object-contain h-full pl-6"
-          :class="{ 'animate-wiggle': data.wiggle }"
-          src="@/assets/bin.png">
-      </div>
+      <IconTrash
+        class="absolute top-0 object-contain h-full overflow-hidden left-4 stroke-danger max-w-6"
+        :class="{ 'animate-wiggle': data.wiggle }"
+        :style="{ width: `${data.deltaX > 0 ? data.deltaX : 0}px` }"
+      />
 
-      <SimpleTodo ref="simpleTodo"
+      <SimpleTodo
+        ref="simpleTodo"
         :class="{ 'transition-transform duration-100': transition.value }"
         :style="{ transform: `translate(${data.deltaX}px)` }"
         :todo="todo"
-        @click="emit('click', todo)" />
+        @click="emit('click', todo)"
+      />
     </div>
   </div>
 </template>
