@@ -19,7 +19,15 @@ export default {
         danger: 'rgb(var(--color-danger) / <alpha-value>)',
         line: 'rgb(var(--color-line) / <alpha-value>)',
         mute: 'rgb(var(--color-pen-secondary) / <alpha-value>)',
-        pen: 'rgb(var(--color-pen-primary) / <alpha-value>)'
+        pen: 'rgb(var(--color-pen-primary) / <alpha-value>)',
+
+        dark: {
+          900: '#191E26',
+          800: '#222831',
+          700: '#2E3540',
+          600: '#485363',
+          500: '#5F6C7F'
+        }
       },
 
       keyframes: {

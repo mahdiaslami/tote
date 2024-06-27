@@ -79,15 +79,15 @@ onMounted(() => {
 
 <template>
   <div>
-    <div class="relative">
+    <div class="relative rounded-lg bg-dark-900">
       <IconPencil
-        class="absolute top-0 right-0 object-contain h-full overflow-hidden max-w-6"
+        class="absolute top-0 object-contain h-full overflow-hidden right-4 max-w-6 stroke-info"
         :class="{ 'animate-wiggle': data.wiggle }"
         :style="{ width: `${data.deltaX < 0 ? Math.abs(data.deltaX) : 0}px` }"
       />
 
       <IconTrash
-        class="absolute top-0 left-0 object-contain h-full overflow-hidden max-w-6"
+        class="absolute top-0 object-contain h-full overflow-hidden left-4 stroke-danger max-w-6"
         :class="{ 'animate-wiggle': data.wiggle }"
         :style="{ width: `${data.deltaX > 0 ? data.deltaX : 0}px` }"
       />

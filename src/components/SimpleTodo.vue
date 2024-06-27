@@ -16,17 +16,23 @@ const emit = defineEmits(['click'])
 <template>
   <div
     ref="container"
-    class="flex flex-row items-start"
+    class="flex flex-row items-start p-5 rounded-lg bg-dark-700"
     @click.prevent="emit('click', todo)"
   >
-    <div class="ml-2">
-      <IconCheck v-if="todo.completed_at" />
-      <IconCircle v-else />
+    <div class="ml-5">
+      <IconCheck
+        v-if="todo.completed_at"
+        class="stroke-dark-500"
+      />
+      <IconCircle
+        v-else
+        class="stroke-dark-500"
+      />
     </div>
 
     <p
       dir="auto"
-      class="flex-grow min-w-0 font-light text-right break-words"
+      class="flex-grow min-w-0 text-right break-words text-dark-500"
       :class="[todo.completed_at ? 'line-through text-mute' : 'text-pen']"
     >
       {{ todo.content }}

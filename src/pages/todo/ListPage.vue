@@ -76,41 +76,55 @@ function newDate(value) {
 </script>
 <template>
   <div class="flex flex-col h-full">
-    <swiper-container ref="swiperContainer"
-      class="min-h-0 flex-grow"
+    <swiper-container
+      ref="swiperContainer"
+      class="flex-grow min-h-0"
       loop="true"
       @swiperslidechange="handleSlideChange"
-      @swiperslidechangetransitionend="handleSlideChangeTransitionEnd">
-      <swiper-slide class="h-full"
+      @swiperslidechangetransitionend="handleSlideChangeTransitionEnd"
+    >
+      <swiper-slide
         v-for="(date, dindex) in data.dates"
         :key="dindex"
-        :data-index="dindex">
-        <div class="flex flex-col relative h-full overflow-y-auto overflow-x-hidden border-r">
-          <Header class="sticky top-0 left-0 z-10 w-full"
-            :date="date" />
-
-          <TodoList class="flex-grow swiper-no-swiping"
+        class="h-full"
+        :data-index="dindex"
+      >
+        <div class="relative flex flex-col h-full overflow-x-hidden overflow-y-auto">
+          <Header
+            class="sticky top-0 left-0 z-10 w-full"
             :date="date"
-            @select="(todo) => data.selected = { ...todo }" />
+          />
+
+          <TodoList
+            class="flex-grow swiper-no-swiping"
+            :date="date"
+            @select="(todo) => data.selected = { ...todo }"
+          />
         </div>
       </swiper-slide>
     </swiper-container>
 
     <div class="relative h-0 min-w-0 overflow-x-clip">
       <Transition name="left-slide">
-        <div v-if="data.gotoTodayVisiable"
-          class="absolute left-0 -top-10 z-10 shadow-md rounded-r-full flex flex-row text-pen text-xs">
-          <button type="button"
+        <div
+          v-if="data.gotoTodayVisiable"
+          class="absolute left-0 z-10 flex flex-row text-xs rounded-r-full shadow-md -top-10 text-pen"
+        >
+          <button
+            type="button"
+            class="relative px-4 py-2 font-medium text-white transition-colors rounded-r-full bg-info"
             @click="handleGotoToday"
-            class="relative px-4 py-2 rounded-r-full font-medium transition-colors
-              bg-info text-white">بازگشت به روز جاری</button>
+          >
+            بازگشت به روز جاری
+          </button>
         </div>
       </Transition>
     </div>
 
-    <Footer v-model:id="data.selected.id"
+    <Footer
+      v-model:id="data.selected.id"
       v-model:content="data.selected.content"
-      :date="data.currentDate" />
-
+      :date="data.currentDate"
+    />
   </div>
 </template>
