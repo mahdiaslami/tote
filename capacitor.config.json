@@ -2,5 +2,6 @@
   "appId": "ir.rezero.tote",
   "appName": "Tote",
   "webDir": "dist",
-  "bundledWebRuntime": false
+  "bundledWebRuntime": false,
+  "backgroundColor":"#ffffff"
 }
