@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import CloudOffIcon from '@/components/icons/CloudOffIcon.vue'
 import { PersianDate } from '@/class/persiandate.js';
 

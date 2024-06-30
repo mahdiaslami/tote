@@ -1,16 +1,16 @@
-<script setup>
+<script setup lang="ts">
 import ArrowUpwardIcon from '@/components/icons/ArrowUpwardIcon.vue'
 import AppTextArea from '@/components/TextArea.vue'
-import { useTodoStore } from '@/store/todo.js'
+import { useTodoStore } from '@/store/todo'
 import { PersianDate } from '@/class/persiandate.js'
-import { reactive } from 'vue';
+import { reactive, type ModelRef } from 'vue';
 
 const todoStore = useTodoStore()
 
-const props = defineProps({ date: { type: PersianDate } })
+const props = defineProps<{ date: PersianDate }>()
 
-const id = defineModel('id')
-const content = defineModel('content')
+const id = defineModel<string | null>('id', { required: true })
+const content = defineModel<string>('content', { required: true })
 
 const data = reactive({
   daily: false
@@ -24,9 +24,7 @@ function save() {
   }
 
   if (id.value) {
-    todoStore.update(id.value, {
-      content: trimedContent
-    })
+    todoStore.update(id.value, trimedContent)
   } else {
     todoStore.addNew(trimedContent, data.daily || !props.date.isToday() ? props.date : null)
   }

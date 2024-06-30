@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { nextTick, onMounted, reactive, ref } from 'vue'
 import Hammer from 'hammerjs'
 import SimpleTodo from './SimpleTodo.vue'
@@ -12,7 +12,7 @@ const props = defineProps({
 
 const emit = defineEmits(['edit', 'delete', 'click'])
 
-const simpleTodo = ref(null)
+const simpleTodo = ref<InstanceType<typeof SimpleTodo> | null>(null)
 
 const data = reactive({
   deltaX: 0,
@@ -33,7 +33,11 @@ const transition = reactive({
 })
 
 onMounted(() => {
-  const hammer = new Hammer(simpleTodo.value.$refs.container)
+  if (simpleTodo.value === null) {
+    throw new Error("simple todo should not be null");
+  }
+
+  const hammer = new Hammer(simpleTodo.value.$refs.container as HTMLElement)
 
   hammer.on('panright panleft panup pandown', (ev) => {
     transition.disable()
@@ -62,7 +66,7 @@ onMounted(() => {
     transition.enable()
   })
 
-  function guessEventName(deltaX) {
+  function guessEventName(deltaX: number): 'edit' | 'delete' | null {
     if (deltaX > 56) {
       return 'delete'
     } else if (deltaX < -56) {

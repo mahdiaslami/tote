@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { useTodoStore } from '@/store/todo.js'
 import Todo from '@/components/PannableTodo.vue'
 
@@ -20,7 +20,6 @@ defineProps({
     tag="div"
     class="paper">
     <Todo v-for="todo in todoStore.get(date)"
-      v-show="!todo.deleted_at"
       class="first:pt-7.5 py-3 w-full"
       :key="todo.id"
       :todo="todo"
