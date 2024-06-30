@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import TickIcon from '@/components/icons/TickIcon.vue'
 import FiberManualRecordIcon from './icons/FiberManualRecordIcon.vue';
 

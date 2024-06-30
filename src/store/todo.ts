@@ -4,11 +4,22 @@ import { migrate } from "@/migrations";
 
 migrate()
 
-const store = reactive({
-    todos: JSON.parse(localStorage.getItem('v1/todos')) ?? [],
+type TodoType = 'daily' | 'mandatory'
 
-    get(date = null) {
-        const dateGroup = this._getDateGroup(date)
+type Todo = {
+    id: string,
+    completed_at: number | null,
+    content: string,
+    type: TodoType,
+    date_group: string | null,
+}
+
+
+const store = reactive({
+    todos: [] as Todo[],
+
+    get(date: Date | null) {
+        const dateGroup = this._getDateGroup(date ?? new Date())
         const isToday = dateGroup == this._todayGroup()
 
         return this.todos.filter((t) => {
@@ -30,14 +41,14 @@ const store = reactive({
         return this._getDateGroup(new Date())
     },
 
-    _getDateGroup(date) {
-        const options = { numberingSystem: 'latn', year: "numeric", month: "2-digit", day: "2-digit" }
+    _getDateGroup(date: Date) {
+        const options = { numberingSystem: 'latn', year: "numeric", month: "2-digit", day: "2-digit" } as Intl.DateTimeFormatOptions
         const group = date.toLocaleDateString('fa-IR', options)
 
         return group
     },
 
-    addNew(content, date = null) {
+    addNew(content: string, date: Date | null = null) {
         this.todos.push({
             id: uuidv4(),
             completed_at: null,
@@ -48,12 +59,12 @@ const store = reactive({
         })
     },
 
-    update(id, todo) {
+    update(id: string, content: string) {
         const index = this.todos.findIndex((a) => a.id == id)
-        this.todos[index] = { ...this.todos[index], ...todo }
+        this.todos[index] = { ...this.todos[index], content }
     },
 
-    remove(id) {
+    remove(id: string) {
         const index = this.todos.findIndex((a) => a.id == id)
         this.todos.splice(index, 1)
     },
@@ -62,7 +73,7 @@ const store = reactive({
         this.todos = []
     },
 
-    toggleCompleted(id) {
+    toggleCompleted(id: string) {
         const index = this.todos.findIndex((a) => a.id == id)
         const todo = this.todos[index]
         todo.completed_at = todo.completed_at ? null : Date.now()
@@ -80,6 +91,9 @@ const store = reactive({
 
 })
 
+const temp = localStorage.getItem('v1/todos')
+store.todos = temp ? JSON.parse(temp) : []
+
 watch(
     store.todos,
     (value) => localStorage.setItem('v1/todos', JSON.stringify(value)),
@@ -95,7 +109,7 @@ if (!localStorage.getItem('v1/setting/first-open')) {
     store.addNew('اگر لازم شد کاری رو ویرایش کنی اونو به سمت راست هلش بده')
     store.addNew('برای حذف کار هم به سمت چپ حلش بده')
 
-    localStorage.setItem('v1/setting/first-open', 1)
+    localStorage.setItem('v1/setting/first-open', '1')
 }
 
 export function useTodoStore() {

@@ -1,11 +1,11 @@
-<script setup>
+<script setup lang="ts">
 import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
 import TodoList from './components/TodoList.vue'
 import { PersianDate } from '@/class/persiandate.js'
 import { reactive, ref } from 'vue'
 
-const swiperContainer = ref(null)
+const swiperContainer = ref<any | null>(null)
 
 const data = reactive({
   currentDate: newDate(0),
@@ -22,7 +22,7 @@ const data = reactive({
 
 let gotoTodayRunning = false
 
-function handleSlideChange(ev) {
+function handleSlideChange(ev: any) {
   const [swiper] = ev.detail
 
   const cur = swiper.realIndex
@@ -40,7 +40,7 @@ function handleSlideChange(ev) {
   data.dates[prev] = temp
 }
 
-function handleSlideChangeTransitionEnd(ev) {
+function handleSlideChangeTransitionEnd(ev: any) {
   if (gotoTodayRunning) {
     back()
   }
@@ -57,16 +57,16 @@ function back() {
   let distance = data.currentDate.distanceToToday()
 
   if (distance > 0) {
-    swiperContainer.value.swiper.slideNext(150 / distance)
-  } else if ('shorter', distance < 0) {
-    swiperContainer.value.swiper.slidePrev(-150 / distance)
+    swiperContainer.value?.swiper.slideNext(150 / distance)
+  } else if (distance < 0) {
+    swiperContainer.value?.swiper.slidePrev(-150 / distance)
   } else {
     gotoTodayRunning = false
   }
 }
 
 
-function newDate(value) {
+function newDate(value: number) {
   const date = new PersianDate()
   date.move(value)
 
