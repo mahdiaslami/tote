@@ -8,12 +8,11 @@ import router from '@/router'
 
 import '@/assets/index.css'
 
+StatusBar.setStyle({ style: Style.Light })
+StatusBar.setBackgroundColor({ color: '#ffffff' })
 register();
 
 createApp(App)
   .use(createPinia())
   .use(router)
   .mount('#app')
-
-StatusBar.setStyle({ style: Style.Light })
-StatusBar.setBackgroundColor({ color: '#ffffff' })
