@@ -81,15 +81,17 @@ function newDate(value: number) {
       loop="true"
       @swiperslidechange="handleSlideChange"
       @swiperslidechangetransitionend="handleSlideChangeTransitionEnd">
-      <swiper-slide class="h-full"
+
+      <swiper-slide class="flex flex-col h-full border-r"
         v-for="(date, dindex) in data.dates"
         :key="dindex"
         :data-index="dindex">
-        <div class="flex flex-col relative h-full overflow-y-auto overflow-x-hidden border-r">
-          <Header class="sticky top-0 left-0 z-10 w-full"
-            :date="date" />
 
-          <TodoList class="flex-grow swiper-no-swiping"
+        <Header class="w-full z-10"
+          :date="date" />
+
+        <div class="flex-grow overflow-y-auto overflow-x-hidden">
+          <TodoList class="min-h-full swiper-no-swiping pb-10"
             :date="date"
             @select="(todo) => data.selected = { ...todo }" />
         </div>
