@@ -15,7 +15,7 @@ type Todo = {
 }
 
 
-const store = reactive({
+const todoStore = reactive({
     todos: [] as Todo[],
 
     get(date: Date | null) {
@@ -92,26 +92,26 @@ const store = reactive({
 })
 
 const temp = localStorage.getItem('v1/todos')
-store.todos = temp ? JSON.parse(temp) : []
+todoStore.todos = temp ? JSON.parse(temp) : []
 
 watch(
-    store.todos,
+    todoStore.todos,
     (value) => localStorage.setItem('v1/todos', JSON.stringify(value)),
     { immediate: true }
 )
 
 if (!localStorage.getItem('v1/setting/first-open')) {
-    store.truncate()
+    todoStore.truncate()
 
-    store.addNew('سلام رفیق! من یک برنامه خیلی کوچولو برای مدیریت کار هام')
-    store.addNew('هر وقت کاری خواستی اضافه کنی از پایین صفحه جایی که نوشته «کار من» می تونی اضافه کنی')
-    store.addNew('وقتی کاری رو تموم کردی روی تیک سمت راستش ضربه بزن تا یک خط روش بکشم')
-    store.addNew('اگر لازم شد کاری رو ویرایش کنی اونو به سمت راست هلش بده')
-    store.addNew('برای حذف کار هم به سمت چپ حلش بده')
+    todoStore.addNew('سلام رفیق! من یک برنامه خیلی کوچولو برای مدیریت کار هام')
+    todoStore.addNew('هر وقت کاری خواستی اضافه کنی از پایین صفحه جایی که نوشته «کار من» می تونی اضافه کنی')
+    todoStore.addNew('وقتی کاری رو تموم کردی روی تیک سمت راستش ضربه بزن تا یک خط روش بکشم')
+    todoStore.addNew('اگر لازم شد کاری رو ویرایش کنی اونو به سمت راست هلش بده')
+    todoStore.addNew('برای حذف کار هم به سمت چپ حلش بده')
 
     localStorage.setItem('v1/setting/first-open', '1')
 }
 
 export function useTodoStore() {
-    return store
+    return todoStore
 }
