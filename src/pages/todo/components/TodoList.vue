@@ -44,7 +44,6 @@ function handleBeforeLeave(el: any) {
     linear-gradient(to bottom left, rgb(var(--color-info) / 0.3), rgb(var(--color-primary) / 0.8)),
     linear-gradient(to bottom right, rgb(var(--color-success) / 0.3), rgb(var(--color-primary) / 0.8));
   background-attachment: local, local, local, local, local;
-  background-position: top left;
 }
 
 .fade-collapse-enter-active,

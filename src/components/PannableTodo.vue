@@ -81,7 +81,7 @@ onMounted(() => {
 
 <template>
   <div>
-    <div class="relative">
+    <div class="relative overflow-hidden">
       <div class="absolute top-0 right-0 h-full overflow-hidden"
         :style="{ width: `${data.deltaX < 0 ? Math.abs(data.deltaX) : 0}px` }">
         <img class="object-contain h-full pr-6"
