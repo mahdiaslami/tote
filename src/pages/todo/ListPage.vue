@@ -90,11 +90,9 @@ function newDate(value: number) {
         <Header class="w-full z-10"
           :date="date" />
 
-        <div class="flex-grow overflow-y-auto overflow-x-hidden">
-          <TodoList class="min-h-full swiper-no-swiping pb-10"
-            :date="date"
-            @select="(todo) => data.selected = { ...todo }" />
-        </div>
+        <TodoList class="flex-grow swiper-no-swiping overflow-y-auto overflow-x-hidden"
+          :date="date"
+          @select="(todo) => data.selected = { ...todo }" />
       </swiper-slide>
     </swiper-container>
 

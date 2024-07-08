@@ -24,9 +24,9 @@ function handleBeforeLeave(el: any) {
   <TransitionGroup name="fade-collapse"
     @before-leave="handleBeforeLeave"
     tag="div"
-    class="paper">
+    class="paper pt-4.5 pb-9">
     <Todo v-for="todo in todoStore.get(date)"
-      class="first:pt-7.5 py-3 w-full"
+      class="py-3 w-full"
       :key="todo.id"
       :todo="todo"
       @edit="emit('select', todo)"
@@ -43,6 +43,8 @@ function handleBeforeLeave(el: any) {
     url("@/assets/pattern.png") left top repeat,
     linear-gradient(to bottom left, rgb(var(--color-info) / 0.3), rgb(var(--color-primary) / 0.8)),
     linear-gradient(to bottom right, rgb(var(--color-success) / 0.3), rgb(var(--color-primary) / 0.8));
+  background-attachment: local, local, local, local, local;
+  background-position: top left;
 }
 
 .fade-collapse-enter-active,
