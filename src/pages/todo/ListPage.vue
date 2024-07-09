@@ -8,8 +8,11 @@ import { reactive, ref } from 'vue'
 const swiperContainer = ref<any | null>(null)
 
 const data = reactive({
-  currentDate: PersianDate.create(),
   selected: { id: null, content: '' },
+})
+
+const calendar = reactive({
+  current: PersianDate.create(),
 
   dates: [
     PersianDate.create(),
@@ -20,7 +23,7 @@ const data = reactive({
 
 function handleSlideChange(ev: any) {
   const [swiper] = ev.detail
-  data.currentDate = data.dates[swiper.realIndex]
+  calendar.current = calendar.dates[swiper.realIndex]
 }
 
 function handleSlideChangeTransitionEnd(ev: any) {
@@ -30,23 +33,23 @@ function handleSlideChangeTransitionEnd(ev: any) {
   const next = (cur + 1) % 3
   const prev = (cur + 2) % 3
 
-  data.dates[next] = data.currentDate.duplicate().addDay()
-  data.dates[prev] = data.currentDate.duplicate().subDay()
+  calendar.dates[next] = calendar.current.duplicate().addDay()
+  calendar.dates[prev] = calendar.current.duplicate().subDay()
 }
 
 function handleGotoToday() {
-  let distance = data.currentDate.distanceInDay(new Date())
+  let distance = calendar.current.distanceInDay(new Date())
   const swiper = swiperContainer.value?.swiper
   const cur = swiper.realIndex
 
   if (distance > 0) {
     const next = (cur + 1) % 3
-    data.dates[next] = PersianDate.create()
+    calendar.dates[next] = PersianDate.create()
 
     swiper.slideNext()
   } else if (distance < 0) {
     const prev = (cur + 2) % 3
-    data.dates[prev] = PersianDate.create()
+    calendar.dates[prev] = PersianDate.create()
 
     swiper.slidePrev()
   }
@@ -62,7 +65,7 @@ function handleGotoToday() {
       @swiperslidechangetransitionend="handleSlideChangeTransitionEnd">
 
       <swiper-slide class="flex flex-col h-full border-r"
-        v-for="(date, dindex) in data.dates"
+        v-for="(date, dindex) in calendar.dates"
         :key="dindex"
         :data-index="dindex">
 
@@ -77,7 +80,7 @@ function handleGotoToday() {
 
     <div class="relative h-0 min-w-0 overflow-x-clip">
       <Transition name="left-slide">
-        <div v-if="!data.currentDate.isToday()"
+        <div v-if="!calendar.current.isToday()"
           class="absolute left-0 -top-10 z-10 shadow-md rounded-r-full flex flex-row text-pen text-xs">
           <button type="button"
             @click="handleGotoToday"
@@ -89,7 +92,7 @@ function handleGotoToday() {
 
     <Footer v-model:id="data.selected.id"
       v-model:content="data.selected.content"
-      :date="data.currentDate" />
+      :date="calendar.current" />
 
   </div>
 </template>
