@@ -20,12 +20,16 @@ const data = reactive({
 
 function handleSlideChange(ev: any) {
   const [swiper] = ev.detail
+  data.currentDate = data.dates[swiper.realIndex]
+}
+
+function handleSlideChangeTransitionEnd(ev: any) {
+  const [swiper] = ev.detail
 
   const cur = swiper.realIndex
   const next = (cur + 1) % 3
   const prev = (cur + 2) % 3
 
-  data.currentDate = data.dates[cur]
   data.dates[next] = data.currentDate.duplicate().addDay()
   data.dates[prev] = data.currentDate.duplicate().subDay()
 }
@@ -33,16 +37,17 @@ function handleSlideChange(ev: any) {
 function handleGotoToday() {
   let distance = data.currentDate.distanceInDay(new Date())
   const swiper = swiperContainer.value?.swiper
-
   const cur = swiper.realIndex
-  const next = (cur + 1) % 3
-  const prev = (cur + 2) % 3
 
   if (distance > 0) {
+    const next = (cur + 1) % 3
     data.dates[next] = PersianDate.create()
+
     swiper.slideNext()
   } else if (distance < 0) {
+    const prev = (cur + 2) % 3
     data.dates[prev] = PersianDate.create()
+
     swiper.slidePrev()
   }
 }
@@ -53,7 +58,8 @@ function handleGotoToday() {
     <swiper-container ref="swiperContainer"
       class="min-h-0 flex-grow"
       loop="true"
-      @swiperslidechange="handleSlideChange">
+      @swiperslidechange="handleSlideChange"
+      @swiperslidechangetransitionend="handleSlideChangeTransitionEnd">
 
       <swiper-slide class="flex flex-col h-full border-r"
         v-for="(date, dindex) in data.dates"
