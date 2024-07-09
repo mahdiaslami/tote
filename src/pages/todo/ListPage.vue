@@ -16,11 +16,7 @@ const data = reactive({
     newDate(1),
     newDate(-1),
   ],
-
-  gotoTodayVisiable: false,
 })
-
-let gotoTodayRunning = false
 
 function handleSlideChange(ev: any) {
   const [swiper] = ev.detail
@@ -40,31 +36,21 @@ function handleSlideChange(ev: any) {
   data.dates[prev] = temp
 }
 
-function handleSlideChangeTransitionEnd(ev: any) {
-  if (gotoTodayRunning) {
-    back()
-  }
-
-  data.gotoTodayVisiable = !data.currentDate.isToday()
-}
-
 function handleGotoToday() {
-  gotoTodayRunning = true
-  back()
-}
-
-function back() {
   let distance = data.currentDate.distanceToToday()
 
+  const cur = swiperContainer.value?.swiper.realIndex
+  const next = (cur + 1) % 3
+  const prev = (cur + 2) % 3
+
   if (distance > 0) {
-    swiperContainer.value?.swiper.slideNext(150 / distance)
+    data.dates[next] = newDate(0)
+    swiperContainer.value?.swiper.slideNext()
   } else if (distance < 0) {
-    swiperContainer.value?.swiper.slidePrev(-150 / distance)
-  } else {
-    gotoTodayRunning = false
+    data.dates[prev] = newDate(0)
+    swiperContainer.value?.swiper.slidePrev()
   }
 }
-
 
 function newDate(value: number) {
   const date = new PersianDate()
@@ -79,8 +65,7 @@ function newDate(value: number) {
     <swiper-container ref="swiperContainer"
       class="min-h-0 flex-grow"
       loop="true"
-      @swiperslidechange="handleSlideChange"
-      @swiperslidechangetransitionend="handleSlideChangeTransitionEnd">
+      @swiperslidechange="handleSlideChange">
 
       <swiper-slide class="flex flex-col h-full border-r"
         v-for="(date, dindex) in data.dates"
@@ -98,7 +83,7 @@ function newDate(value: number) {
 
     <div class="relative h-0 min-w-0 overflow-x-clip">
       <Transition name="left-slide">
-        <div v-if="data.gotoTodayVisiable"
+        <div v-if="!data.currentDate.isToday()"
           class="absolute left-0 -top-10 z-10 shadow-md rounded-r-full flex flex-row text-pen text-xs">
           <button type="button"
             @click="handleGotoToday"
