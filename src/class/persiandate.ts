@@ -36,17 +36,28 @@ export class PersianDate extends Date {
         return this.toDateString() == (new Date()).toDateString()
     }
 
-    // TODO: find better name for this
-    distanceToToday(): number {
+    distanceInDay(date: Date): number {
         const cur = this.duplicate().setHours(0, 0, 0, 0)
-        const today = (new Date()).setHours(0, 0, 0, 0)
+        const today = date.setHours(0, 0, 0, 0)
 
         return (today - cur) / 86400000
     }
 
-    // TODO: rename it to add
-    move(value: number) {
+    static create() {
+        return new PersianDate()
+    }
+
+    addDay(): this {
+        return this.addDays(1)
+    }
+
+    subDay(): this {
+        return this.addDays(-1)
+    }
+
+    addDays(value: number): this {
         this.setDate(this.getDate() + value)
+        return this
     }
 
     duplicate() {

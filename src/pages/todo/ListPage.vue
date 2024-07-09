@@ -8,13 +8,13 @@ import { reactive, ref } from 'vue'
 const swiperContainer = ref<any | null>(null)
 
 const data = reactive({
-  currentDate: newDate(0),
+  currentDate: PersianDate.create(),
   selected: { id: null, content: '' },
 
   dates: [
-    newDate(0),
-    newDate(1),
-    newDate(-1),
+    PersianDate.create(),
+    PersianDate.create().addDay(),
+    PersianDate.create().subDay(),
   ],
 })
 
@@ -26,40 +26,28 @@ function handleSlideChange(ev: any) {
   const prev = (cur + 2) % 3
 
   data.currentDate = data.dates[cur]
-
-  let temp = data.currentDate.duplicate()
-  temp.move(1)
-  data.dates[next] = temp
-
-  temp = data.currentDate.duplicate()
-  temp.move(-1)
-  data.dates[prev] = temp
+  data.dates[next] = data.currentDate.duplicate().addDay()
+  data.dates[prev] = data.currentDate.duplicate().subDay()
 }
 
 function handleGotoToday() {
-  let distance = data.currentDate.distanceToToday()
+  let distance = data.currentDate.distanceInDay(new Date())
+  const swiper = swiperContainer.value?.swiper
 
-  const cur = swiperContainer.value?.swiper.realIndex
+  const cur = swiper.realIndex
   const next = (cur + 1) % 3
   const prev = (cur + 2) % 3
 
   if (distance > 0) {
-    data.dates[next] = newDate(0)
-    swiperContainer.value?.swiper.slideNext()
+    data.dates[next] = PersianDate.create()
+    swiper.slideNext()
   } else if (distance < 0) {
-    data.dates[prev] = newDate(0)
-    swiperContainer.value?.swiper.slidePrev()
+    data.dates[prev] = PersianDate.create()
+    swiper.slidePrev()
   }
 }
-
-function newDate(value: number) {
-  const date = new PersianDate()
-  date.move(value)
-
-  return date
-}
-
 </script>
+
 <template>
   <div class="flex flex-col h-full">
     <swiper-container ref="swiperContainer"
