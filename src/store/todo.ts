@@ -4,9 +4,9 @@ import { migrate } from "@/migrations";
 
 migrate()
 
-type TodoType = 'daily' | 'mandatory'
+export type TodoType = 'daily' | 'mandatory'
 
-type Todo = {
+export type Todo = {
     id: string,
     completed_at: number | null,
     content: string,

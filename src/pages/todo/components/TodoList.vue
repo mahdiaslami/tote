@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useTodoStore } from '@/store/todo'
 import Todo from '@/components/PannableTodo.vue'
-import { ref } from 'vue';
 
 const todoStore = useTodoStore()
 
