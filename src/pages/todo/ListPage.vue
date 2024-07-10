@@ -101,8 +101,10 @@ function handleGotoToday() {
           :date="date" />
 
         <TodoList class="flex-grow swiper-no-swiping overflow-y-auto overflow-x-hidden"
-          :date="date"
-          @select="handleSelect" />
+          :list="todoStore.get(date)"
+          @edit="handleSelect"
+          @delete="(todo) => todoStore.remove(todo.id)"
+          @click="(todo) => todoStore.toggleCompleted(todo.id)" />
       </swiper-slide>
     </swiper-container>
 

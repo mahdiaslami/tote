@@ -1,17 +1,12 @@
 <script setup lang="ts">
-import { useTodoStore } from '@/store/todo'
-import Todo from '@/components/PannableTodo.vue'
+import { type Todo } from '@/store/todo'
+import PannableTodo from '@/components/PannableTodo.vue'
 
-const todoStore = useTodoStore()
+const emit = defineEmits(['edit', 'delete', 'click'])
 
-const emit = defineEmits(['select'])
-
-defineProps({
-  date: {
-    type: Date,
-    required: true
-  }
-})
+defineProps<{
+  list: Todo[],
+}>()
 
 function handleBeforeLeave(el: any) {
   el.style.height = `${el.clientHeight}px`
@@ -24,13 +19,13 @@ function handleBeforeLeave(el: any) {
     @before-leave="handleBeforeLeave"
     tag="div"
     class="paper pt-4.5 pb-9">
-    <Todo v-for="todo in todoStore.get(date)"
+    <PannableTodo v-for="todo in list"
       class="py-3 w-full"
       :key="todo.id"
       :todo="todo"
-      @edit="emit('select', todo)"
-      @delete="todoStore.remove(todo.id)"
-      @click="todoStore.toggleCompleted(todo.id)" />
+      @edit="emit('edit', todo)"
+      @delete="emit('delete', todo)"
+      @click="emit('click', todo)" />
   </TransitionGroup>
 </template>
 
