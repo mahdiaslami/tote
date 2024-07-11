@@ -120,19 +120,28 @@ function handleGotoToday() {
       </Transition>
 
       <Transition name="fade">
-        <div v-if="data.content.trim() != '' && calendar.current.isToday()"
-          class="absolute right-2 -top-10 z-10 bg-secondary shadow-md
-          rounded-md flex flex-row text-pen text-xs">
+        <div v-if="data.content.trim() != ''"
+          class="absolute left-1/2 -translate-x-1/2 -top-10 z-10 bg-secondary shadow-md
+          rounded-md flex flex-row text-pen text-xs p-1 w-11/12">
 
           <button type="button"
             @click="data.type = 'daily'"
-            class="relative px-4 py-2 rounded-r-md font-medium transition-colors"
+            class="relative px-4 py-2 rounded-md font-medium transition-colors"
             :class="{ 'bg-info text-white': data.type === 'daily' }">روزانه</button>
 
           <button type="button"
             @click="data.type = 'mandatory'"
-            class="-ml-px relative px-4 py-2 rounded-l-md font-medium transition-colors"
+            class="-ml-px relative px-4 py-2 rounded-md font-medium transition-colors"
             :class="{ 'bg-info text-white': data.type === 'mandatory' }">اجباری</button>
+
+          <div class="flex-grow text-lg border-r border-gray-200 px-2 flex flex-row-reverse
+            justify-between">
+            <button v-for="emoji in ['✨', '😍', '🤔', '😊', '😬', '⏰', '🚀', '🎯', '🚨']"
+              class="active:opacity-30 transition-opacity"
+              @click="data.content += emoji">
+              {{ emoji }}
+            </button>
+          </div>
         </div>
       </Transition>
     </div>
