@@ -4,7 +4,8 @@ import Footer from './components/Footer.vue'
 import TodoList from './components/TodoList.vue'
 import { PersianDate } from '@/class/persiandate.js'
 import { reactive, ref } from 'vue'
-import { useTodoStore, type TodoType, type Todo } from '@/store/todo'
+import { useTodoStore } from '@/store/todo'
+import type { Todo, TodoType } from '@/types'
 
 const todoStore = useTodoStore()
 const swiperContainer = ref<any | null>(null)

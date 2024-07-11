@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type Todo } from '@/store/todo'
+import type { Todo } from '@/types'
 import PannableTodo from '@/components/PannableTodo.vue'
 
 const emit = defineEmits(['edit', 'delete', 'click'])
