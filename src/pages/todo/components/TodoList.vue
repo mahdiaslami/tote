@@ -53,8 +53,4 @@ function handleBeforeLeave(el: any) {
   height: 0 !important;
   padding: 0 !important;
 }
-
-.fade-collapse-leave-active {
-  position: relative;
-}
 </style>

@@ -108,42 +108,44 @@ function handleGotoToday() {
       </swiper-slide>
     </swiper-container>
 
-    <div class="relative h-0 min-w-0 overflow-x-clip">
-      <Transition name="left-slide">
-        <div v-if="!calendar.current.isToday()"
-          class="absolute left-0 -top-10 z-10 shadow-md rounded-r-full flex flex-row text-pen text-xs">
-          <button type="button"
-            @click="handleGotoToday"
-            class="relative px-4 py-2 rounded-r-full font-medium transition-colors
-              bg-info text-white">بازگشت به روز جاری</button>
-        </div>
-      </Transition>
-
-      <Transition name="fade">
-        <div v-if="data.content.trim() != ''"
-          class="absolute left-1/2 -translate-x-1/2 -top-10 z-10 bg-secondary shadow-md
-          rounded-md flex flex-row text-pen text-xs p-1 w-11/12">
-
-          <button type="button"
-            @click="data.type = 'daily'"
-            class="relative px-4 py-2 rounded-md font-medium transition-colors"
-            :class="{ 'bg-info text-white': data.type === 'daily' }">روزانه</button>
-
-          <button type="button"
-            @click="data.type = 'mandatory'"
-            class="-ml-px relative px-4 py-2 rounded-md font-medium transition-colors"
-            :class="{ 'bg-info text-white': data.type === 'mandatory' }">اجباری</button>
-
-          <div class="flex-grow text-lg border-r border-gray-200 px-2 flex flex-row-reverse
-            justify-between">
-            <button v-for="emoji in ['✨', '😍', '🤔', '😊', '😬', '⏰', '🚀', '🎯', '🚨']"
-              class="active:opacity-30 transition-opacity"
-              @click="data.content += emoji">
-              {{ emoji }}
-            </button>
+    <div class="relative h-0 overflow-x-clip">
+      <div class="absolute bottom-0 w-full min-w-0 flex flex-col">
+        <Transition name="left-slide">
+          <div v-if="!calendar.current.isToday()"
+            class="z-10 self-end w-fit shadow-md rounded-r-full text-pen text-xs mb-2 transition-all">
+            <button type="button"
+              @click="handleGotoToday"
+              class="px-4 py-2 rounded-r-full font-medium bg-info text-white">بازگشت به روز جاری</button>
           </div>
-        </div>
-      </Transition>
+        </Transition>
+
+        <Transition name="fade-then-collapse"
+          :duration="650">
+          <div v-if="data.content.trim() != ''"
+            class="self-center z-10 bg-secondary shadow-md rounded-md flex 
+            flex-row text-pen text-xs p-1 w-11/12 h-10">
+
+            <button type="button"
+              @click="data.type = 'daily'"
+              class="px-4 py-2 rounded-md font-medium transition-colors"
+              :class="{ 'bg-info text-white': data.type === 'daily' }">روزانه</button>
+
+            <button type="button"
+              @click="data.type = 'mandatory'"
+              class="px-4 py-2 rounded-md font-medium transition-colors"
+              :class="{ 'bg-info text-white': data.type === 'mandatory' }">اجباری</button>
+
+            <div class="flex-grow text-lg border-r border-gray-200 px-2 flex flex-row-reverse
+            justify-between">
+              <button v-for="emoji in ['✨', '😍', '🤔', '😊', '😬', '⏰', '🚀', '🎯', '🚨']"
+                class="active:opacity-30 transition-opacity"
+                @click="data.content += emoji">
+                {{ emoji }}
+              </button>
+            </div>
+          </div>
+        </Transition>
+      </div>
     </div>
 
     <Footer v-model:content="data.content"
@@ -151,3 +153,36 @@ function handleGotoToday() {
 
   </div>
 </template>
+
+<style>
+.left-slide-enter-active,
+.left-slide-leave-active {
+  transition: transform 0.5s cubic-bezier(0.55, 0, 0.1, 1);
+}
+
+.left-slide-enter-from,
+.left-slide-leave-to {
+  transform: translateX(-100%);
+}
+
+.fade-then-collapse-enter-active {
+  transition-property: opacity, height, padding;
+  transition-duration: 500ms, 150ms, 150ms;
+  transition-delay: 150ms, 0ms, 0ms;
+  transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
+}
+
+.fade-then-collapse-leave-active {
+  transition-property: opacity, height, padding;
+  transition-duration: 500ms, 150ms, 150ms;
+  transition-delay: 0ms, 500ms, 500ms;
+  transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
+}
+
+.fade-then-collapse-enter-from,
+.fade-then-collapse-leave-to {
+  opacity: 0 !important;
+  height: 0 !important;
+  padding: 0 !important;
+}
+</style>
