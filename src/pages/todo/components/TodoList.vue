@@ -4,9 +4,10 @@ import PannableTodo from '@/components/PannableTodo.vue'
 
 const emit = defineEmits(['edit', 'delete', 'click'])
 
-defineProps<{
+withDefaults(defineProps<{
   list: Todo[],
-}>()
+  animate: boolean,
+}>(), { animate: true })
 
 function handleBeforeLeave(el: any) {
   el.style.height = `${el.clientHeight}px`
@@ -16,6 +17,7 @@ function handleBeforeLeave(el: any) {
 
 <template>
   <TransitionGroup name="fade-collapse"
+    :duration="animate ? 500 : 1"
     @before-leave="handleBeforeLeave"
     tag="div"
     class="paper pt-4.5 pb-9">
