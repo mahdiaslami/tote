@@ -5,7 +5,7 @@ import TodoList from './components/TodoList.vue'
 import { PersianDate } from '@/class/persiandate.js'
 import { reactive, ref } from 'vue'
 import { useTodoStore } from '@/store/todo'
-import type { Todo, TodoType } from '@/types'
+import type { Todo, Schedule } from '@/types'
 
 const todoStore = useTodoStore()
 const swiperContainer = ref<any | null>(null)
@@ -13,7 +13,7 @@ const swiperContainer = ref<any | null>(null)
 const data = reactive({
   id: null as string | null,
   content: '',
-  type: 'daily' as TodoType
+  type: 'daily' as Schedule
 })
 
 const calendar = reactive({
