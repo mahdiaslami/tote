@@ -52,6 +52,9 @@ function handleSelect(todo: Todo) {
 function handleSlideChange(ev: any) {
   const [swiper] = ev.detail
   calendar.current = calendar.dates[swiper.realIndex]
+  if (!calendar.current.isToday()) {
+    data.type = 'daily'
+  }
 }
 
 function handleSlideChangeTransitionEnd(ev: any) {
@@ -125,15 +128,19 @@ function handleGotoToday() {
             class="self-center z-10 bg-secondary shadow-md rounded-md flex 
             flex-row text-pen text-xs p-1 w-11/12 h-10">
 
-            <button type="button"
-              @click="data.type = 'daily'"
-              class="px-4 py-2 rounded-md font-medium transition-colors"
-              :class="{ 'bg-info text-white': data.type === 'daily' }">روزانه</button>
+            <div class="transition-opacity"
+              :class="{ 'opacity-50': !calendar.current.isToday() }">
+              <button type="button"
+                @click="data.type = 'daily'"
+                class="px-4 py-2 rounded-md font-medium transition-colors"
+                :class="{ 'bg-info text-white': data.type === 'daily' }">روزانه</button>
 
-            <button type="button"
-              @click="data.type = 'mandatory'"
-              class="px-4 py-2 rounded-md font-medium transition-colors"
-              :class="{ 'bg-info text-white': data.type === 'mandatory' }">اجباری</button>
+              <button type="button"
+                @click="data.type = 'mandatory'"
+                :disabled="!calendar.current.isToday()"
+                class="px-4 py-2 rounded-md font-medium transition-colors"
+                :class="{ 'bg-info text-white': data.type === 'mandatory' }">اجباری</button>
+            </div>
 
             <div class="flex-grow text-lg border-r border-gray-200 px-2 flex flex-row-reverse
             justify-between">
