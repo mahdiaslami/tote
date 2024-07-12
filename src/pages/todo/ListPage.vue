@@ -2,6 +2,7 @@
 import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
 import TodoList from './components/TodoList.vue'
+import Modal from '@/components/Modal.vue'
 import { PersianDate } from '@/class/persiandate.js'
 import { reactive, ref } from 'vue'
 import { useTodoStore } from '@/store/todo'
@@ -14,6 +15,16 @@ const data = reactive({
   id: null as string | null,
   content: '',
   type: 'daily' as Schedule
+})
+
+const deleteModal = reactive({
+  visiable: false,
+  todo: null as Todo | null,
+
+  clear() {
+    this.visiable = false
+    this.todo = null
+  }
 })
 
 const calendar = reactive({
@@ -50,6 +61,11 @@ function handleSelect(todo: Todo) {
   data.id = todo.id
   data.content = todo.content
   data.type = todo.type
+}
+
+function handleDelete(todo: Todo) {
+  deleteModal.visiable = true
+  deleteModal.todo = todo
 }
 
 function handleSlideChange(ev: any) {
@@ -110,7 +126,7 @@ function handleGotoToday() {
           :animate="!swiperContainer?.swiper.animating"
           :list="todoStore.get(date)"
           @edit="handleSelect"
-          @delete="(todo) => todoStore.remove(todo.id)"
+          @delete="handleDelete"
           @click="(todo) => todoStore.toggleCompleted(todo.id)" />
       </swiper-slide>
     </swiper-container>
@@ -146,6 +162,7 @@ function handleGotoToday() {
                 :class="{ 'bg-info text-white': data.type === 'mandatory' }">اجباری</button>
             </div>
 
+            <!-- TODO: add border-gray-200 to palette -->
             <div class="flex-grow text-base border-r border-gray-200 flex flex-row-reverse
             justify-around">
               <button v-for="emoji in ['✨', '😍', '🤔', '😊', '😬', '⏰', '🚀', '🎯', '🚨']"
@@ -162,6 +179,27 @@ function handleGotoToday() {
     <Footer v-model:content="data.content"
       @save="handleSave" />
 
+    <Modal v-model="deleteModal.visiable"
+      :cancelable="true"
+      class="p-4 font-light">
+
+      <h2 class="text-lg mb-1">حذف کار</h2>
+      <p class="mb-6">مطمئنی میخوای حذف کنی؟</p>
+
+      <div class="flex flex-row -mx-0.5">
+        <!-- TODO: add bg-gray-50 and etc to palette -->
+        <button class="p-2 w-full bg-gray-50 active:bg-gray-100
+          rounded-xl mx-1 transition-colors"
+          @click="deleteModal.clear()">نه</button>
+
+        <button class="p-2 w-full text-danger active:bg-gray-50
+          rounded-xl mx-1 transition-colors"
+          @click="() => {
+            todoStore.remove(deleteModal.todo!.id)
+            deleteModal.clear()
+          }">آره</button>
+      </div>
+    </Modal>
   </div>
 </template>
 
