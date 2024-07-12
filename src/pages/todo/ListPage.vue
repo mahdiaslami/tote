@@ -14,7 +14,13 @@ const swiperContainer = ref<any | null>(null)
 const data = reactive({
   id: null as string | null,
   content: '',
-  type: 'daily' as Schedule
+  type: 'daily' as Schedule,
+
+  clear() {
+    this.id = null
+    this.content = ''
+    this.type = 'daily'
+  }
 })
 
 const deleteModal = reactive({
@@ -53,8 +59,7 @@ function handleSave() {
     todoStore.addNew(trimedContent, date)
   }
 
-  data.content = ''
-  data.id = null
+  data.clear()
 }
 
 function handleSelect(todo: Todo) {
@@ -89,6 +94,8 @@ function handleSlideChangeTransitionEnd(ev: any) {
 
   calendar.dates[next] = calendar.current.duplicate().addDay()
   calendar.dates[prev] = calendar.current.duplicate().subDay()
+
+  data.clear()
 }
 
 function handleGotoToday() {
