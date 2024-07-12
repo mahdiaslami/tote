@@ -9,7 +9,8 @@ import router from '@/router'
 import '@/assets/index.css'
 
 StatusBar.setStyle({ style: Style.Light })
-StatusBar.setBackgroundColor({ color: '#ffffff' })
+StatusBar.setOverlaysWebView({ overlay: true });
+
 register();
 
 createApp(App)

@@ -10,6 +10,15 @@ defineOptions({
 
 const model = defineModel<boolean>({ default: false })
 
+// TODO(ios): As the ios doesn't have transparent status bar we have to change it mannually
+// watch(model, () => {
+//   if (model.value) {
+//     StatusBar.setBackgroundColor({ color: '#f2f2f2' })
+//   } else {
+//     StatusBar.setBackgroundColor({ color: '#ffffff' })
+//   }
+// })
+
 </script>
 
 <template>
