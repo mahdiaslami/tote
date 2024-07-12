@@ -165,7 +165,7 @@ function handleGotoToday() {
             <!-- TODO: add border-gray-200 to palette -->
             <div class="flex-grow text-base border-r border-gray-200 flex flex-row-reverse
             justify-around">
-              <button v-for="emoji in ['✨', '😍', '🤔', '😊', '😬', '⏰', '🚀', '🎯', '🚨']"
+              <button v-for="emoji in ['✨', '😍', '🤔', '😬', '⏰', '🚀', '🚨']"
                 class="active:opacity-30 transition-opacity"
                 @click="data.content += emoji">
                 {{ emoji }}
