@@ -146,8 +146,8 @@ function handleGotoToday() {
                 :class="{ 'bg-info text-white': data.type === 'mandatory' }">اجباری</button>
             </div>
 
-            <div class="flex-grow text-lg border-r border-gray-200 px-2 flex flex-row-reverse
-            justify-between">
+            <div class="flex-grow text-base border-r border-gray-200 flex flex-row-reverse
+            justify-around">
               <button v-for="emoji in ['✨', '😍', '🤔', '😊', '😬', '⏰', '🚀', '🎯', '🚨']"
                 class="active:opacity-30 transition-opacity"
                 @click="data.content += emoji">
