@@ -65,9 +65,9 @@ onMounted(() => {
   })
 
   function guessEventName(deltaX: number): 'edit' | 'delete' | null {
-    if (deltaX > 56) {
+    if (deltaX > 48) {
       return 'delete'
-    } else if (deltaX < -56) {
+    } else if (deltaX < -48) {
       return 'edit'
     }
 
