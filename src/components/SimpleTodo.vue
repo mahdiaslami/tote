@@ -28,7 +28,7 @@ function textColor() {
     class="flex flex-row items-start"
     @click.prevent="emit('click', todo)">
 
-    <div class="h-6 pr-1 pl-3">
+    <div class="h-6 pr-2 pl-2">
       <TickIcon v-if="todo.completed_at"
         class="text-success -mt-1" />
       <FiberManualRecordIcon v-else
