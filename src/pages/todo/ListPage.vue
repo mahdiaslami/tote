@@ -33,11 +33,13 @@ function handleSave() {
     return
   }
 
+  const date = data.type === 'daily' || !calendar.current.isToday()
+    ? calendar.current : null
+
   if (data.id !== null) {
-    todoStore.update(data.id, trimedContent)
+    todoStore.update(data.id, trimedContent, date)
   } else {
-    todoStore.addNew(trimedContent, data.type === 'daily' || !calendar.current.isToday()
-      ? calendar.current : null)
+    todoStore.addNew(trimedContent, date)
   }
 
   data.content = ''

@@ -49,9 +49,16 @@ const todoStore = reactive({
         })
     },
 
-    update(id: string, content: string) {
+    update(id: string, content: string, date: Date | null = null) {
         const index = this.todos.findIndex((a) => a.id == id)
-        this.todos[index] = { ...this.todos[index], content }
+        const todo = this.todos[index]
+        this.todos[index] = {
+            id: todo.id,
+            completed_at: null,
+            content,
+            type: date ? 'daily' : 'mandatory',
+            date_group: date && this._getDateGroup(date),
+        } as Todo
     },
 
     remove(id: string) {
