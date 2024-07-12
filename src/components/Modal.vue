@@ -24,7 +24,8 @@ const model = defineModel<boolean>({ default: false })
 <template>
   <Teleport to="body">
     <!-- TODO: should i add bg-black/5 to palette -->
-    <Transition name="modal">
+    <Transition name="modal"
+      :duration="500">
       <div v-if="model"
         class="fixed top-0 h-full w-full z-10 bg-black/5"
         @click="model = !cancelable">
@@ -41,13 +42,19 @@ const model = defineModel<boolean>({ default: false })
 </template>
 
 <style>
-.modal-enter-active,
 .modal-leave-active,
-.modal-leave-active>div,
+.modal-leave-active>div {
+  transition-property: opacity, bottom;
+  transition-duration: 500ms, 350ms;
+  transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
+}
+
+.modal-enter-active,
 .modal-enter-active>div {
   /* TODO: use variable for all ease function animations */
   transition-property: opacity, bottom;
-  transition-duration: 300ms;
+  transition-duration: 500ms;
+  transition-delay: 0s, 150ms;
   transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
 }
 
@@ -58,6 +65,7 @@ const model = defineModel<boolean>({ default: false })
 
 .modal-enter-from>div,
 .modal-leave-to>div {
-  bottom: 0px !important;
+  opacity: 0;
+  bottom: -100px !important;
 }
 </style>
