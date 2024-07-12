@@ -64,6 +64,10 @@ function handleSelect(todo: Todo) {
 }
 
 function handleDelete(todo: Todo) {
+  if (todo.id == data.id) {
+    return
+  }
+
   deleteModal.visiable = true
   deleteModal.todo = todo
 }
