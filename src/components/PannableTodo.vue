@@ -2,13 +2,11 @@
 import { nextTick, onMounted, reactive, ref } from 'vue'
 import Hammer from 'hammerjs'
 import SimpleTodo from './SimpleTodo.vue'
+import type { Todo } from '@/types';
 
-const props = defineProps({
-  todo: {
-    type: Object,
-    required: true
-  }
-})
+const props = defineProps<{
+  todo: Todo
+}>()
 
 const emit = defineEmits(['edit', 'delete', 'click'])
 
