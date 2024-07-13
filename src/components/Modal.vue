@@ -19,15 +19,16 @@ const model = defineModel<boolean>({ default: false })
 //   }
 // })
 
+// Change duration and backdrop color
 </script>
 
 <template>
   <Teleport to="body">
     <!-- TODO: should i add bg-black/5 to palette -->
     <Transition name="modal"
-      :duration="500">
+      :duration="400">
       <div v-if="model"
-        class="fixed top-0 h-full w-full z-10 bg-black/5"
+        class="fixed top-0 h-full w-full z-10 bg-black/10"
         @click="model = !cancelable">
 
         <div class="bg-secondary w-11/12 absolute bottom-4 left-1/2 -translate-x-1/2
@@ -45,7 +46,7 @@ const model = defineModel<boolean>({ default: false })
 .modal-leave-active,
 .modal-leave-active>div {
   transition-property: opacity, bottom;
-  transition-duration: 500ms, 350ms;
+  transition-duration: 400ms, 350ms;
   transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
 }
 
@@ -53,8 +54,7 @@ const model = defineModel<boolean>({ default: false })
 .modal-enter-active>div {
   /* TODO: use variable for all ease function animations */
   transition-property: opacity, bottom;
-  transition-duration: 500ms;
-  transition-delay: 0s, 150ms;
+  transition-duration: 400ms;
   transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
 }
 
