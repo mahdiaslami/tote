@@ -1,5 +1,11 @@
 {
   "appId": "ir.rezero.tote",
   "appName": "Tote",
-  "webDir": "dist"
+  "webDir": "dist",
+  "plugins": {
+    "Keyboard": {
+      "resize": "body",
+      "resizeOnFullScreen": true
+    }
+  }
 }
