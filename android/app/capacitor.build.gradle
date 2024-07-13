@@ -10,6 +10,7 @@ android {
 apply from: "../capacitor-cordova-android-plugins/cordova.variables.gradle"
 dependencies {
     implementation project(':aashu-dubey-capacitor-statusbar-safe-area')
+    implementation project(':capacitor-keyboard')
     implementation project(':capacitor-status-bar')
 
 }
