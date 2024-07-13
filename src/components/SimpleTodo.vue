@@ -11,7 +11,11 @@ const emit = defineEmits(['click'])
 
 function textColor() {
   if (props.todo.type == 'mandatory') {
-    return 'text-info font-medium'
+    if (props.todo.completed_at) {
+      return 'text-force/30'
+    } else {
+      return 'text-force'
+    }
   }
 
   if (props.todo.completed_at) {
@@ -32,7 +36,7 @@ function textColor() {
       <TickIcon v-if="todo.completed_at"
         class="text-success -mt-1" />
       <FiberManualRecordIcon v-else
-        :class="[todo.type == 'daily' ? 'text-mute' : 'text-info/70']" />
+        :class="[todo.type == 'daily' ? 'text-mute' : 'text-danger/30']" />
     </div>
 
     <p dir="auto"

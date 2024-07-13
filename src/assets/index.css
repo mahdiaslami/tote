@@ -15,8 +15,10 @@
         --color-success: 5 150 105;
         /* #7f7fff */
         --color-info: 127 127 255;
+        /* #e14c4c */
+        --color-force: 225 76 76;
         /* #ff4c4c */
-        --color-danger: 255	76 76;
+        --color-danger: 255 76 76;
         /* #262626 */
         --color-pen-primary: 38 38 38;
         /* #94a3b8 */
