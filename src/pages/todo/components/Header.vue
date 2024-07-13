@@ -1,7 +1,11 @@
 <script setup lang="ts">
-import CloudOffIcon from '@/components/icons/CloudOffIcon.vue'
+import { SafeArea } from '@aashu-dubey/capacitor-statusbar-safe-area';
 import { PersianDate } from '@/class/persiandate.js';
+import { ref } from 'vue';
 
+const statusBarHeight = ref(0);
+SafeArea.getStatusBarHeight()
+    .then(({ height }) => statusBarHeight.value = height)
 
 defineProps({
     date: {
@@ -13,8 +17,9 @@ defineProps({
 </script>
 
 <template>
-    <div class="flex flex-row h-18 bg-secondary border-b"
-        :class="[date.isHoliday() ? 'text-danger border-danger' : 'border-success']">
+    <div class="flex flex-row bg-secondary border-b"
+        :class="[date.isHoliday() ? 'text-danger border-danger' : 'border-success']"
+        :style="{ height: `${72 + statusBarHeight}px` }">
         <div class="text-4xl p-4 w-18 text-center">{{ date.getPersianDate() }}</div>
         <div class="flex flex-col justify-center flex-grow">
             <div class="my-1">{{ date.getPersianWeekday() }}</div>
