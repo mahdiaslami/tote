@@ -8,13 +8,13 @@ const emit = defineEmits(['save'])
 </script>
 
 <template>
-  <div class="relative flex flex-row items-end bg-secondary">
+  <div class="relative flex flex-row items-end bg-secondary border-t border-line">
     <AppTextArea v-model="content"
-      class="w-full h-auto px-3 pt-2.5 pb-3.5 font-light min-h-12 text-lg"
+      class="w-full h-auto px-3 pt-2.5 pb-3.5 font-light min-h-12 text-base"
       placeholder="کار من"
       @keyup.enter="emit('save')" />
 
-    <button class="flex items-center justify-center w-14 h-13 select-none"
+    <button class="flex items-center justify-center w-14 h-12 select-none"
       @click="emit('save')">
       <ArrowUpwardIcon class="text-2xl font-thin text-mute" />
     </button>
