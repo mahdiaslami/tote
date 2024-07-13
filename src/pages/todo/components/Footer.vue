@@ -10,7 +10,7 @@ const emit = defineEmits(['save'])
 <template>
   <div class="relative flex flex-row items-end bg-secondary">
     <AppTextArea v-model="content"
-      class="w-full h-auto p-3 font-light min-h-12 text-lg"
+      class="w-full h-auto px-3 pt-2.5 pb-3.5 font-light min-h-12 text-lg"
       placeholder="کار من"
       @keyup.enter="emit('save')" />
 
