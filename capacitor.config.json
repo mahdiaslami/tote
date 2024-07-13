@@ -1,6 +1,5 @@
 {
   "appId": "ir.rezero.tote",
   "appName": "Tote",
-  "webDir": "dist",
-  "bundledWebRuntime": false
+  "webDir": "dist"
 }
