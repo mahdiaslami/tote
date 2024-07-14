@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch, nextTick } from 'vue'
 
-defineProps({
+const props = defineProps({
   modelValue: {
     type: String,
     default: ''
@@ -15,11 +15,37 @@ defineProps({
 const emit = defineEmits(['update:modelValue', 'keyup'])
 
 const p = ref<HTMLParagraphElement | null>(null)
+const div = ref<HTMLDivElement | null>(null)
+
+watch(
+  () => props.modelValue,
+  () => nextTick(updateHeight)
+)
+
+function getComputedStyle(el: Element, property: string) {
+  return parseInt(window.getComputedStyle(el, null).getPropertyValue(property))
+}
+
+function updateHeight() {
+  if (!p.value || !div.value) {
+    return
+  }
+
+  const pt = getComputedStyle(div.value, 'padding-top')
+  const pb = getComputedStyle(div.value, 'padding-bottom')
+
+  const height = p.value.clientHeight + pt + pb
+
+  if (div.value.clientHeight !== height) {
+    div.value.style.height = `${height}px`
+  }
+}
 
 </script>
 
 <template>
-  <div class="relative min-w-0">
+  <div ref="div"
+    class="relative min-w-0 h-[1em] transition-[height] overflow-y-hidden">
     <span v-show="modelValue.length === 0"
       class="absolute select-none text-mute"
       @click="p?.focus()">{{ placeholder }}</span>
