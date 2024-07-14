@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ArrowUpwardIcon from '@/components/icons/ArrowUpwardIcon.vue'
+import SaveIcon from '@/components/icons/SaveIcon.vue'
 import AppTextArea from '@/components/TextArea.vue'
 
 const content = defineModel<string>('content', { required: true })
@@ -16,7 +16,7 @@ const emit = defineEmits(['save'])
 
     <button class="flex items-center justify-center w-14 h-12 select-none"
       @click="emit('save')">
-      <ArrowUpwardIcon class="h-6 w-6 fill-mute" />
+      <SaveIcon class="h-7 w-7 fill-mute" />
     </button>
   </div>
 </template>
