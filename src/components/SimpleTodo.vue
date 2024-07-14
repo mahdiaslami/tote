@@ -34,9 +34,10 @@ function textColor() {
 
     <div class="h-6 pr-2 pl-2">
       <TickIcon v-if="todo.completed_at"
-        class="text-success -mt-1" />
+        class="fill-success -mt-1 h-7 w-7" />
       <FiberManualRecordIcon v-else
-        :class="[todo.type == 'daily' ? 'text-mute' : 'text-danger/30']" />
+        class="h-7 w-7"
+        :class="[todo.type == 'daily' ? 'fill-mute' : 'fill-danger/30']" />
     </div>
 
     <p dir="auto"

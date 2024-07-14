@@ -16,7 +16,7 @@ const emit = defineEmits(['save'])
 
     <button class="flex items-center justify-center w-14 h-12 select-none"
       @click="emit('save')">
-      <ArrowUpwardIcon class="text-2xl font-thin text-mute" />
+      <ArrowUpwardIcon class="h-6 w-6 fill-mute" />
     </button>
   </div>
 </template>
