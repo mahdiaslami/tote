@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch, nextTick } from 'vue'
+import { ref, watch, nextTick, onMounted } from 'vue'
 
 const props = defineProps({
   modelValue: {
@@ -22,10 +22,6 @@ watch(
   () => nextTick(updateHeight)
 )
 
-function getComputedStyle(el: Element, property: string) {
-  return parseInt(window.getComputedStyle(el, null).getPropertyValue(property))
-}
-
 function updateHeight() {
   if (!p.value || !div.value) {
     return
@@ -41,18 +37,21 @@ function updateHeight() {
   }
 }
 
+function getComputedStyle(el: Element, property: string) {
+  return parseInt(window.getComputedStyle(el, null).getPropertyValue(property))
+}
 </script>
 
 <template>
   <div ref="div"
-    class="relative min-w-0 h-[1em] transition-[height] overflow-y-hidden">
+    class="relative min-w-0 h-12 transition-[height] overflow-y-hidden">
     <span v-show="modelValue.length === 0"
       class="absolute select-none text-mute"
       @click="p?.focus()">{{ placeholder }}</span>
 
     <p ref="p"
       contenteditable="true"
-      class="z-10 px-1 -mx-1 outline-none"
+      class="z-10 px-1 -mx-1 outline-none relative"
       @input="(ev) => emit('update:modelValue', p?.innerText)"
       @keyup="(ev) => emit('keyup', ev)">
       {{ modelValue }}
