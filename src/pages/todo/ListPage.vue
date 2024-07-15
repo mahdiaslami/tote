@@ -158,9 +158,11 @@ function handleGotoToday() {
         <Transition name="fade-then-collapse"
           :duration="650">
           <div v-if="data.emoji"
-            class="bg-secondary border-t border-line py-2 z-10 text-lg flex flex-row-reverse justify-around h-12">
+            class="bg-secondary border-t border-line py-2 z-10 text-lg
+              flex flex-row-reverse justify-around h-12">
             <button v-for="emoji in ['✨', '😍', '🤔', '😬', '⏰', '🚀', '🚨']"
               class="active:opacity-30 transition-opacity"
+              @touchstart="ev => ev.preventDefault()"
               @click="data.content += emoji">
               {{ emoji }}
             </button>
