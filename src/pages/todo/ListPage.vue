@@ -20,7 +20,9 @@ const data = reactive({
     this.id = null
     this.content = ''
     this.type = 'daily'
-  }
+  },
+
+  emoji: false
 })
 
 const deleteModal = reactive({
@@ -42,6 +44,12 @@ const calendar = reactive({
     PersianDate.create().subDay(),
   ],
 })
+
+function toggleType() {
+  if (calendar.current.isToday()) {
+    data.type = (data.type == 'daily') ? 'mandatory' : 'daily'
+  }
+}
 
 function handleSave() {
   const trimedContent = data.content.trim()
@@ -155,31 +163,27 @@ function handleGotoToday() {
 
         <Transition name="fade-then-collapse"
           :duration="650">
-          <div v-if="data.content.trim() != ''"
-            class="self-center z-10 bg-secondary shadow-md rounded-md flex 
-            flex-row text-pen text-xs p-1 w-11/12 h-10">
+          <div v-if="data.emoji"
+            class="bg-secondary border-t border-line py-2 z-10 h-12 flex flex-row">
 
-            <div class="transition-opacity"
-              :class="{ 'opacity-50': !calendar.current.isToday() }">
-              <button type="button"
-                @click="data.type = 'daily'"
-                class="px-4 py-2 rounded-md font-medium transition-colors"
-                :class="{ 'bg-info text-white': data.type === 'daily' }">روزانه</button>
-
-              <button type="button"
-                @click="data.type = 'mandatory'"
-                :disabled="!calendar.current.isToday()"
-                class="px-4 py-2 rounded-md font-medium transition-colors"
-                :class="{ 'bg-info text-white': data.type === 'mandatory' }">اجباری</button>
-            </div>
-
-            <!-- TODO: add border-gray-200 to palette -->
-            <div class="flex-grow text-base border-r border-gray-200 flex flex-row-reverse
-            justify-around">
+            <div class="flex-grow text-lg flex flex-row-reverse justify-around">
               <button v-for="emoji in ['✨', '😍', '🤔', '😬', '⏰', '🚀', '🚨']"
                 class="active:opacity-30 transition-opacity"
-                @click="data.content += emoji">
+                @mousedown.prevent="data.content += emoji"
+                @touchstart.prevent="data.content += emoji">
                 {{ emoji }}
+              </button>
+            </div>
+
+            <div class="border-r border-line px-2">
+              <button class="transition-colors rounded px-2 py-1 font-light"
+                :class="{
+                  'bg-info text-white': data.type == 'mandatory',
+                  'opacity-50': !calendar.current.isToday()
+                }"
+                @mousedown.prevent="toggleType"
+                @touchstart.prevent="toggleType">
+                اجباری
               </button>
             </div>
           </div>
@@ -188,6 +192,7 @@ function handleGotoToday() {
     </div>
 
     <Footer v-model:content="data.content"
+      v-model:emoji="data.emoji"
       @save="handleSave" />
 
     <Modal v-model="deleteModal.visiable"
