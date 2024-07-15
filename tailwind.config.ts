@@ -19,7 +19,6 @@ export default {
         force: 'rgb(var(--color-force) / <alpha-value>)',
         danger: 'rgb(var(--color-danger) / <alpha-value>)',
         line: 'rgb(var(--color-line) / <alpha-value>)',
-        mute: 'rgb(var(--color-pen-secondary) / <alpha-value>)',
         pen: 'rgb(var(--color-pen-primary) / <alpha-value>)'
       },
 

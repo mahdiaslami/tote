@@ -46,7 +46,7 @@ function getComputedStyle(el: Element, property: string) {
   <div ref="div"
     class="relative min-w-0 h-12 transition-[height] overflow-y-hidden">
     <span v-show="modelValue.length === 0"
-      class="absolute select-none text-mute"
+      class="absolute select-none text-pen/40"
       @click="p?.focus()">{{ placeholder }}</span>
 
     <p ref="p"

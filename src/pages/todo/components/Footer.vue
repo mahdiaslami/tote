@@ -20,7 +20,7 @@ function save() {
     <button class="flex items-center justify-center w-14 h-12 select-none"
       @mousedown.prevent="emoji = !emoji"
       @touchstart.prevent="emoji = !emoji">
-      <ContentMenuIcon class="h-7 w-7 fill-mute" />
+      <ContentMenuIcon class="h-7 w-7 fill-pen/40" />
     </button>
 
     <AppTextArea v-model="content"
@@ -30,7 +30,7 @@ function save() {
 
     <button class="flex items-center justify-center w-14 h-12 select-none"
       @click="save">
-      <SaveIcon class="h-7 w-7 fill-mute" />
+      <SaveIcon class="h-7 w-7 fill-pen/40" />
     </button>
   </div>
 </template>

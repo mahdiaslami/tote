@@ -9,22 +9,6 @@ const props = defineProps<{
 
 const emit = defineEmits(['click'])
 
-function textColor() {
-  if (props.todo.type == 'mandatory') {
-    if (props.todo.completed_at) {
-      return 'text-force/30'
-    } else {
-      return 'text-force'
-    }
-  }
-
-  if (props.todo.completed_at) {
-    return 'text-mute'
-  } else {
-    return 'text-pen'
-  }
-}
-
 </script>
 
 <template>
@@ -37,12 +21,16 @@ function textColor() {
         class="fill-success -mt-1 h-7 w-7" />
       <FiberManualRecordIcon v-else
         class="h-7 w-7"
-        :class="[todo.type == 'daily' ? 'fill-mute' : 'fill-danger/30']" />
+        :class="[todo.type == 'daily' ? 'fill-pen/30' : 'fill-danger/30']" />
     </div>
 
     <p dir="auto"
       class="font-light break-words min-w-0"
-      :class="[todo.completed_at ? 'line-through' : '', textColor()]">
+      :class="{
+        'line-through opacity-40': todo.completed_at !== null,
+        'text-pen': props.todo.type == 'daily',
+        'text-danger': props.todo.type == 'mandatory',
+      }">
       {{ todo.content }}
     </p>
 
