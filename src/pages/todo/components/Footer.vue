@@ -8,22 +8,28 @@ const emoji = defineModel<boolean>('emoji')
 
 const emit = defineEmits(['save'])
 
+function save() {
+  emoji.value = false
+  emit('save')
+}
+
 </script>
 
 <template>
   <div class="relative flex flex-row items-end bg-secondary border-t border-line">
     <button class="flex items-center justify-center w-14 h-12 select-none"
-      @click="emoji = !emoji">
+      @mousedown.prevent="emoji = !emoji"
+      @touchstart.prevent="emoji = !emoji">
       <ContentMenuIcon class="h-7 w-7 fill-mute" />
     </button>
 
     <AppTextArea v-model="content"
       class="w-full px-3 pt-2.5 pb-3.5 font-light min-h-12 text-base"
       placeholder="کار من"
-      @keyup.enter="emit('save')" />
+      @keyup.enter="save" />
 
     <button class="flex items-center justify-center w-14 h-12 select-none"
-      @click="emit('save')">
+      @click="save">
       <SaveIcon class="h-7 w-7 fill-mute" />
     </button>
   </div>

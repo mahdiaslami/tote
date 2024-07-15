@@ -19,12 +19,10 @@ const model = defineModel<boolean>({ default: false })
 //   }
 // })
 
-// Change duration and backdrop color
 </script>
 
 <template>
   <Teleport to="body">
-    <!-- TODO: should i add bg-black/5 to palette -->
     <Transition name="modal"
       :duration="400">
       <div v-if="model"

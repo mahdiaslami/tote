@@ -45,6 +45,12 @@ const calendar = reactive({
   ],
 })
 
+function toggleType() {
+  if (calendar.current.isToday()) {
+    data.type = (data.type == 'daily') ? 'mandatory' : 'daily'
+  }
+}
+
 function handleSave() {
   const trimedContent = data.content.trim()
 
@@ -163,8 +169,8 @@ function handleGotoToday() {
             <div class="flex-grow text-lg flex flex-row-reverse justify-around">
               <button v-for="emoji in ['✨', '😍', '🤔', '😬', '⏰', '🚀', '🚨']"
                 class="active:opacity-30 transition-opacity"
+                @mousedown.prevent="data.content += emoji"
                 @touchstart.prevent="data.content += emoji">
-                <!-- touchstart used to prevent losing input focus -->
                 {{ emoji }}
               </button>
             </div>
@@ -175,11 +181,8 @@ function handleGotoToday() {
                   'bg-info text-white': data.type == 'mandatory',
                   'opacity-50': !calendar.current.isToday()
                 }"
-                @touchstart.prevent="() => {
-                  if (calendar.current.isToday())
-                    data.type = data.type == 'daily' ? 'mandatory' : 'daily'
-                }">
-                <!-- touchstart used to prevent losing input focus -->
+                @mousedown.prevent="toggleType"
+                @touchstart.prevent="toggleType">
                 اجباری
               </button>
             </div>
