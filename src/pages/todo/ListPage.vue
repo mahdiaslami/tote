@@ -158,14 +158,31 @@ function handleGotoToday() {
         <Transition name="fade-then-collapse"
           :duration="650">
           <div v-if="data.emoji"
-            class="bg-secondary border-t border-line py-2 z-10 text-lg
-              flex flex-row-reverse justify-around h-12">
-            <button v-for="emoji in ['✨', '😍', '🤔', '😬', '⏰', '🚀', '🚨']"
-              class="active:opacity-30 transition-opacity"
-              @touchstart="ev => ev.preventDefault()"
-              @click="data.content += emoji">
-              {{ emoji }}
-            </button>
+            class="bg-secondary border-t border-line py-2 z-10 h-12 flex flex-row">
+
+            <div class="flex-grow text-lg flex flex-row-reverse justify-around">
+              <button v-for="emoji in ['✨', '😍', '🤔', '😬', '⏰', '🚀', '🚨']"
+                class="active:opacity-30 transition-opacity"
+                @touchstart.prevent="data.content += emoji">
+                <!-- touchstart used to prevent losing input focus -->
+                {{ emoji }}
+              </button>
+            </div>
+
+            <div class="border-r border-line px-2">
+              <button class="transition-colors rounded px-2 py-1 font-light"
+                :class="{
+                  'bg-info text-white': data.type == 'mandatory',
+                  'opacity-50': !calendar.current.isToday()
+                }"
+                @touchstart.prevent="() => {
+                  if (calendar.current.isToday())
+                    data.type = data.type == 'daily' ? 'mandatory' : 'daily'
+                }">
+                <!-- touchstart used to prevent losing input focus -->
+                اجباری
+              </button>
+            </div>
           </div>
         </Transition>
       </div>
