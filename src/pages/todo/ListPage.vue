@@ -164,7 +164,7 @@ function handleGotoToday() {
         <Transition name="fade-then-collapse"
           :duration="650">
           <div v-if="data.emoji"
-            class="bg-secondary border-t border-line py-2 z-10 h-12 flex flex-row">
+            class="bg-secondary border-t border-line py-2 z-10 h-12 flex flex-row overflow-y-hidden">
 
             <div class="flex-grow text-lg flex flex-row-reverse justify-around">
               <button v-for="emoji in ['✨', '😍', '🤔', '😬', '⏰', '🚀', '🚨']"
@@ -231,22 +231,19 @@ function handleGotoToday() {
 }
 
 .fade-then-collapse-enter-active {
-  transition-property: opacity, height, padding;
-  transition-duration: 500ms, 150ms, 150ms;
-  transition-delay: 150ms, 0ms, 0ms;
+  transition-property: height, padding;
+  transition-duration: 300ms, 300ms;
   transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
 }
 
 .fade-then-collapse-leave-active {
-  transition-property: opacity, height, padding;
-  transition-duration: 500ms, 150ms, 150ms;
-  transition-delay: 0ms, 500ms, 500ms;
+  transition-property: height, padding;
+  transition-duration: 300ms, 300ms;
   transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
 }
 
 .fade-then-collapse-enter-from,
 .fade-then-collapse-leave-to {
-  opacity: 0 !important;
   height: 0 !important;
   padding: 0 !important;
 }
