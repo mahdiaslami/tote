@@ -20,7 +20,7 @@ function handleBeforeLeave(el: any) {
     :duration="animate ? 500 : 1"
     @before-leave="handleBeforeLeave"
     tag="div"
-    class="paper pt-4.5 pb-9">
+    class="paper-2 pt-4.5 pb-9">
     <PannableTodo v-for="todo in list"
       class="py-3 w-full"
       :key="todo.id"
@@ -32,14 +32,23 @@ function handleBeforeLeave(el: any) {
 </template>
 
 <style>
-.paper {
+.paper-1 {
   background:
     linear-gradient(#00000000, #00000000 23px, rgb(var(--color-line)) 24px, rgb(var(--color-line)) 24px, #00000000 25px) center top / calc(100% - 64px) 24px repeat-y,
     linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.75)),
-    url("@/assets/pattern.png") left top repeat,
+    url("@/assets/pattern-2.png") left top repeat,
     linear-gradient(to bottom left, rgb(var(--color-info) / 0.3), rgb(var(--color-primary) / 0.8)),
     linear-gradient(to bottom right, rgb(var(--color-success) / 0.3), rgb(var(--color-primary) / 0.8));
   background-attachment: local, local, local, local, local;
+}
+
+.paper-2 {
+
+  background:
+    linear-gradient(#00000000, #00000000 23px, #CDDCFF 24px, #CDDCFF 24px, #00000000 25px) center top / calc(100% - 64px) 24px repeat-y,
+    url("@/assets/pattern-3.png") left top repeat,
+    linear-gradient(135deg, #EBFFFA 0%, #DEF0FF 70%, #F5FAFF 100%);
+  background-attachment: local, local, scroll;
 }
 
 .fade-collapse-enter-active,
