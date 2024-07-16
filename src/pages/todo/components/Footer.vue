@@ -9,7 +9,6 @@ const emoji = defineModel<boolean>('emoji')
 const emit = defineEmits(['save'])
 
 function save() {
-  emoji.value = false
   emit('save')
 }
 
@@ -29,7 +28,8 @@ function save() {
       @keyup.enter="save" />
 
     <button class="flex items-center justify-center w-14 h-12 select-none"
-      @click="save">
+      @touchstart.prevent="save"
+      @mousedown.prevent="save">
       <SaveIcon class="h-7 w-7 fill-pen/40" />
     </button>
   </div>

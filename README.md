@@ -2,6 +2,12 @@
 
 Simple todo progressive web application (PWA). with the ability to categorize todos. it is a serverless application; your todos will save on local storage and todos disappear after clearing the browser cache.
 
+# Development
+
+- In somewhere i used `mousedown` and `touchstart` event instead of click. because,
+I want to prevent changing focus from input to button. the changing focus cause
+closing virtual keyboard in android.
+
 # Android
 
 ## Sign APK file
