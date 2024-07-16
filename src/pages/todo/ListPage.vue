@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
-import TodoList from './components/TodoList.vue'
+import Todos from './components/Todos.vue'
 import Modal from '@/components/Modal.vue'
 import { PersianDate } from '@/class/persiandate.js'
 import { nextTick, reactive, ref } from 'vue'
@@ -168,7 +168,7 @@ function handleGotoToday() {
         <Header class="w-full z-10"
           :date="date" />
 
-        <TodoList class="flex-grow swiper-no-swiping overflow-y-auto overflow-x-hidden"
+        <Todos class="flex-grow swiper-no-swiping overflow-y-auto overflow-x-hidden"
           :animate="!swiperContainer?.swiper.animating"
           :list="todoStore.get(date)"
           @edit="handleSelect"
