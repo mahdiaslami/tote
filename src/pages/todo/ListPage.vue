@@ -4,12 +4,15 @@ import Footer from './components/Footer.vue'
 import TodoList from './components/TodoList.vue'
 import Modal from '@/components/Modal.vue'
 import { PersianDate } from '@/class/persiandate.js'
-import { reactive, ref } from 'vue'
+import { nextTick, reactive, ref } from 'vue'
 import { useTodoStore } from '@/store/todo'
 import type { Todo, Schedule } from '@/types'
 
 const todoStore = useTodoStore()
 const swiperContainer = ref<any | null>(null)
+
+const emojis = ['✨', '😍', '🤔', '😬', '⏰', '🚀', '🚨']
+const emojisRegex = /✨|😍|🤔|😬|⏰|🚀|🚨/g
 
 const data = reactive({
   id: null as string | null,
@@ -48,6 +51,30 @@ const calendar = reactive({
 function toggleType() {
   if (calendar.current.isToday()) {
     data.type = (data.type == 'daily') ? 'mandatory' : 'daily'
+  }
+}
+
+function insertTextAndPreserveCursor(txt: string) {
+  const selection = window.getSelection()
+  if (selection && selection.rangeCount) {
+    let range = selection.getRangeAt(0)
+
+    const prefix = data.content.slice(0, range.startOffset)
+    const suffix = data.content.slice(range.endOffset, data.content.length)
+
+    const container = range.endContainer
+    const cursorOffset = prefix.replace(emojisRegex, 'e').length
+
+    data.content = prefix + txt + suffix
+
+    nextTick(() => {
+      console.log(container, cursorOffset, txt.length);
+      for (let i = 0; i <= cursorOffset; i++) {
+        selection.modify('move', 'forward', 'character')
+      }
+    })
+  } else {
+    data.content += txt
   }
 }
 
@@ -167,10 +194,10 @@ function handleGotoToday() {
             class="bg-secondary border-t border-line py-2 z-10 h-12 flex flex-row overflow-y-hidden">
 
             <div class="flex-grow text-lg flex flex-row-reverse justify-around">
-              <button v-for="emoji in ['✨', '😍', '🤔', '😬', '⏰', '🚀', '🚨']"
+              <button v-for="emoji in emojis"
                 class="active:opacity-30 transition-opacity"
-                @mousedown.prevent="data.content += emoji"
-                @touchstart.prevent="data.content += emoji">
+                @mousedown.prevent="insertTextAndPreserveCursor(emoji)"
+                @touchstart.prevent="insertTextAndPreserveCursor(emoji)">
                 {{ emoji }}
               </button>
             </div>
