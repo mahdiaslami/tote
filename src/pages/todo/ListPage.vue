@@ -13,9 +13,6 @@ const todoStore = useTodoStore()
 const calendar = ref<any | null>(null)
 const todos = ref<any | null>(null)
 
-const emojis = ['✨', '😍', '🤔', '😬', '⏰', '🚀', '🚨']
-const emojisRegex = /✨|😍|🤔|😬|⏰|🚀|🚨/g
-
 const data = reactive({
   id: null as string | null,
   content: '',
@@ -26,8 +23,16 @@ const data = reactive({
     this.content = ''
     this.type = 'daily'
   },
+})
 
-  emoji: false
+const emoji = reactive({
+  list: ['✨', '😍', '🤔', '😬', '⏰', '🚀', '🚨'],
+
+  regex() {
+    return new RegExp(this.list.join('|'), 'g')
+  },
+
+  visiable: false
 })
 
 const deleteModal = reactive({
@@ -60,7 +65,7 @@ function insertTextAndPreserveCursor(txt: string) {
 
     // logically each emoji is 2 or more character, but cursor assume
     // it is one character.
-    const cursorOffset = prefix.replace(emojisRegex, 'e').length
+    const cursorOffset = prefix.replace(emoji.regex(), 'e').length
 
     data.content = prefix + txt + suffix
 
@@ -157,15 +162,15 @@ function handleGotoToday() {
 
         <Transition name="content-menu"
           :duration="300">
-          <div v-if="data.emoji"
+          <div v-if="emoji.visiable"
             class="bg-secondary border-t border-line py-2 z-10 h-12 flex flex-row overflow-y-hidden">
 
             <div class="flex-grow text-lg flex flex-row-reverse justify-around">
-              <button v-for="emoji in emojis"
+              <button v-for="emo in emoji.list"
                 class="active:opacity-30 transition-opacity"
-                @mousedown.prevent="insertTextAndPreserveCursor(emoji)"
-                @touchstart.prevent="insertTextAndPreserveCursor(emoji)">
-                {{ emoji }}
+                @mousedown.prevent="insertTextAndPreserveCursor(emo)"
+                @touchstart.prevent="insertTextAndPreserveCursor(emo)">
+                {{ emo }}
               </button>
             </div>
 
@@ -186,7 +191,7 @@ function handleGotoToday() {
     </div>
 
     <Footer v-model:content="data.content"
-      v-model:emoji="data.emoji"
+      v-model:emoji="emoji.visiable"
       @save="handleSave" />
 
     <Modal v-model="deleteModal.visiable"
