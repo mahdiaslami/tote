@@ -155,8 +155,8 @@ function handleGotoToday() {
           </div>
         </Transition>
 
-        <Transition name="fade-then-collapse"
-          :duration="650">
+        <Transition name="content-menu"
+          :duration="300">
           <div v-if="data.emoji"
             class="bg-secondary border-t border-line py-2 z-10 h-12 flex flex-row overflow-y-hidden">
 
@@ -224,20 +224,20 @@ function handleGotoToday() {
   transform: translateX(-100%);
 }
 
-.fade-then-collapse-enter-active {
+.content-menu-enter-active {
   transition-property: height, padding;
-  transition-duration: 300ms, 300ms;
+  transition-duration: 300ms;
   transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
 }
 
-.fade-then-collapse-leave-active {
+.content-menu-leave-active {
   transition-property: height, padding;
-  transition-duration: 300ms, 300ms;
+  transition-duration: 300ms;
   transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
 }
 
-.fade-then-collapse-enter-from,
-.fade-then-collapse-leave-to {
+.content-menu-enter-from,
+.content-menu-leave-to {
   height: 0 !important;
   padding: 0 !important;
 }
