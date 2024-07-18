@@ -147,7 +147,7 @@ function handleGotoToday() {
     <div class="relative h-0 overflow-x-clip">
       <div class="absolute bottom-0 w-full min-w-0 flex flex-col">
         <Transition name="left-slide">
-          <div v-if="!isToday()"
+          <div v-if="isToday() === false"
             class="z-10 self-end w-fit shadow-md rounded-r-full text-pen text-xs mb-2 transition-all">
             <button type="button"
               @click="handleGotoToday"
