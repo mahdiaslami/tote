@@ -4,7 +4,6 @@ import Footer from './components/Footer.vue'
 import Todos from './components/Todos.vue'
 import Calendar from './components/Calendar.vue'
 import Modal from '@/components/Modal.vue'
-import { PersianDate } from '@/class/persiandate.js'
 import { nextTick, reactive, ref } from 'vue'
 import { useTodoStore } from '@/store/todo'
 import type { Todo, Schedule } from '@/types'
@@ -12,7 +11,7 @@ import type { Todo, Schedule } from '@/types'
 const todoStore = useTodoStore()
 
 const calendar = ref<any | null>(null)
-const todosArray = ref<any[] | null>(null)
+const todos = ref<any | null>(null)
 
 const emojis = ['✨', '😍', '🤔', '😬', '⏰', '🚀', '🚨']
 const emojisRegex = /✨|😍|🤔|😬|⏰|🚀|🚨/g
@@ -41,8 +40,12 @@ const deleteModal = reactive({
   }
 })
 
+function isToday() {
+  return calendar.value && calendar.value.current().isToday()
+}
+
 function toggleType() {
-  if (calendar.value?.current().isToday()) {
+  if (isToday()) {
     data.type = (data.type == 'daily') ? 'mandatory' : 'daily'
   }
 }
@@ -78,26 +81,19 @@ function handleSave() {
     return
   }
 
-  const date = data.type === 'daily' || !calendar.value?.current().isToday()
-    ? calendar.value.current() : null
+  const date = data.type === 'daily' ? calendar.value.current() : null
 
   if (data.id !== null) {
     todoStore.update(data.id, trimedContent, date)
   } else {
     todoStore.addNew(trimedContent, date)
-    setTimeout(scrollToEnd, 150); // wait for transition height end
+    setTimeout(
+      () => todos.value && todos.value.scrollToEnd(),
+      150
+    ) // wait to the end of transition height
   }
 
   data.clear()
-}
-
-function scrollToEnd() {
-  if (todosArray.value) {
-    const index = calendar.value?.index ?? 0
-    const todosComponent = todosArray.value[index]
-
-    todosComponent.scrollToEnd()
-  }
 }
 
 function handleSelect(todo: Todo) {
@@ -115,8 +111,8 @@ function handleDelete(todo: Todo) {
   deleteModal.todo = todo
 }
 
-function handleDateChange(ev: PersianDate) {
-  if (!ev.isToday()) {
+function handleDateChange() {
+  if (!isToday()) {
     data.type = 'daily'
   }
 
@@ -138,7 +134,7 @@ function handleGotoToday() {
       <Header class="w-full z-10"
         :date="date" />
 
-      <Todos ref="todosArray"
+      <Todos :ref="(el: any) => { if (date.isToday()) todos = el }"
         class="flex-grow swiper-no-swiping overflow-y-auto overflow-x-hidden"
         :animate="true"
         :list="todoStore.get(date)"
@@ -151,7 +147,7 @@ function handleGotoToday() {
     <div class="relative h-0 overflow-x-clip">
       <div class="absolute bottom-0 w-full min-w-0 flex flex-col">
         <Transition name="left-slide">
-          <div v-if="calendar && !calendar.current().isToday()"
+          <div v-if="!isToday()"
             class="z-10 self-end w-fit shadow-md rounded-r-full text-pen text-xs mb-2 transition-all">
             <button type="button"
               @click="handleGotoToday"
@@ -177,7 +173,7 @@ function handleGotoToday() {
               <button class="transition-colors rounded px-2 py-1 font-light"
                 :class="{
                   'bg-info text-white': data.type == 'mandatory',
-                  'opacity-50': calendar && !calendar.current().isToday()
+                  'opacity-50': !isToday()
                 }"
                 @mousedown.prevent="toggleType"
                 @touchstart.prevent="toggleType">
