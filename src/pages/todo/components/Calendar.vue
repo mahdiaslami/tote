@@ -7,7 +7,6 @@ const swiperContainer = ref<SwiperContainer | null>(null)
 
 let reseting = false
 const data = reactive({
-  current: PersianDate.create(),
   activeIndex: 0,
 
   dates: [
@@ -20,10 +19,18 @@ const data = reactive({
 const emit = defineEmits(['datechange'])
 
 defineExpose({
-  current: () => data.current,
-  index: () => swiperContainer.value?.swiper.realIndex || 0,
+  index,
+  current,
   reset,
 })
+
+function index() {
+  return swiperContainer.value?.swiper.realIndex || 0
+}
+
+function current(): PersianDate {
+  return data.dates[index()]
+}
 
 function handleSlideChange(ev: any) {
   const [swiper] = ev.detail
@@ -37,7 +44,7 @@ function handleSlideChangeTransitionEnd(ev: any) {
 
   if (data.activeIndex != swiper.realIndex) {
     data.activeIndex = swiper.realIndex
-    emit('datechange', data.current)
+    emit('datechange', current())
   }
 
   if (reseting) {
@@ -46,13 +53,12 @@ function handleSlideChangeTransitionEnd(ev: any) {
   }
 }
 
-function updateDates(current: number) {
-  data.current = data.dates[current]
-  const next = (current + 1) % 3
-  const prev = (current + 2) % 3
+function updateDates(index: number) {
+  const next = (index + 1) % 3
+  const prev = (index + 2) % 3
 
-  data.dates[next] = data.current.duplicate().addDay()
-  data.dates[prev] = data.current.duplicate().subDay()
+  data.dates[next] = current().duplicate().addDay()
+  data.dates[prev] = current().duplicate().subDay()
 }
 
 function reset() {
@@ -62,7 +68,7 @@ function reset() {
 
   reseting = true
 
-  let distance = data.current.distanceInDay(new Date())
+  let distance = current().distanceInDay(new Date())
   const swiper = swiperContainer.value?.swiper
   const cur = swiper.realIndex
 
