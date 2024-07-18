@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useBackEventListener } from '@/composable/backbutton'
 
 withDefaults(defineProps<{
   cancelable: boolean
@@ -9,6 +10,15 @@ defineOptions({
 })
 
 const model = defineModel<boolean>({ default: false })
+
+useBackEventListener('modal', () => {
+  if (model.value) {
+    model.value = false
+    return false
+  }
+
+  return true
+})
 
 // TODO(ios): As the ios doesn't have transparent status bar we have to change it mannually
 // watch(model, () => {
