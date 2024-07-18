@@ -23,7 +23,7 @@ function save() {
     </button>
 
     <AppTextArea v-model="content"
-      class="w-full px-3 pt-2.5 pb-3.5 font-light min-h-12 text-base"
+      class="w-full px-3 pt-2.5 pb-3.5 font-light min-h-12 text-base max-h-36 overflow-y-auto"
       placeholder="کار من"
       @keyup.enter="save" />
 
