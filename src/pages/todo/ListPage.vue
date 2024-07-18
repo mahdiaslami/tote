@@ -10,6 +10,7 @@ import type { Todo, Schedule } from '@/types'
 
 const todoStore = useTodoStore()
 const swiperContainer = ref<any | null>(null)
+const todosArray = ref<any[] | null>(null)
 
 const emojis = ['✨', '😍', '🤔', '😬', '⏰', '🚀', '🚨']
 const emojisRegex = /✨|😍|🤔|😬|⏰|🚀|🚨/g
@@ -62,13 +63,13 @@ function insertTextAndPreserveCursor(txt: string) {
     const prefix = data.content.slice(0, range.startOffset)
     const suffix = data.content.slice(range.endOffset, data.content.length)
 
-    const container = range.endContainer
+    // logically each emoji is 2 or more character, but cursor assume
+    // it is one character.
     const cursorOffset = prefix.replace(emojisRegex, 'e').length
 
     data.content = prefix + txt + suffix
 
     nextTick(() => {
-      console.log(container, cursorOffset, txt.length);
       for (let i = 0; i <= cursorOffset; i++) {
         selection.modify('move', 'forward', 'character')
       }
@@ -92,9 +93,19 @@ function handleSave() {
     todoStore.update(data.id, trimedContent, date)
   } else {
     todoStore.addNew(trimedContent, date)
+    setTimeout(scrollToEnd, 150); // wait for transition height end
   }
 
   data.clear()
+}
+
+function scrollToEnd() {
+  if (todosArray.value) {
+    const index = swiperContainer.value?.swiper.realIndex || 0
+    const todosComponent = todosArray.value[index]
+
+    todosComponent.scrollToEnd()
+  }
 }
 
 function handleSelect(todo: Todo) {
@@ -168,7 +179,8 @@ function handleGotoToday() {
         <Header class="w-full z-10"
           :date="date" />
 
-        <Todos class="flex-grow swiper-no-swiping overflow-y-auto overflow-x-hidden"
+        <Todos ref="todosArray"
+          class="flex-grow swiper-no-swiping overflow-y-auto overflow-x-hidden"
           :animate="!swiperContainer?.swiper.animating"
           :list="todoStore.get(date)"
           @edit="handleSelect"
