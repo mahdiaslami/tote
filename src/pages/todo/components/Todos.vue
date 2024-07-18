@@ -6,7 +6,7 @@ import { ref } from 'vue';
 const div = ref<HTMLDivElement | null>(null)
 const lastElementChild = ref<HTMLDivElement | null>(null)
 
-const emit = defineEmits(['edit', 'delete', 'click'])
+const emit = defineEmits(['edit', 'delete', 'click', 'tick'])
 
 withDefaults(defineProps<{
   list: Todo[],
@@ -39,7 +39,7 @@ function handleBeforeLeave(el: any) {
         :todo="todo"
         @edit="emit('edit', todo)"
         @delete="emit('delete', todo)"
-        @click="emit('click', todo)" />
+        @tick="emit('tick', todo)" />
     </TransitionGroup>
     <div ref="lastElementChild"
       class="pt-12"></div>

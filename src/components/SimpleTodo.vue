@@ -7,7 +7,7 @@ const props = defineProps<{
   todo: Todo
 }>()
 
-const emit = defineEmits(['click'])
+const emit = defineEmits(['click', 'tick'])
 
 </script>
 
@@ -16,7 +16,8 @@ const emit = defineEmits(['click'])
     class="flex flex-row items-start"
     @click.prevent="emit('click', todo)">
 
-    <div class="h-6 pr-2 pl-2">
+    <div class="h-6 pr-2 pl-2"
+      @click="emit('tick', todo)">
       <TickIcon v-if="todo.completed_at"
         class="fill-success -mt-1 h-7 w-7" />
       <FiberManualRecordIcon v-else

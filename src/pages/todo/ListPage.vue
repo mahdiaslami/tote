@@ -140,7 +140,7 @@ function handleGotoToday() {
         :list="todoStore.get(date)"
         @edit="handleSelect"
         @delete="handleDelete"
-        @click="(todo) => todoStore.toggleCompleted(todo.id)" />
+        @tick="(todo: any) => todoStore.toggleCompleted(todo.id)" />
 
     </Calendar>
 
