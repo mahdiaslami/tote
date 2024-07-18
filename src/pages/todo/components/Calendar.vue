@@ -5,7 +5,7 @@ import { reactive, ref } from 'vue';
 
 const swiperContainer = ref<SwiperContainer | null>(null)
 
-const calendar = reactive({
+const data = reactive({
   current: PersianDate.create(),
   activeIndex: 0,
 
@@ -19,7 +19,7 @@ const calendar = reactive({
 const emit = defineEmits(['datechange'])
 
 defineExpose({
-  current: () => calendar.current,
+  current: () => data.current,
   index: () => swiperContainer.value?.swiper.realIndex || 0,
   gotoToday,
 })
@@ -31,17 +31,17 @@ function handleSlideChange(ev: any) {
   const next = (cur + 1) % 3
   const prev = (cur + 2) % 3
 
-  calendar.current = calendar.dates[cur]
-  calendar.dates[next] = calendar.current.duplicate().addDay()
-  calendar.dates[prev] = calendar.current.duplicate().subDay()
+  data.current = data.dates[cur]
+  data.dates[next] = data.current.duplicate().addDay()
+  data.dates[prev] = data.current.duplicate().subDay()
 }
 
 function handleSlideChangeTransitionEnd(ev: any) {
   const [swiper] = ev.detail
 
-  if (calendar.activeIndex != swiper.realIndex) {
-    calendar.activeIndex = swiper.realIndex
-    emit('datechange', calendar.current)
+  if (data.activeIndex != swiper.realIndex) {
+    data.activeIndex = swiper.realIndex
+    emit('datechange', data.current)
   }
 }
 
@@ -50,18 +50,18 @@ function gotoToday() {
     throw 'swiper container is null';
   }
 
-  let distance = calendar.current.distanceInDay(new Date())
+  let distance = data.current.distanceInDay(new Date())
   const swiper = swiperContainer.value?.swiper
   const cur = swiper.realIndex
 
   if (distance > 0) {
     const next = (cur + 1) % 3
-    calendar.dates[next] = PersianDate.create()
+    data.dates[next] = PersianDate.create()
 
     swiper.slideNext()
   } else if (distance < 0) {
     const prev = (cur + 2) % 3
-    calendar.dates[prev] = PersianDate.create()
+    data.dates[prev] = PersianDate.create()
 
     swiper.slidePrev()
   }
@@ -76,11 +76,11 @@ function gotoToday() {
     @swiperslidechangetransitionend="handleSlideChangeTransitionEnd">
 
     <swiper-slide class="flex flex-col h-full border-r"
-      v-for="(date, index) in calendar.dates"
+      v-for="(date, index) in data.dates"
       :key="index">
 
       <slot :date="date"
-        :active="index == calendar.activeIndex" />
+        :active="index == data.activeIndex" />
     </swiper-slide>
   </swiper-container>
 </template>
