@@ -2,6 +2,7 @@
 import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
 import Todos from './components/Todos.vue'
+import Calendar from './components/Calendar.vue'
 import Modal from '@/components/Modal.vue'
 import { PersianDate } from '@/class/persiandate.js'
 import { nextTick, reactive, ref } from 'vue'
@@ -9,7 +10,8 @@ import { useTodoStore } from '@/store/todo'
 import type { Todo, Schedule } from '@/types'
 
 const todoStore = useTodoStore()
-const swiperContainer = ref<any | null>(null)
+
+const calendar = ref<any | null>(null)
 const todosArray = ref<any[] | null>(null)
 
 const emojis = ['✨', '😍', '🤔', '😬', '⏰', '🚀', '🚨']
@@ -39,18 +41,8 @@ const deleteModal = reactive({
   }
 })
 
-const calendar = reactive({
-  current: PersianDate.create(),
-
-  dates: [
-    PersianDate.create(),
-    PersianDate.create().addDay(),
-    PersianDate.create().subDay(),
-  ],
-})
-
 function toggleType() {
-  if (calendar.current.isToday()) {
+  if (calendar.value?.current().isToday()) {
     data.type = (data.type == 'daily') ? 'mandatory' : 'daily'
   }
 }
@@ -86,8 +78,8 @@ function handleSave() {
     return
   }
 
-  const date = data.type === 'daily' || !calendar.current.isToday()
-    ? calendar.current : null
+  const date = data.type === 'daily' || !calendar.value?.current().isToday()
+    ? calendar.value.current() : null
 
   if (data.id !== null) {
     todoStore.update(data.id, trimedContent, date)
@@ -101,7 +93,7 @@ function handleSave() {
 
 function scrollToEnd() {
   if (todosArray.value) {
-    const index = swiperContainer.value?.swiper.realIndex || 0
+    const index = calendar.value?.index ?? 0
     const todosComponent = todosArray.value[index]
 
     todosComponent.scrollToEnd()
@@ -123,76 +115,43 @@ function handleDelete(todo: Todo) {
   deleteModal.todo = todo
 }
 
-function handleSlideChange(ev: any) {
-  const [swiper] = ev.detail
-  calendar.current = calendar.dates[swiper.realIndex]
-  if (!calendar.current.isToday()) {
+function handleDateChange(ev: PersianDate) {
+  if (!ev.isToday()) {
     data.type = 'daily'
   }
-}
-
-function handleSlideChangeTransitionEnd(ev: any) {
-  const [swiper] = ev.detail
-
-  const cur = swiper.realIndex
-  const next = (cur + 1) % 3
-  const prev = (cur + 2) % 3
-
-  calendar.dates[next] = calendar.current.duplicate().addDay()
-  calendar.dates[prev] = calendar.current.duplicate().subDay()
 
   data.clear()
 }
 
 function handleGotoToday() {
-  let distance = calendar.current.distanceInDay(new Date())
-  const swiper = swiperContainer.value?.swiper
-  const cur = swiper.realIndex
-
-  if (distance > 0) {
-    const next = (cur + 1) % 3
-    calendar.dates[next] = PersianDate.create()
-
-    swiper.slideNext()
-  } else if (distance < 0) {
-    const prev = (cur + 2) % 3
-    calendar.dates[prev] = PersianDate.create()
-
-    swiper.slidePrev()
-  }
+  calendar.value?.gotoToday()
 }
 </script>
 
 <template>
   <div class="flex flex-col h-full">
-    <swiper-container ref="swiperContainer"
+    <Calendar ref="calendar"
       class="min-h-0 flex-grow"
-      loop="true"
-      @swiperslidechange="handleSlideChange"
-      @swiperslidechangetransitionend="handleSlideChangeTransitionEnd">
+      @datechange="handleDateChange"
+      v-slot="{ date }">
 
-      <swiper-slide class="flex flex-col h-full border-r"
-        v-for="(date, dindex) in calendar.dates"
-        :key="dindex"
-        :data-index="dindex">
+      <Header class="w-full z-10"
+        :date="date" />
 
-        <Header class="w-full z-10"
-          :date="date" />
+      <Todos ref="todosArray"
+        class="flex-grow swiper-no-swiping overflow-y-auto overflow-x-hidden"
+        :animate="true"
+        :list="todoStore.get(date)"
+        @edit="handleSelect"
+        @delete="handleDelete"
+        @click="(todo) => todoStore.toggleCompleted(todo.id)" />
 
-        <Todos ref="todosArray"
-          class="flex-grow swiper-no-swiping overflow-y-auto overflow-x-hidden"
-          :animate="!swiperContainer?.swiper.animating"
-          :list="todoStore.get(date)"
-          @edit="handleSelect"
-          @delete="handleDelete"
-          @click="(todo) => todoStore.toggleCompleted(todo.id)" />
-      </swiper-slide>
-    </swiper-container>
+    </Calendar>
 
     <div class="relative h-0 overflow-x-clip">
       <div class="absolute bottom-0 w-full min-w-0 flex flex-col">
         <Transition name="left-slide">
-          <div v-if="!calendar.current.isToday()"
+          <div v-if="calendar && !calendar.current().isToday()"
             class="z-10 self-end w-fit shadow-md rounded-r-full text-pen text-xs mb-2 transition-all">
             <button type="button"
               @click="handleGotoToday"
@@ -218,7 +177,7 @@ function handleGotoToday() {
               <button class="transition-colors rounded px-2 py-1 font-light"
                 :class="{
                   'bg-info text-white': data.type == 'mandatory',
-                  'opacity-50': !calendar.current.isToday()
+                  'opacity-50': calendar && !calendar.current().isToday()
                 }"
                 @mousedown.prevent="toggleType"
                 @touchstart.prevent="toggleType">
