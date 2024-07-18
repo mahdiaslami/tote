@@ -120,7 +120,7 @@ function handleDateChange() {
 }
 
 function handleGotoToday() {
-  calendar.value?.gotoToday()
+  calendar.value?.reset()
 }
 </script>
 

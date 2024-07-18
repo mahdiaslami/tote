@@ -45,7 +45,7 @@ function handleSlideChangeTransitionEnd(ev: any) {
   }
 }
 
-function gotoToday() {
+function reset() {
   if (swiperContainer.value === null) {
     throw 'swiper container is null';
   }
