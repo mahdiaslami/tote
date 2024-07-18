@@ -129,14 +129,14 @@ function handleGotoToday() {
     <Calendar ref="calendar"
       class="min-h-0 flex-grow"
       @datechange="handleDateChange"
-      v-slot="{ date }">
+      v-slot="{ date, active }">
 
       <Header class="w-full z-10"
         :date="date" />
 
       <Todos :ref="(el: any) => { if (date.isToday()) todos = el }"
         class="flex-grow swiper-no-swiping overflow-y-auto overflow-x-hidden"
-        :animate="true"
+        :animate="active"
         :list="todoStore.get(date)"
         @edit="handleSelect"
         @delete="handleDelete"

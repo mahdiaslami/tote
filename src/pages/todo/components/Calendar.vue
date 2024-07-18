@@ -7,6 +7,7 @@ const swiperContainer = ref<SwiperContainer | null>(null)
 
 const calendar = reactive({
   current: PersianDate.create(),
+  activeIndex: 0,
 
   dates: [
     PersianDate.create(),
@@ -24,8 +25,17 @@ defineExpose({
 })
 
 function handleSlideChange(ev: any) {
+  calendar.activeIndex = -1
+
   const [swiper] = ev.detail
-  calendar.current = calendar.dates[swiper.realIndex]
+
+  const cur = swiper.realIndex
+  const next = (cur + 1) % 3
+  const prev = (cur + 2) % 3
+
+  calendar.current = calendar.dates[cur]
+  calendar.dates[next] = calendar.current.duplicate().addDay()
+  calendar.dates[prev] = calendar.current.duplicate().subDay()
 
   emit('datechange', calendar.current)
 }
@@ -33,12 +43,7 @@ function handleSlideChange(ev: any) {
 function handleSlideChangeTransitionEnd(ev: any) {
   const [swiper] = ev.detail
 
-  const cur = swiper.realIndex
-  const next = (cur + 1) % 3
-  const prev = (cur + 2) % 3
-
-  calendar.dates[next] = calendar.current.duplicate().addDay()
-  calendar.dates[prev] = calendar.current.duplicate().subDay()
+  calendar.activeIndex = swiper.realIndex
 }
 
 function gotoToday() {
@@ -72,10 +77,11 @@ function gotoToday() {
     @swiperslidechangetransitionend="handleSlideChangeTransitionEnd">
 
     <swiper-slide class="flex flex-col h-full border-r"
-      v-for="(date, dindex) in calendar.dates"
-      :key="dindex">
+      v-for="(date, index) in calendar.dates"
+      :key="index">
 
-      <slot :date="date" />
+      <slot :date="date"
+        :active="index == calendar.activeIndex" />
     </swiper-slide>
   </swiper-container>
 </template>
