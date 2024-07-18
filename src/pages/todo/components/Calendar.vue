@@ -25,8 +25,6 @@ defineExpose({
 })
 
 function handleSlideChange(ev: any) {
-  calendar.activeIndex = -1
-
   const [swiper] = ev.detail
 
   const cur = swiper.realIndex
@@ -36,14 +34,15 @@ function handleSlideChange(ev: any) {
   calendar.current = calendar.dates[cur]
   calendar.dates[next] = calendar.current.duplicate().addDay()
   calendar.dates[prev] = calendar.current.duplicate().subDay()
-
-  emit('datechange', calendar.current)
 }
 
 function handleSlideChangeTransitionEnd(ev: any) {
   const [swiper] = ev.detail
 
-  calendar.activeIndex = swiper.realIndex
+  if (calendar.activeIndex != swiper.realIndex) {
+    calendar.activeIndex = swiper.realIndex
+    emit('datechange', calendar.current)
+  }
 }
 
 function gotoToday() {
