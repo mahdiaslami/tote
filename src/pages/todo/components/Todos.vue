@@ -31,10 +31,10 @@ function handleBeforeLeave(el: any) {
   <div ref="div"
     class="paper-2 pt-4.5 scroll-smooth">
     <TransitionGroup name="todo"
-      :duration="animate ? 300 : 1"
+      :duration="animate ? 3000 : 1"
       @before-leave="handleBeforeLeave">
       <PannableTodo v-for="todo in list"
-        class="py-3 w-full"
+        class="py-3 w-full overflow-hidden"
         :key="todo.id"
         :todo="todo"
         @edit="emit('edit', todo)"
@@ -68,7 +68,7 @@ function handleBeforeLeave(el: any) {
 .todo-enter-active,
 .todo-leave-active {
   transition-property: opacity, height, padding;
-  transition-duration: 300ms, 150ms, 150ms;
+  transition-duration: 300ms;
   transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
 }
 
