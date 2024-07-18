@@ -32,35 +32,6 @@ function current(): PersianDate {
   return data.dates[index()]
 }
 
-function handleSlideChange(ev: any) {
-  const [swiper] = ev.detail
-  if (!reseting) {
-    updateDates(swiper.realIndex)
-  }
-}
-
-function handleSlideChangeTransitionEnd(ev: any) {
-  const [swiper] = ev.detail
-
-  if (data.activeIndex != swiper.realIndex) {
-    data.activeIndex = swiper.realIndex
-    emit('datechange', current())
-  }
-
-  if (reseting) {
-    reseting = false
-    updateDates(swiper.realIndex)
-  }
-}
-
-function updateDates(index: number) {
-  const next = (index + 1) % 3
-  const prev = (index + 2) % 3
-
-  data.dates[next] = current().duplicate().addDay()
-  data.dates[prev] = current().duplicate().subDay()
-}
-
 function reset() {
   if (swiperContainer.value === null) {
     throw 'swiper container is null';
@@ -85,6 +56,34 @@ function reset() {
   }
 }
 
+function updateDates(index: number) {
+  const next = (index + 1) % 3
+  const prev = (index + 2) % 3
+
+  data.dates[next] = current().duplicate().addDay()
+  data.dates[prev] = current().duplicate().subDay()
+}
+
+function handleSlideChange(ev: any) {
+  const [swiper] = ev.detail
+  if (!reseting) {
+    updateDates(swiper.realIndex)
+  }
+}
+
+function handleSlideChangeTransitionEnd(ev: any) {
+  const [swiper] = ev.detail
+
+  if (data.activeIndex != swiper.realIndex) {
+    data.activeIndex = swiper.realIndex
+    emit('datechange', current())
+  }
+
+  if (reseting) {
+    reseting = false
+    updateDates(swiper.realIndex)
+  }
+}
 </script>
 
 <template>
