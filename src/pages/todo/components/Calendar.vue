@@ -5,6 +5,7 @@ import { reactive, ref } from 'vue';
 
 const swiperContainer = ref<SwiperContainer | null>(null)
 
+let reseting = false
 const data = reactive({
   current: PersianDate.create(),
   activeIndex: 0,
@@ -21,19 +22,14 @@ const emit = defineEmits(['datechange'])
 defineExpose({
   current: () => data.current,
   index: () => swiperContainer.value?.swiper.realIndex || 0,
-  gotoToday,
+  reset,
 })
 
 function handleSlideChange(ev: any) {
   const [swiper] = ev.detail
-
-  const cur = swiper.realIndex
-  const next = (cur + 1) % 3
-  const prev = (cur + 2) % 3
-
-  data.current = data.dates[cur]
-  data.dates[next] = data.current.duplicate().addDay()
-  data.dates[prev] = data.current.duplicate().subDay()
+  if (!reseting) {
+    updateDates(swiper.realIndex)
+  }
 }
 
 function handleSlideChangeTransitionEnd(ev: any) {
@@ -43,12 +39,28 @@ function handleSlideChangeTransitionEnd(ev: any) {
     data.activeIndex = swiper.realIndex
     emit('datechange', data.current)
   }
+
+  if (reseting) {
+    reseting = false
+    updateDates(swiper.realIndex)
+  }
+}
+
+function updateDates(current: number) {
+  data.current = data.dates[current]
+  const next = (current + 1) % 3
+  const prev = (current + 2) % 3
+
+  data.dates[next] = data.current.duplicate().addDay()
+  data.dates[prev] = data.current.duplicate().subDay()
 }
 
 function reset() {
   if (swiperContainer.value === null) {
     throw 'swiper container is null';
   }
+
+  reseting = true
 
   let distance = data.current.distanceInDay(new Date())
   const swiper = swiperContainer.value?.swiper
