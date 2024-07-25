@@ -31,7 +31,7 @@ function handleBeforeLeave(el: any) {
   <div ref="div"
     class="paper-2 pt-4.5 scroll-smooth">
     <TransitionGroup name="todo"
-      :duration="animate ? 3000 : 1"
+      :duration="animate ? 300 : 1"
       @before-leave="handleBeforeLeave">
       <PannableTodo v-for="todo in list"
         class="py-3 w-full overflow-hidden"

@@ -94,8 +94,8 @@ function handleSave() {
     todoStore.addNew(trimedContent, date)
     setTimeout(
       () => todos.value && todos.value.scrollToEnd(),
-      150
-    ) // wait to the end of transition height
+      300
+    ) // wait to the end of todo transition
   }
 
   data.clear()
