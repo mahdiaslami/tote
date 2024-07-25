@@ -30,7 +30,7 @@ const model = defineModel<boolean>({ default: false })
         @click="model = !cancelable">
 
         <div class="bg-secondary w-11/12 absolute bottom-4 left-1/2 -translate-x-1/2
-          rounded-3xl shadow"
+          rounded-3xl shadow max-w-md"
           v-bind="$attrs"
           @click="ev => ev.stopPropagation()">
           <slot />
