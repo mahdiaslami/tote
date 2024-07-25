@@ -139,7 +139,7 @@ function handleGotoToday() {
       <Header class="w-full z-10"
         :date="date" />
 
-      <Todos :ref="(el: any) => { if (date.isToday()) todos = el }"
+      <Todos :ref="(el: any) => { if (active) todos = el }"
         class="flex-grow swiper-no-swiping overflow-y-auto overflow-x-hidden"
         :animate="active"
         :list="todoStore.get(date)"
