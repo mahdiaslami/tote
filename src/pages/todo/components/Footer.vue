@@ -4,7 +4,7 @@ import ContentMenuIcon from '@/components/icons/ContentMenuIcon.vue'
 import AppTextArea from '@/components/TextArea.vue'
 
 const content = defineModel<string>('content', { required: true })
-const emoji = defineModel<boolean>('emoji')
+const options = defineModel<boolean>('options')
 
 const emit = defineEmits(['save'])
 
@@ -17,8 +17,8 @@ function save() {
 <template>
   <div class="relative flex flex-row items-end bg-primary border-t border-line/20">
     <button class="flex items-center justify-center w-14 h-12 select-none"
-      @mousedown.prevent="emoji = !emoji"
-      @touchstart.prevent="emoji = !emoji">
+      @mousedown.prevent="options = !options"
+      @touchstart.prevent="options = !options">
       <ContentMenuIcon class="h-7 w-7 fill-pen/40" />
     </button>
 
