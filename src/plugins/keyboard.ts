@@ -1,5 +1,5 @@
 import { Keyboard } from '@capacitor/keyboard'
-import { onMounted, onUnmounted, reactive } from 'vue'
+import { onMounted, onUnmounted, reactive, type App } from 'vue'
 
 // TODO: rename to ListenerCallback. don't forget backbutton.ts
 type Listener = (keyboardHeight: number) => void
@@ -30,29 +30,41 @@ function fire(eventName: Events) {
 
 function guessHeight() {
     data.screenHeight = document.body.clientHeight
-    Keyboard.show()
 
-    Keyboard.addListener('keyboardDidShow', () => {
+    listeners['keyboardDidShow']['guess'] = () => {
         const app = document.getElementById('app')
         if (app === null) {
             throw "element with 'app' id doesn't exists"
         }
 
         data.keyboardHeight = data.screenHeight - app.clientHeight
-    })
+        Keyboard.hide()
+        delete listeners['keyboardDidShow']['guess']
+    }
+
+    Keyboard.show()
+}
+
+export default {
+    install(app: App, options: any) {
+        guessHeight()
+    }
 }
 
 export function useKeyboard() {
-    if (data.keyboardHeight === 0) {
-        onMounted(guessHeight)
-    }
-
     return {
         get height(): number {
             return data.keyboardHeight
         },
         get screenHeight(): number {
             return data.screenHeight
+        },
+
+        show() {
+            Keyboard.show()
+        },
+        hide() {
+            Keyboard.hide()
         }
     }
 }

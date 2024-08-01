@@ -5,6 +5,7 @@ import { register } from 'swiper/element/bundle';
 
 import App from '@/App.vue'
 import router from '@/router'
+import keyboard from '@/plugins/keyboard'
 
 import '@/assets/index.css'
 
@@ -16,4 +17,5 @@ register();
 createApp(App)
   .use(createPinia())
   .use(router)
+  .use(keyboard)
   .mount('#app')
