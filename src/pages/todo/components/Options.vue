@@ -1,10 +1,16 @@
 <script setup lang="ts">
 import { type Schedule } from '@/types';
-import { mergeProps, nextTick, watch } from 'vue';
+import { nextTick, watch } from 'vue';
 
-const props = defineProps<{
-  forceDaily: boolean
-}>()
+const props = withDefaults(
+  defineProps<{
+    forceDaily: boolean
+    keyboardHeight: number
+  }>(),
+  {
+    keyboardHeight: 0
+  }
+)
 
 const model = defineModel<boolean>()
 const content = defineModel<string>('content')
@@ -52,10 +58,14 @@ function toggleType() {
 
 <template>
   <Transition name="content-menu"
-    :duration="300">
+    :duration="0">
     <div v-if="model"
-      class="bg-secondary border-t border-line py-2 z-10 h-12 flex flex-row overflow-y-hidden">
-
+      class="bg-secondary border-t border-line py-2 z-10 h-12 flex flex-row overflow-y-hidden"
+      :style="{
+        minHeight: `${keyboardHeight}px`,
+        // maxHeight: keyboardHeight > 0 ? `${keyboardHeight}px` : ''
+      }">
+      {{ keyboardHeight }}
       <div class="flex-grow text-lg flex flex-row-reverse justify-around">
         <button v-for="emoji in emojies"
           class="active:opacity-30 transition-opacity"
@@ -82,20 +92,21 @@ function toggleType() {
 
 <style>
 .content-menu-enter-active {
-  transition-property: height, padding;
-  transition-duration: 300ms;
+  transition-property: min-height, max-height, padding;
+  transition-duration: 0;
   transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
 }
 
 .content-menu-leave-active {
-  transition-property: height, padding;
-  transition-duration: 300ms;
+  transition-property: min-height, max-height, padding;
+  transition-duration: 0;
   transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
 }
 
 .content-menu-enter-from,
 .content-menu-leave-to {
-  height: 0 !important;
+  min-height: 0 !important;
+  max-height: 0 !important;
   padding: 0 !important;
 }
 </style>

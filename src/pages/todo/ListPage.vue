@@ -5,11 +5,14 @@ import Options from './components/Options.vue'
 import Todos from './components/Todos.vue'
 import Calendar from './components/Calendar.vue'
 import Modal from '@/components/Modal.vue'
-import { nextTick, reactive, ref } from 'vue'
 import { useTodoStore } from '@/store/todo'
 import type { Todo, Schedule } from '@/types'
+import { reactive, ref } from 'vue'
+import { useKeyboard, useKeyboardEventListener } from '@/composable/keyboard'
+import { useBackEventListener } from '@/composable/backbutton'
 
 const todoStore = useTodoStore()
+const keyboard = useKeyboard()
 
 const calendar = ref<any | null>(null)
 const todos = ref<any | null>(null)
@@ -25,7 +28,7 @@ const data = reactive({
     this.type = 'daily'
   },
 
-  options: false
+  options: false,
 })
 
 
@@ -92,6 +95,52 @@ function handleDateChange() {
 function handleGotoToday() {
   calendar.value?.reset()
 }
+
+let manuallyHideKeyboard = false
+function handleOptions() {
+  if (keyboard.visiable) {
+    if (data.options) {
+      manuallyHideKeyboard = true
+      keyboard.hide()
+    } else {
+      // undefinded state
+    }
+  } else {
+    if (data.options) {
+      keyboard.show()
+    } else {
+      data.options = true
+    }
+  }
+}
+
+useKeyboardEventListener('keyboardWillHide', 'options', () => {
+  if (!manuallyHideKeyboard) {
+    data.options = false
+  }
+})
+
+useKeyboardEventListener('keyboardDidHide', 'options', () => {
+  if (manuallyHideKeyboard) {
+    manuallyHideKeyboard = false
+  } else {
+    document.body.style.height = `100%`
+  }
+})
+
+useKeyboardEventListener('keyboardWillShow', 'options', () => {
+  data.options = true
+  document.body.style.height = `${keyboard.screenHeight}px`
+})
+
+useBackEventListener('options', (): boolean => {
+  if (data.options) {
+    data.options = false
+    return false
+  }
+
+  return true
+})
 </script>
 
 <template>
@@ -128,12 +177,13 @@ function handleGotoToday() {
     </div>
 
     <Footer v-model:content="data.content"
-      v-model:options="data.options"
+      @options="handleOptions"
       @save="handleSave" />
 
     <Options v-model="data.options"
       v-model:content="data.content"
-      :force-daily="!isToday()" />
+      :force-daily="!isToday()"
+      :keyboard-height="keyboard.keyboardHeight" />
 
     <Modal v-model="deleteModal.visiable"
       :cancelable="true"
