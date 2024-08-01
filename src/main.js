@@ -5,17 +5,23 @@ import { register } from 'swiper/element/bundle';
 
 import App from '@/App.vue'
 import router from '@/router'
-import keyboard from '@/plugins/keyboard'
+import { initKeyboard } from '@/composable/keyboard'
 
 import '@/assets/index.css'
 
-StatusBar.setStyle({ style: Style.Light })
-StatusBar.setOverlaysWebView({ overlay: true });
+(async () => {
+  await StatusBar.setStyle({ style: Style.Light })
+  await StatusBar.setOverlaysWebView({ overlay: true });
 
-register();
+  // Wait 0.5s for setting overlay status bar
+  await new Promise((resolve) => setTimeout(resolve, 500))
+  await initKeyboard()
 
-createApp(App)
-  .use(createPinia())
-  .use(router)
-  .use(keyboard)
-  .mount('#app')
+  register();
+
+  createApp(App)
+    .use(createPinia())
+    .use(router)
+    .mount('#app')
+})()
+
