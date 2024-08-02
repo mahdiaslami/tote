@@ -7,16 +7,14 @@
         /* For rgb(R G B / <alpha-value>) */
         /* #ffffff */
         --color-primary: 255 255 255;
-        /* #ffffff */
-        --color-secondary: 255 255 255;
-        /* #eeeedd */
-        --color-line: 238 238 221;
+        /* #f1f2f6 */
+        --color-secondary: 241 242 246;
+        /* #0656a6d */
+        --color-line: 101 106 109;
         /* #059669 */
         --color-success: 5 150 105;
         /* #7f7fff */
         --color-info: 127 127 255;
-        /* #e14c4c */
-        --color-force: 225 76 76;
         /* #ff4c4c */
         --color-danger: 255 76 76;
         /* #262626 */
