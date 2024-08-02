@@ -227,13 +227,13 @@ useBackEventListener('options', (): boolean => {
 
 .content-menu-enter-active {
   transition-property: min-height, max-height, padding;
-  transition-duration: 300ms;
+  transition-duration: 200ms;
   transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
 }
 
 .content-menu-leave-active {
   transition-property: min-height, max-height, padding;
-  transition-duration: 300ms;
+  transition-duration: 200ms;
   transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
 }
 
