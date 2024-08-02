@@ -181,7 +181,7 @@ useBackEventListener('options', (): boolean => {
       @save="handleSave" />
 
     <Transition name="content-menu"
-      :duration="300">
+      :duration="keyboard.visiable === false ? 300 : 1">
       <Options v-model="data.options"
         v-model:content="data.content"
         :force-daily="!isToday()"
