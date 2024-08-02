@@ -10,7 +10,7 @@ type Listeners = { [tag: string]: Listener }
 const data = reactive({
     keyboardHeight: 0,
     screenHeight: 0,
-    visiable: false,
+    shown: false,
 
     show: () => Keyboard.show(),
     hide: () => Keyboard.hide(),
@@ -49,8 +49,8 @@ function guessHeight() {
 export async function initKeyboard() {
     await guessHeight()
 
-    listeners['keyboardWillShow']['visiable'] = () => data.visiable = true
-    listeners['keyboardWillHide']['visiable'] = () => data.visiable = false
+    listeners['keyboardWillShow']['shown'] = () => data.shown = true
+    listeners['keyboardWillHide']['shown'] = () => data.shown = false
 
     Keyboard.addListener('keyboardWillShow', () => fire('keyboardWillShow'))
     Keyboard.addListener('keyboardDidShow', () => fire('keyboardDidShow'))

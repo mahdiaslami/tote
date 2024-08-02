@@ -41,6 +41,7 @@ useBackEventListener('options', (): boolean => {
 })
 
 const deleteModal = reactive({
+  // TODO: fix typo of visible <= correct
   visiable: false,
   todo: null as Todo | null,
 
@@ -143,7 +144,7 @@ function handleGotoToday() {
       @save="handleSave" />
 
     <Transition name="options"
-      :duration="keyboard.visiable === false ? 300 : 1">
+      :duration="keyboard.shown ? 1 : 300">
       <Options v-if="data.options"
         v-model:content="data.content"
         :force-daily="!isToday()"
