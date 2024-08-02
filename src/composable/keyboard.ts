@@ -49,8 +49,8 @@ function guessHeight() {
 export async function initKeyboard() {
     await guessHeight()
 
-    listeners['keyboardDidShow']['visiable'] = () => data.visiable = true
-    listeners['keyboardDidHide']['visiable'] = () => data.visiable = false
+    listeners['keyboardWillShow']['visiable'] = () => data.visiable = true
+    listeners['keyboardWillHide']['visiable'] = () => data.visiable = false
 
     Keyboard.addListener('keyboardWillShow', () => fire('keyboardWillShow'))
     Keyboard.addListener('keyboardDidShow', () => fire('keyboardDidShow'))
