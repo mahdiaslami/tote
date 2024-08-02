@@ -177,6 +177,7 @@ useBackEventListener('options', (): boolean => {
     </div>
 
     <Footer v-model:content="data.content"
+      :keyboard-icon="!keyboard.visiable && data.options"
       @options-press="handleOptionsPress"
       @save="handleSave" />
 
