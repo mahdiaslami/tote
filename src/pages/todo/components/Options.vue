@@ -6,7 +6,6 @@ const props = defineProps<{
   forceDaily: boolean
 }>()
 
-const model = defineModel<boolean>()
 const content = defineModel<string>('content')
 const type = defineModel<Schedule>('type')
 
@@ -51,8 +50,7 @@ function toggleType() {
 </script>
 
 <template>
-  <div v-if="model"
-    class="bg-secondary border-t border-line py-2 z-10 h-12 flex flex-row overflow-y-hidden">
+  <div class="bg-secondary border-t border-line py-2 z-10 h-12 flex flex-row overflow-y-hidden">
     <div class="flex-grow text-lg flex flex-row-reverse justify-around">
       <button v-for="emoji in emojies"
         class="active:opacity-30 transition-opacity"
