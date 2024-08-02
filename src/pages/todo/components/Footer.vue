@@ -6,7 +6,7 @@ import AppTextArea from '@/components/TextArea.vue'
 const content = defineModel<string>('content', { required: true })
 const options = defineModel<boolean>('options')
 
-const emit = defineEmits(['save', 'options'])
+const emit = defineEmits(['save', 'optionsPress'])
 
 function save() {
   emit('save')
@@ -17,8 +17,8 @@ function save() {
 <template>
   <div class="relative flex flex-row items-end bg-primary border-t border-line/20">
     <button class="flex items-center justify-center w-14 h-12 select-none"
-      @mousedown.prevent="emit('options')"
-      @touchstart.prevent="emit('options')">
+      @mousedown.prevent="emit('optionsPress')"
+      @touchstart.prevent="emit('optionsPress')">
       <OptionsIcon class="h-7 w-7 text-pen/40" />
     </button>
 

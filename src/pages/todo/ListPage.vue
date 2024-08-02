@@ -97,7 +97,7 @@ function handleGotoToday() {
 }
 
 let manuallyHideKeyboard = false
-function handleOptions() {
+function handleOptionsPress() {
   if (keyboard.visiable) {
     if (data.options) {
       manuallyHideKeyboard = true
@@ -177,7 +177,7 @@ useBackEventListener('options', (): boolean => {
     </div>
 
     <Footer v-model:content="data.content"
-      @options="handleOptions"
+      @options-press="handleOptionsPress"
       @save="handleSave" />
 
     <Transition name="options"
