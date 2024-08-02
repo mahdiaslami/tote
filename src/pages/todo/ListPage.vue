@@ -180,7 +180,7 @@ useBackEventListener('options', (): boolean => {
       @options="handleOptions"
       @save="handleSave" />
 
-    <Transition name="content-menu"
+    <Transition name="options"
       :duration="keyboard.visiable === false ? 300 : 1">
       <Options v-model="data.options"
         v-model:content="data.content"
@@ -225,20 +225,20 @@ useBackEventListener('options', (): boolean => {
   transform: translateX(-100%);
 }
 
-.content-menu-enter-active {
+.options-enter-active {
   transition-property: min-height, max-height, padding;
   transition-duration: 200ms;
   transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
 }
 
-.content-menu-leave-active {
+.options-leave-active {
   transition-property: min-height, max-height, padding;
   transition-duration: 200ms;
   transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
 }
 
-.content-menu-enter-from,
-.content-menu-leave-to {
+.options-enter-from,
+.options-leave-to {
   min-height: 0 !important;
   max-height: 0 !important;
   padding: 0 !important;

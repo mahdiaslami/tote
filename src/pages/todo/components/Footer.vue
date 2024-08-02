@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import SaveIcon from '@/components/icons/SaveIcon.vue'
-import ContentMenuIcon from '@/components/icons/ContentMenuIcon.vue'
+import OptionsIcon from '@/components/icons/OptionsIcon.vue'
 import AppTextArea from '@/components/TextArea.vue'
 
 const content = defineModel<string>('content', { required: true })
@@ -19,7 +19,7 @@ function save() {
     <button class="flex items-center justify-center w-14 h-12 select-none"
       @mousedown.prevent="emit('options')"
       @touchstart.prevent="emit('options')">
-      <ContentMenuIcon class="h-7 w-7 fill-pen/40" />
+      <OptionsIcon class="h-7 w-7 fill-pen/40" />
     </button>
 
     <AppTextArea v-model="content"
