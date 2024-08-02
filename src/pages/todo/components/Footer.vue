@@ -19,7 +19,7 @@ function save() {
 
 let manuallyHideKeyboard = false
 function toggleOptionsKeyboard() {
-  if (keyboard.shown) {
+  if (keyboard.showing) {
     if (options.value) {
       manuallyHideKeyboard = true
       keyboard.hide()
@@ -63,7 +63,7 @@ useKeyboardEventListener('keyboardWillShow', 'options', () => {
       @touchstart.prevent="toggleOptionsKeyboard">
       <Transition name="keyboard-options"
         mode="out-in">
-        <KeyboardIcon v-if="!keyboard.shown && options"
+        <KeyboardIcon v-if="!keyboard.showing && options"
           class="h-7 w-7 text-pen/40" />
         <OptionsIcon v-else
           class="h-7 w-7 text-pen/40" />
