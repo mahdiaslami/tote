@@ -5,8 +5,8 @@
 @layer base {
     :root {
         /* For rgb(R G B / <alpha-value>) */
-        /* #f5f9fc */
-        --color-primary: 245 249 252;
+        /* #ffffff */
+        --color-primary: 255 255 255;
         /* #ffffff */
         --color-secondary: 255 255 255;
         /* #eeeedd */

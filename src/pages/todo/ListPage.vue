@@ -163,7 +163,7 @@ function handleGotoToday() {
         <Transition name="content-menu"
           :duration="300">
           <div v-if="emoji.visiable"
-            class="bg-secondary border-t border-line py-2 z-10 h-12 flex flex-row overflow-y-hidden">
+            class="bg-primary border-t border-line py-2 z-10 h-12 flex flex-row overflow-y-hidden">
 
             <div class="flex-grow text-lg flex flex-row-reverse justify-around">
               <button v-for="emo in emoji.list"
