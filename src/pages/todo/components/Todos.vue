@@ -49,11 +49,11 @@ function handleBeforeLeave(el: any) {
 <style>
 .paper-1 {
   background:
-    linear-gradient(#00000000, #00000000 23px, rgb(var(--color-line)) 24px, rgb(var(--color-line)) 24px, #00000000 25px) center top / calc(100% - 64px) 24px repeat-y,
+    linear-gradient(#00000000, #00000000 23px, rgb(238 238 221) 24px, rgb(238 238 221) 24px, #00000000 25px) center top / calc(100% - 64px) 24px repeat-y,
     linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.75)),
     url("@/assets/pattern-2.png") left top repeat,
-    linear-gradient(to bottom left, rgb(var(--color-info) / 0.3), rgb(var(--color-primary) / 0.8)),
-    linear-gradient(to bottom right, rgb(var(--color-success) / 0.3), rgb(var(--color-primary) / 0.8));
+    linear-gradient(to bottom left, rgb(127 127 255 / 0.3), rgb(245 249 252 / 0.8)),
+    linear-gradient(to bottom right, rgb(5 150 105 / 0.3), rgb(245 249 252 / 0.8));
   background-attachment: local, local, local, local, local;
 }
 
