@@ -144,7 +144,7 @@ function handleGotoToday() {
       @save="handleSave" />
 
     <Transition name="options"
-      :duration="keyboard.shown ? 1 : 300">
+      :duration="keyboard.showing || keyboard.shown ? 1 : 300">
       <Options v-if="data.options"
         v-model:content="data.content"
         :force-daily="!isToday()"
