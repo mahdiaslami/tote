@@ -180,10 +180,15 @@ useBackEventListener('options', (): boolean => {
       @options="handleOptions"
       @save="handleSave" />
 
-    <Options v-model="data.options"
-      v-model:content="data.content"
-      :force-daily="!isToday()"
-      :keyboard-height="keyboard.keyboardHeight" />
+    <Transition name="content-menu"
+      :duration="300">
+      <Options v-model="data.options"
+        v-model:content="data.content"
+        :force-daily="!isToday()"
+        :style="{
+          minHeight: `${keyboard.keyboardHeight}px`,
+        }" />
+    </Transition>
 
     <Modal v-model="deleteModal.visiable"
       :cancelable="true"
@@ -218,5 +223,24 @@ useBackEventListener('options', (): boolean => {
 .left-slide-enter-from,
 .left-slide-leave-to {
   transform: translateX(-100%);
+}
+
+.content-menu-enter-active {
+  transition-property: min-height, max-height, padding;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
+}
+
+.content-menu-leave-active {
+  transition-property: min-height, max-height, padding;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
+}
+
+.content-menu-enter-from,
+.content-menu-leave-to {
+  min-height: 0 !important;
+  max-height: 0 !important;
+  padding: 0 !important;
 }
 </style>
