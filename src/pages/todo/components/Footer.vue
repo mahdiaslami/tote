@@ -19,7 +19,7 @@ function save() {
     <button class="flex items-center justify-center w-14 h-12 select-none"
       @mousedown.prevent="emit('options')"
       @touchstart.prevent="emit('options')">
-      <OptionsIcon class="h-7 w-7 fill-pen/40" />
+      <OptionsIcon class="h-7 w-7 text-pen/40" />
     </button>
 
     <AppTextArea v-model="content"
