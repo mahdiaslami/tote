@@ -8,7 +8,7 @@ import Modal from '@/components/Modal.vue'
 import { useTodoStore } from '@/store/todo'
 import type { Todo, Schedule } from '@/types'
 import { reactive, ref } from 'vue'
-import { useKeyboard, useKeyboardEventListener } from '@/composable/keyboard'
+import { useKeyboard } from '@/composable/keyboard'
 import { useBackEventListener } from '@/composable/backbutton'
 
 const todoStore = useTodoStore()
@@ -31,7 +31,14 @@ const data = reactive({
   options: false,
 })
 
+useBackEventListener('options', (): boolean => {
+  if (data.options) {
+    data.options = false
+    return false
+  }
 
+  return true
+})
 
 const deleteModal = reactive({
   visiable: false,
@@ -96,51 +103,6 @@ function handleGotoToday() {
   calendar.value?.reset()
 }
 
-let manuallyHideKeyboard = false
-function handleOptionsPress() {
-  if (keyboard.visiable) {
-    if (data.options) {
-      manuallyHideKeyboard = true
-      keyboard.hide()
-    } else {
-      // undefinded state
-    }
-  } else {
-    if (data.options) {
-      keyboard.show()
-    } else {
-      data.options = true
-    }
-  }
-}
-
-useKeyboardEventListener('keyboardWillHide', 'options', () => {
-  if (!manuallyHideKeyboard) {
-    data.options = false
-  }
-})
-
-useKeyboardEventListener('keyboardDidHide', 'options', () => {
-  if (manuallyHideKeyboard) {
-    manuallyHideKeyboard = false
-  } else {
-    document.body.style.height = `100%`
-  }
-})
-
-useKeyboardEventListener('keyboardWillShow', 'options', () => {
-  data.options = true
-  document.body.style.height = `${keyboard.screenHeight}px`
-})
-
-useBackEventListener('options', (): boolean => {
-  if (data.options) {
-    data.options = false
-    return false
-  }
-
-  return true
-})
 </script>
 
 <template>
@@ -177,8 +139,7 @@ useBackEventListener('options', (): boolean => {
     </div>
 
     <Footer v-model:content="data.content"
-      :keyboard-icon="!keyboard.visiable && data.options"
-      @options-press="handleOptionsPress"
+      v-model:options="data.options"
       @save="handleSave" />
 
     <Transition name="options"
