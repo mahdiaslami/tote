@@ -11,7 +11,13 @@ const type = defineModel<Schedule>('type')
 
 watch(props, () => type.value = props.forceDaily ? 'daily' : type.value)
 
-const emojies = ['✨', '😍', '🤔', '😬', '⏰', '🚀', '🚨']
+const emojies = [
+  '😍', '🤔', '😬', '😇', '🤒', '🤢', '🤧', '😴',
+  '✨', '⏰', '🚀', '🚨', '⭐', '❤️', '🔥', '🎥',
+  '📕', '📚', '🖇️', '🧮', '💰', '🪙', '🎀', '🥽',
+  '👔', '👕', '👖', '🧣', '💃', '🕺', '⛹️‍♂️', '⛹️‍♀️',
+  '💇‍♂️', '💇‍♀️', '🤱'
+]
 
 function regex() {
   return new RegExp(emojies.join('|'), 'g')
@@ -41,34 +47,38 @@ function insertTextAndPreserveCursor(txt: string) {
   }
 }
 
-function toggleType() {
-  if (!props.forceDaily) {
-    type.value = (type.value == 'daily') ? 'mandatory' : 'daily'
-  }
-}
-
 </script>
 
 <template>
-  <div class="bg-secondary border-t border-line py-2 z-10 h-12 flex flex-row overflow-y-hidden">
-    <div class="flex-grow text-lg flex flex-row-reverse justify-around">
-      <button v-for="emoji in emojies"
-        class="active:opacity-30 transition-opacity"
-        @mousedown.prevent="insertTextAndPreserveCursor(emoji)"
-        @touchstart.prevent="insertTextAndPreserveCursor(emoji)">
-        {{ emoji }}
+  <div class="bg-secondary/25 px-6 z-10 flex flex-col overflow-y-scroll">
+    <div class="text-sm mt-6 p-1 bg-secondary/50 rounded-full">
+      <button class="transition-colors rounded-full px-4 py-1 font-light"
+        :class="{
+          'bg-info text-white': type == 'daily',
+          'opacity-50': forceDaily
+        }"
+        @mousedown.prevent="type = 'daily'"
+        @touchstart.prevent="type = 'daily'">
+        روزانه
       </button>
-    </div>
 
-    <div class="border-r border-line px-2">
-      <button class="transition-colors rounded px-2 py-1 font-light"
+      <button class="transition-colors rounded-full px-4 py-1 font-light"
         :class="{
           'bg-info text-white': type == 'mandatory',
           'opacity-50': forceDaily
         }"
-        @mousedown.prevent="toggleType"
-        @touchstart.prevent="toggleType">
+        @mousedown.prevent="type = 'mandatory'"
+        @touchstart.prevent="type = 'mandatory'">
         اجباری
+      </button>
+    </div>
+
+    <div class="flex-grow text-lg pt-4 flex flex-row-reverse flex-wrap justify-around items-start">
+      <button v-for="emoji in emojies"
+        class="active:opacity-30 text-xl transition-opacity select-none min-w-6 min-h-6 p-2 touch-none"
+        @mousedown.prevent="insertTextAndPreserveCursor(emoji)"
+        @touchstart.prevent="insertTextAndPreserveCursor(emoji)">
+        {{ emoji }}
       </button>
     </div>
   </div>

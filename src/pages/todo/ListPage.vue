@@ -147,9 +147,11 @@ function handleGotoToday() {
       :duration="keyboard.showing || keyboard.shown ? 1 : 300">
       <Options v-if="data.options"
         v-model:content="data.content"
+        v-model:type="data.type"
         :force-daily="!isToday()"
         :style="{
           minHeight: `${keyboard.keyboardHeight}px`,
+          height: `${keyboard.keyboardHeight}px`,
         }" />
     </Transition>
 
