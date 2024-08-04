@@ -191,13 +191,13 @@ function handleGotoToday() {
 }
 
 .options-enter-active {
-  transition-property: min-height, max-height, padding;
+  transition-property: min-height, max-height, height;
   transition-duration: 200ms;
   transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
 }
 
 .options-leave-active {
-  transition-property: min-height, max-height, padding;
+  transition-property: min-height, max-height, height;
   transition-duration: 200ms;
   transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
 }
@@ -206,6 +206,6 @@ function handleGotoToday() {
 .options-leave-to {
   min-height: 0 !important;
   max-height: 0 !important;
-  padding: 0 !important;
+  height: 0 !important;
 }
 </style>
