@@ -51,10 +51,10 @@ function insertTextAndPreserveCursor(txt: string) {
 
 <template>
   <div class="bg-secondary/25 px-6 z-10 flex flex-col overflow-y-scroll">
-    <div class="text-sm mt-6 p-1 bg-secondary/50 rounded-full">
-      <button class="transition-colors rounded-full px-4 py-1 font-light"
+    <div class="text-xs font-semibold text-black/25 mt-4">
+      <button class="transition-colors rounded-full px-4 py-1"
         :class="{
-          'bg-info text-white': type == 'daily',
+          'bg-secondary text-black/50': type == 'daily',
           'opacity-50': forceDaily
         }"
         @mousedown.prevent="type = 'daily'"
@@ -62,9 +62,9 @@ function insertTextAndPreserveCursor(txt: string) {
         روزانه
       </button>
 
-      <button class="transition-colors rounded-full px-4 py-1 font-light"
+      <button class="transition-colors rounded-full px-4 py-1"
         :class="{
-          'bg-info text-white': type == 'mandatory',
+          'bg-secondary text-black/50': type == 'mandatory',
           'opacity-50': forceDaily
         }"
         @mousedown.prevent="type = 'mandatory'"
