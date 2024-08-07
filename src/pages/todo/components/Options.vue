@@ -47,10 +47,20 @@ function insertTextAndPreserveCursor(txt: string) {
   }
 }
 
+let hammer
+const vTap = {
+  mounted: (el: HTMLElement, { value }: { value: HammerListener }) => {
+    hammer = new Hammer(el)
+    console.log('v-tap', el, value);
+
+    hammer.on('tap', value)
+  }
+}
+
 </script>
 
 <template>
-  <div class="bg-secondary/25 px-6 z-10 flex flex-col overflow-y-scroll">
+  <div class="bg-secondary/25 px-1 flex flex-col overflow-y-scroll">
     <div class="text-xs font-semibold text-black/25 mt-4">
       <button class="transition-colors rounded-full px-4 py-1"
         :class="{
@@ -73,13 +83,19 @@ function insertTextAndPreserveCursor(txt: string) {
       </button>
     </div>
 
-    <div class="flex-grow text-lg pt-4 flex flex-row-reverse flex-wrap justify-around items-start">
+    <div class="pt-2 text-2.5xl emoji-list -mt-2">
       <button v-for="emoji in emojies"
-        class="active:opacity-30 text-xl transition-opacity select-none min-w-6 min-h-6 p-2 touch-none"
-        @mousedown.prevent="insertTextAndPreserveCursor(emoji)"
-        @touchstart.prevent="insertTextAndPreserveCursor(emoji)">
+        class="active:opacity-30 transition-opacity min-w-6 min-h-6 p-2 select-none"
+        v-tap="() => insertTextAndPreserveCursor(emoji)">
         {{ emoji }}
       </button>
     </div>
   </div>
 </template>
+
+<style>
+.emoji-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+}
+</style>
