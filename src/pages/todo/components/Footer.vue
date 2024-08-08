@@ -4,11 +4,15 @@ import OptionsIcon from '@/components/icons/OptionsIcon.vue'
 import KeyboardIcon from '@/components/icons/KeyboardIcon.vue'
 import AppTextArea from '@/components/TextArea.vue'
 import { useKeyboard, useKeyboardEventListener } from '@/composable/keyboard'
+import { ref } from 'vue'
+import { textChangeRangeIsUnchanged } from 'typescript'
 
 const keyboard = useKeyboard()
 
 const content = defineModel<string>('content', { required: true })
 const options = defineModel<boolean>('options', { required: true })
+
+const textArea = ref<any | null>(null)
 
 const emit = defineEmits(['save'])
 
@@ -23,12 +27,17 @@ function toggleOptionsKeyboard() {
     if (options.value) {
       manuallyHideKeyboard = true
       keyboard.hide()
+      // i have to remove focus to let `textArea.value?.focus()` work and show keyboard
+      textArea.value?.blur()
     } else {
-      // undefinded state
+      // i have to remove focus to let `textArea.value?.focus()` work and show keyboard
+      textArea.value?.blur()
     }
   } else {
     if (options.value) {
-      keyboard.show()
+      // unfortunately the `keyboard.show()` has delay,
+      textArea.value?.focus()
+
     } else {
       options.value = true
     }
@@ -70,7 +79,8 @@ useKeyboardEventListener('keyboardWillShow', 'options', () => {
       </Transition>
     </button>
 
-    <AppTextArea v-model="content"
+    <AppTextArea ref="textArea"
+      v-model="content"
       class="w-full px-3 pt-2.5 pb-3.5 font-normal min-h-12 text-base max-h-36 overflow-y-auto"
       placeholder="کار من"
       @keyup.enter="save" />

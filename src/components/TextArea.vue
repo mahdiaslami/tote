@@ -17,6 +17,11 @@ const emit = defineEmits(['update:modelValue', 'keyup'])
 const p = ref<HTMLParagraphElement | null>(null)
 const div = ref<HTMLDivElement | null>(null)
 
+defineExpose({
+  focus: () => p.value?.focus(),
+  blur: () => p.value?.blur(),
+})
+
 watch(
   () => props.modelValue,
   () => nextTick(updateHeight)
