@@ -1,14 +1,18 @@
 <script setup lang="ts">
 import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
+import Options from './components/Options.vue'
 import Todos from './components/Todos.vue'
 import Calendar from './components/Calendar.vue'
 import Modal from '@/components/Modal.vue'
-import { nextTick, reactive, ref } from 'vue'
 import { useTodoStore } from '@/store/todo'
 import type { Todo, Schedule } from '@/types'
+import { reactive, ref } from 'vue'
+import { useKeyboard } from '@/composable/keyboard'
+import { useBackEventListener } from '@/composable/backbutton'
 
 const todoStore = useTodoStore()
+const keyboard = useKeyboard()
 
 const calendar = ref<any | null>(null)
 const todos = ref<any | null>(null)
@@ -23,19 +27,21 @@ const data = reactive({
     this.content = ''
     this.type = 'daily'
   },
+
+  options: false,
 })
 
-const emoji = reactive({
-  list: ['✨', '😍', '🤔', '😬', '⏰', '🚀', '🚨'],
+useBackEventListener('options', (): boolean => {
+  if (data.options) {
+    data.options = false
+    return false
+  }
 
-  regex() {
-    return new RegExp(this.list.join('|'), 'g')
-  },
-
-  visiable: false
+  return true
 })
 
 const deleteModal = reactive({
+  // TODO: fix typo of visible <= correct
   visiable: false,
   todo: null as Todo | null,
 
@@ -47,36 +53,6 @@ const deleteModal = reactive({
 
 function isToday() {
   return calendar.value && calendar.value.current().isToday()
-}
-
-function toggleType() {
-  if (isToday()) {
-    data.type = (data.type == 'daily') ? 'mandatory' : 'daily'
-  }
-}
-
-function insertTextAndPreserveCursor(txt: string) {
-  const selection = window.getSelection()
-  if (selection && selection.rangeCount) {
-    let range = selection.getRangeAt(0)
-
-    const prefix = data.content.slice(0, range.startOffset)
-    const suffix = data.content.slice(range.endOffset, data.content.length)
-
-    // logically each emoji is 2 or more character, but cursor assume
-    // it is one character.
-    const cursorOffset = prefix.replace(emoji.regex(), 'e').length
-
-    data.content = prefix + txt + suffix
-
-    nextTick(() => {
-      for (let i = 0; i <= cursorOffset; i++) {
-        selection.modify('move', 'forward', 'character')
-      }
-    })
-  } else {
-    data.content += txt
-  }
 }
 
 function handleSave() {
@@ -127,6 +103,7 @@ function handleDateChange() {
 function handleGotoToday() {
   calendar.value?.reset()
 }
+
 </script>
 
 <template>
@@ -159,40 +136,24 @@ function handleGotoToday() {
               class="px-4 py-2 rounded-r-full font-medium bg-info text-white">بازگشت به روز جاری</button>
           </div>
         </Transition>
-
-        <Transition name="content-menu"
-          :duration="300">
-          <div v-if="emoji.visiable"
-            class="bg-primary border-t border-line py-2 z-10 h-12 flex flex-row overflow-y-hidden">
-
-            <div class="flex-grow text-lg flex flex-row-reverse justify-around">
-              <button v-for="emo in emoji.list"
-                class="active:opacity-30 transition-opacity"
-                @mousedown.prevent="insertTextAndPreserveCursor(emo)"
-                @touchstart.prevent="insertTextAndPreserveCursor(emo)">
-                {{ emo }}
-              </button>
-            </div>
-
-            <div class="border-r border-line px-2">
-              <button class="transition-colors rounded px-2 py-1 font-light"
-                :class="{
-                  'bg-info text-white': data.type == 'mandatory',
-                  'opacity-50': !isToday()
-                }"
-                @mousedown.prevent="toggleType"
-                @touchstart.prevent="toggleType">
-                اجباری
-              </button>
-            </div>
-          </div>
-        </Transition>
       </div>
     </div>
 
     <Footer v-model:content="data.content"
-      v-model:emoji="emoji.visiable"
+      v-model:options="data.options"
       @save="handleSave" />
+
+    <Transition name="options"
+      :duration="keyboard.showing || keyboard.shown ? 1 : 300">
+      <Options v-if="data.options"
+        v-model:content="data.content"
+        v-model:type="data.type"
+        :force-daily="!isToday()"
+        :style="{
+          minHeight: `${keyboard.keyboardHeight}px`,
+          height: `${keyboard.keyboardHeight}px`,
+        }" />
+    </Transition>
 
     <Modal v-model="deleteModal.visiable"
       :cancelable="true"
@@ -229,21 +190,22 @@ function handleGotoToday() {
   transform: translateX(-100%);
 }
 
-.content-menu-enter-active {
-  transition-property: height, padding;
-  transition-duration: 300ms;
+.options-enter-active {
+  transition-property: min-height, max-height, height;
+  transition-duration: 200ms;
   transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
 }
 
-.content-menu-leave-active {
-  transition-property: height, padding;
-  transition-duration: 300ms;
+.options-leave-active {
+  transition-property: min-height, max-height, height;
+  transition-duration: 200ms;
   transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
 }
 
-.content-menu-enter-from,
-.content-menu-leave-to {
+.options-enter-from,
+.options-leave-to {
+  min-height: 0 !important;
+  max-height: 0 !important;
   height: 0 !important;
-  padding: 0 !important;
 }
 </style>
