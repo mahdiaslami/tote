@@ -1,11 +1,33 @@
 <template>
-    <svg aria-hidden="true"
-        xmlns="http://www.w3.org/2000/svg"
+    <svg width="800px"
+        height="800px"
+        viewBox="0 0 24 24"
         fill="none"
-        viewBox="0 0 24 24">
-        <path stroke="currentColor"
-            stroke-linecap="round"
-            stroke-width="1"
-            d="M20 6H10m0 0a2 2 0 1 0-4 0m4 0a2 2 0 1 1-4 0m0 0H4m16 6h-2m0 0a2 2 0 1 0-4 0m4 0a2 2 0 1 1-4 0m0 0H4m16 6H10m0 0a2 2 0 1 0-4 0m4 0a2 2 0 1 1-4 0m0 0H4" />
+        stroke="#1C274C"
+        xmlns="http://www.w3.org/2000/svg">
+        <path
+            d="M10 14C11.1046 14 12 14.8954 12 16C12 17.1046 11.1046 18 10 18C8.89543 18 8 17.1046 8 16C8 14.8954 8.89543 14 10 14Z"
+            stroke-width="1.5" />
+        <circle cx="2"
+            cy="2"
+            r="2"
+            transform="matrix(-4.37114e-08 -1 -1 4.37114e-08 16 10)"
+            stroke-width="1.5" />
+        <path d="M14 16L19 16"
+            stroke-width="1.5"
+            stroke-linecap="round" />
+        <path d="M10 8L5 8"
+            stroke-width="1.5"
+            stroke-linecap="round" />
+        <path d="M5 16L6 16"
+            stroke-width="1.5"
+            stroke-linecap="round" />
+        <path d="M19 8L18 8"
+            stroke-width="1.5"
+            stroke-linecap="round" />
+        <path
+            d="M22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C21.5093 4.43821 21.8356 5.80655 21.9449 8"
+            stroke-width="1.5"
+            stroke-linecap="round" />
     </svg>
 </template>

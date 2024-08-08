@@ -64,14 +64,14 @@ useKeyboardEventListener('keyboardWillShow', 'options', () => {
       <Transition name="keyboard-options"
         mode="out-in">
         <KeyboardIcon v-if="!keyboard.showing && options"
-          class="h-7 w-7 text-pen/40" />
+          class="h-7 w-7 fill-pen/40 stroke-pen/40" />
         <OptionsIcon v-else
-          class="h-7 w-7 text-pen/40" />
+          class="h-7 w-7 stroke-pen/40" />
       </Transition>
     </button>
 
     <AppTextArea v-model="content"
-      class="w-full px-3 pt-2.5 pb-3.5 font-light min-h-12 text-base max-h-36 overflow-y-auto"
+      class="w-full px-3 pt-2.5 pb-3.5 font-normal min-h-12 text-base max-h-36 overflow-y-auto"
       placeholder="کار من"
       @keyup.enter="save" />
 
