@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { type Schedule } from '@/types';
 import { nextTick, watch } from 'vue';
+import CalendarMark from '@/components/icons/CalendarMark.vue'
+import DangerTriangle from '@/components/icons/DangerTriangle.vue'
 
 const props = defineProps<{
   forceDaily: boolean
@@ -49,9 +51,8 @@ function insertTextAndPreserveCursor(txt: string) {
 
 let hammer
 const vTap = {
-  mounted: (el: HTMLElement, { value }: { value: HammerListener }) => {
+  mounted(el: HTMLElement, { value }: { value: HammerListener }) {
     hammer = new Hammer(el)
-    console.log('v-tap', el, value);
 
     hammer.on('tap', value)
   }
@@ -61,24 +62,27 @@ const vTap = {
 
 <template>
   <div class="bg-secondary/25 px-1 flex flex-col overflow-y-scroll">
-    <div class="text-xs font-semibold text-black/25 mt-4">
-      <button class="transition-colors rounded-full px-4 py-1"
+    <!-- TODO: should i change text-black? what should i do in dark mode? -->
+    <div class="text-xs font-semibold text-black/25 mt-2 p-0.5 rounded-full w-fit">
+      <button class="transition-colors rounded-full px-2 py-1"
         :class="{
-          'bg-secondary text-black/50': type == 'daily',
+          'bg-secondary/50 text-black/50': type == 'daily',
           'opacity-50': forceDaily
         }"
-        @mousedown.prevent="type = 'daily'"
-        @touchstart.prevent="type = 'daily'">
+        v-tap="() => type = 'daily'">
+        <CalendarMark class="transition-[stroke] inline-block h-5 w-5 ml-1"
+          :class="[type == 'daily' ? 'stroke-black/50' : 'stroke-black/25']" />
         روزانه
       </button>
 
-      <button class="transition-colors rounded-full px-4 py-1"
+      <button class="transition-colors rounded-full px-2 py-1"
         :class="{
-          'bg-secondary text-black/50': type == 'mandatory',
+          'bg-secondary/50 text-black/50': type == 'mandatory',
           'opacity-50': forceDaily
         }"
-        @mousedown.prevent="type = 'mandatory'"
-        @touchstart.prevent="type = 'mandatory'">
+        v-tap="() => type = 'mandatory'">
+        <DangerTriangle class="transition-[stroke] inline-block h-5 w-5 ml-1"
+          :class="[type == 'mandatory' ? 'stroke-black/50' : 'stroke-black/25']" />
         اجباری
       </button>
     </div>
