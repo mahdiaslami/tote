@@ -8,6 +8,8 @@ Simple todo progressive web application (PWA). with the ability to categorize to
 I want to prevent changing focus from input to button. the changing focus cause
 closing virtual keyboard in android.
 
+- Icon pack: https://www.svgrepo.com/collection/solar-broken-line-icons/1
+
 # Android
 
 ## Sign APK file
