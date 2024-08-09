@@ -44,8 +44,12 @@ foreach ($translations as $key => $value) {
 }
 
 // flat the result for using in virtual scroll
-
-
+$newData = [];
+foreach ($data as $category => $emojis) {
+    $newData[] = $category;
+    array_push($newData, ...array_chunk($emojis, 8));
+}
+$data = $newData;
 
 // store result
 $result = json_encode($data, JSON_UNESCAPED_UNICODE);
