@@ -7,7 +7,7 @@ export default {
   ],
   theme: {
     fontFamily: {
-      default: ['Montserrat', 'Vazirmatn'],
+      default: ['Vazirmatn', 'Noto Color Emoji'],
     },
 
     extend: {
