@@ -1,5 +1,5 @@
 import { Keyboard } from '@capacitor/keyboard'
-import { onMounted, onUnmounted, reactive, type App } from 'vue'
+import { onMounted, onUnmounted, reactive } from 'vue'
 
 // TODO: move keyboard to composables
 // TODO: rename to ListenerCallback. don't forget backbutton.ts

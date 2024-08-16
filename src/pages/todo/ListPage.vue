@@ -55,6 +55,10 @@ function isToday() {
   return calendar.value && calendar.value.current().isToday()
 }
 
+function optionsHeight() {
+  return keyboard.keyboardHeight > 0 ? keyboard.keyboardHeight : 250
+}
+
 function handleSave() {
   const trimedContent = data.content.trim()
 
@@ -150,8 +154,8 @@ function handleGotoToday() {
         v-model:type="data.type"
         :force-daily="!isToday()"
         :style="{
-          minHeight: `${keyboard.keyboardHeight}px`,
-          height: `${keyboard.keyboardHeight}px`,
+          minHeight: `${optionsHeight()}px`,
+          height: `${optionsHeight()}px`,
         }" />
     </Transition>
 
