@@ -27,15 +27,14 @@ function toggleOptionsKeyboard() {
     if (options.value) {
       manuallyHideKeyboard = true
       keyboard.hide()
-      // i have to remove focus to let `textArea.value?.focus()` work and show keyboard
-      textArea.value?.blur()
     } else {
-      // i have to remove focus to let `textArea.value?.focus()` work and show keyboard
-      textArea.value?.blur()
+      // undefined state
     }
   } else {
     if (options.value) {
-      // unfortunately the `keyboard.show()` has delay,
+      // unfortunately the `keyboard.show()` has delay, i have to remove focus
+      // to let `textArea.value?.focus()` work and show keyboard
+      textArea.value?.blur()
       textArea.value?.focus()
 
     } else {
