@@ -3,6 +3,7 @@ import { type Schedule } from '@/types';
 import { nextTick, watch } from 'vue';
 import CalendarMark from '@/components/icons/CalendarMark.vue'
 import DangerTriangle from '@/components/icons/DangerTriangle.vue'
+import Emojis from './Emojis.vue'
 
 const props = defineProps<{
   forceDaily: boolean
@@ -13,16 +14,8 @@ const type = defineModel<Schedule>('type')
 
 watch(props, () => type.value = props.forceDaily ? 'daily' : type.value)
 
-const emojies = [
-  '😍', '🤔', '😬', '😇', '🤒', '🤢', '🤧', '😴',
-  '✨', '⏰', '🚀', '🚨', '⭐', '❤️', '🔥', '🎥',
-  '📕', '📚', '🖇️', '🧮', '💰', '🪙', '🎀', '🥽',
-  '👔', '👕', '👖', '🧣', '💃', '🕺', '⛹️‍♂️', '⛹️‍♀️',
-  '💇‍♂️', '💇‍♀️', '🤱'
-]
-
 function regex() {
-  return new RegExp(emojies.join('|'), 'g')
+  return /\p{Emoji_Presentation}/ug
 }
 
 function insertTextAndPreserveCursor(txt: string) {
@@ -87,13 +80,8 @@ const vTap = {
       </button>
     </div>
 
-    <div class="pt-2 text-2.5xl emoji-list -mt-2">
-      <button v-for="emoji in emojies"
-        class="active:opacity-30 transition-opacity min-w-6 min-h-6 p-2 select-none"
-        v-tap="() => insertTextAndPreserveCursor(emoji)">
-        {{ emoji }}
-      </button>
-    </div>
+    <Emojis class="pt-2"
+      @tap="(emoji) => insertTextAndPreserveCursor(emoji)" />
   </div>
 </template>
 
