@@ -26,11 +26,16 @@ export default {
         wiggle: {
           '0%, 100%': { transform: 'rotate(-3deg)' },
           '50%': { transform: 'rotate(3deg)' },
+        },
+        blink: {
+          '0%, 50%': { visibility: 'hidden' },
+          '51%, 100%': { visibility: 'visiable' },
         }
       },
 
       animation: {
         wiggle: 'wiggle 0.2s ease-in-out infinite',
+        blink: 'blink 1s infinite'
       },
 
       spacing: {

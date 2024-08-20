@@ -9,6 +9,7 @@ I want to prevent changing focus from input to button. the changing focus cause
 closing virtual keyboard in android.
 
 - Icon pack: https://www.svgrepo.com/collection/solar-broken-line-icons/1
+- Custom caret: https://phuoc.ng/collection/mirror-a-text-area/create-your-own-custom-cursor-in-a-text-area/
 
 # Android
 
