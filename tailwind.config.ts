@@ -23,7 +23,6 @@ export default {
         info: 'rgb(var(--color-info) / <alpha-value>)',
         force: 'rgb(var(--color-force) / <alpha-value>)',
         danger: 'rgb(var(--color-danger) / <alpha-value>)',
-        line: 'rgb(var(--color-line) / <alpha-value>)',
         pen: 'rgb(var(--color-pen-primary) / <alpha-value>)'
       },
 
