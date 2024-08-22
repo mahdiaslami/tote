@@ -13,7 +13,12 @@ export default {
     extend: {
       colors: {
         primary: 'rgb(var(--color-primary) / <alpha-value>)',
-        secondary: 'rgb(var(--color-secondary) / <alpha-value>)',
+        secondary: {
+          1: 'rgb(var(--color-secondary-1) / <alpha-value>)',
+          2: 'rgb(var(--color-secondary-2) / <alpha-value>)',
+          3: 'rgb(var(--color-secondary-3) / <alpha-value>)',
+          DEFAULT: 'rgb(var(--color-secondary) / <alpha-value>)',
+        },
         success: 'rgb(var(--color-success) / <alpha-value>)',
         info: 'rgb(var(--color-info) / <alpha-value>)',
         force: 'rgb(var(--color-force) / <alpha-value>)',
