@@ -15,8 +15,8 @@
         --color-success: 5 150 105;
         --color-info: 127 127 255;
         --color-danger: 255 76 76;
-        /* #262626 */
-        --color-pen-primary: 38 38 38;
+
+        --color-pen: 38 38 38;
     }
 }
 
