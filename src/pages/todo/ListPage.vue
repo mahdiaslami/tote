@@ -161,7 +161,7 @@ function handleGotoToday() {
 
     <Modal v-model="deleteModal.visiable"
       :cancelable="true"
-      class="p-4 font-light">
+      class="p-4 font-light select-none">
 
       <h2 class="text-lg mb-1">حذف کار</h2>
       <p class="mb-6">مطمئنی میخوای حذف کنی؟</p>
