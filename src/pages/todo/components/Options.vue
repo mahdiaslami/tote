@@ -55,27 +55,26 @@ const vTap = {
 
 <template>
   <div class="bg-secondary-1 px-1 flex flex-col overflow-y-scroll">
-    <!-- TODO: should i change text-black? what should i do in dark mode? -->
-    <div class="text-xs font-semibold text-black/25 mt-2 p-0.5 rounded-full w-fit">
+    <div class="text-xs font-semibold text-pen/30 mt-2 p-0.5 rounded-full w-fit">
       <button class="transition-colors rounded-full px-2 py-1"
         :class="{
-          'bg-secondary-2 text-black/50': type == 'daily',
+          'bg-secondary-2 text-pen/60': type == 'daily',
           'opacity-50': forceDaily
         }"
         v-tap="() => type = 'daily'">
         <CalendarMark class="transition-[stroke] inline-block h-5 w-5 ml-1"
-          :class="[type == 'daily' ? 'stroke-black/50' : 'stroke-black/25']" />
+          :class="[type == 'daily' ? 'stroke-pen/60' : 'stroke-pen/30']" />
         روزانه
       </button>
 
       <button class="transition-colors rounded-full px-2 py-1"
         :class="{
-          'bg-secondary-2 text-black/50': type == 'mandatory',
+          'bg-secondary-2 text-pen/60': type == 'mandatory',
           'opacity-50': forceDaily
         }"
         v-tap="() => type = 'mandatory'">
         <DangerTriangle class="transition-[stroke] inline-block h-5 w-5 ml-1"
-          :class="[type == 'mandatory' ? 'stroke-black/50' : 'stroke-black/25']" />
+          :class="[type == 'mandatory' ? 'stroke-pen/60' : 'stroke-pen/30']" />
         اجباری
       </button>
     </div>

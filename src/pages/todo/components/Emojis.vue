@@ -80,31 +80,31 @@ const vTap = {
       class="absolute bg-secondary rounded-xl -z-10"
       :style="{ display: 'none', top: 0, left: 0, height: `${data.unit}px`, width: `${data.unit}px` }"></div>
 
-    <h3 class="text-sm font-semibold py-2 px-3 text-black/25">لبخندها و احساسات</h3>
+    <h3 class="text-sm font-semibold py-2 px-3 text-pen/30">لبخندها و احساسات</h3>
     <img src="@/assets/emojis/smileys-and-emotions.png"
       v-tap="(ev) => fireTap(0, ev)" />
 
-    <h3 class="text-sm font-semibold py-2 px-3 text-black/25">مردم</h3>
+    <h3 class="text-sm font-semibold py-2 px-3 text-pen/30">مردم</h3>
     <img src="@/assets/emojis/people.png"
       v-tap="(ev) => fireTap(1, ev)" />
 
-    <h3 class="text-sm font-semibold py-2 px-3 text-black/25">حیوانات و طبیعت</h3>
+    <h3 class="text-sm font-semibold py-2 px-3 text-pen/30">حیوانات و طبیعت</h3>
     <img src="@/assets/emojis/animals-and-nature.png"
       v-tap="(ev) => fireTap(2, ev)" />
 
-    <h3 class="text-sm font-semibold py-2 px-3 text-black/25">غذا و نوشیدنی</h3>
+    <h3 class="text-sm font-semibold py-2 px-3 text-pen/30">غذا و نوشیدنی</h3>
     <img src="@/assets/emojis/food-and-drink.png"
       v-tap="(ev) => fireTap(3, ev)" />
 
-    <h3 class="text-sm font-semibold py-2 px-3 text-black/25">سفر و مکان ها</h3>
+    <h3 class="text-sm font-semibold py-2 px-3 text-pen/30">سفر و مکان ها</h3>
     <img src="@/assets/emojis/travel-and-places.png"
       v-tap="(ev) => fireTap(4, ev)" />
 
-    <h3 class="text-sm font-semibold py-2 px-3 text-black/25">فعالیت ها و رویدادها</h3>
+    <h3 class="text-sm font-semibold py-2 px-3 text-pen/30">فعالیت ها و رویدادها</h3>
     <img src="@/assets/emojis/activities-and-events.png"
       v-tap="(ev) => fireTap(5, ev)" />
 
-    <h3 class="text-sm font-semibold py-2 px-3 text-black/25">اشیاء</h3>
+    <h3 class="text-sm font-semibold py-2 px-3 text-pen/30">اشیاء</h3>
     <img src="@/assets/emojis/objects.png"
       v-tap="(ev) => fireTap(6, ev)" />
   </div>
