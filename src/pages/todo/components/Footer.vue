@@ -4,8 +4,7 @@ import OptionsIcon from '@/components/icons/OptionsIcon.vue'
 import KeyboardIcon from '@/components/icons/KeyboardIcon.vue'
 import AppTextArea from '@/components/TextArea.vue'
 import { useKeyboard, useKeyboardEventListener } from '@/composable/keyboard'
-import { nextTick, ref } from 'vue'
-import { textChangeRangeIsUnchanged } from 'typescript'
+import { ref } from 'vue'
 
 const keyboard = useKeyboard()
 
@@ -17,32 +16,8 @@ const textArea = ref<any | null>(null)
 const emit = defineEmits(['save'])
 
 defineExpose({
-  insertText: insertTextAndPreserveCursor
+  insertText: (text: string) => textArea.value?.insertText(text)
 })
-
-function insertTextAndPreserveCursor(txt: string) {
-  const selection = window.getSelection()
-  if (selection && selection.rangeCount && content.value && content.value.length > 0) {
-    let range = selection.getRangeAt(0)
-
-    const prefix = content.value.slice(0, range.startOffset)
-    const suffix = content.value.slice(range.endOffset, content.value.length)
-
-    // logically each emoji is 2 or more character, but cursor assume
-    // it is one character.
-    const cursorOffset = prefix.replace(/\p{Emoji_Presentation}/ug, 'e').length
-
-    content.value = prefix + txt + suffix
-
-    nextTick(() => {
-      for (let i = 0; i <= cursorOffset; i++) {
-        selection.modify('move', 'forward', 'character')
-      }
-    })
-  } else {
-    content.value += txt
-  }
-}
 
 function save() {
   emit('save')

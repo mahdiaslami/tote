@@ -20,6 +20,7 @@ const div = ref<HTMLDivElement | null>(null)
 defineExpose({
   focus: () => p.value?.focus(),
   blur: () => p.value?.blur(),
+  insertText: insertTextAndPreserveCursor,
 })
 
 watch(
@@ -68,6 +69,30 @@ function updateHeight() {
 
 function getComputedStyle(el: Element, property: string) {
   return parseInt(window.getComputedStyle(el, null).getPropertyValue(property))
+}
+
+function insertTextAndPreserveCursor(txt: string) {
+  const selection = window.getSelection()
+  if (selection && selection.rangeCount && props.modelValue && props.modelValue.length > 0) {
+    let range = selection.getRangeAt(0)
+
+    const prefix = props.modelValue.slice(0, range.startOffset)
+    const suffix = props.modelValue.slice(range.endOffset, props.modelValue.length)
+
+    // logically each emoji is 2 or more character, but cursor assume
+    // it is one character.
+    const cursorOffset = prefix.replace(/\p{Emoji_Presentation}/ug, 'e').length
+
+    emit('update:modelValue', prefix + txt + suffix)
+
+    nextTick(() => {
+      for (let i = 0; i <= cursorOffset; i++) {
+        selection.modify('move', 'forward', 'character')
+      }
+    })
+  } else {
+    emit('update:modelValue', txt)
+  }
 }
 </script>
 
