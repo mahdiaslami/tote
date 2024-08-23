@@ -63,10 +63,11 @@ function hover(top: number, left: number) {
   if (hoverDiv.value) {
     hoverDiv.value.style.top = `${top}px`
     hoverDiv.value.style.left = `${left}px`
-    hoverDiv.value.style.display = 'block'
+
+    hoverDiv.value.classList.remove('emoji-hover')
     setTimeout(
-      () => { if (hoverDiv.value) hoverDiv.value.style.display = 'none' },
-      50
+      () => hoverDiv.value?.classList.add('emoji-hover'),
+      1
     )
   }
 }
@@ -87,20 +88,36 @@ const vTap = {
     class="relative select-none">
 
     <div ref="hoverDiv"
-      class="absolute bg-secondary rounded-xl"
-      :style="{ display: 'none', top: 0, left: 0, height: `${data.unit}px`, width: `${data.unit}px` }"></div>
+      class="absolute bg-secondary-2 rounded-xl opacity-0"
+      :style="{ top: 0, left: 0, height: `${data.unit}px`, width: `${data.unit}px` }"></div>
 
     <template v-for="(category, cindex) in categories"
       :key="cindex">
       <h3 class="text-sm font-semibold py-2 px-3 text-pen/30">{{ category.title }}</h3>
-      <img class="relative z-10"
+      <img class="relative"
         :src="category.image"
         v-tap="(ev) => fireTap(0, ev)" />
     </template>
   </div>
 </template>
 
+<style>
+@keyframes emojihover {
 
+  0%,
+  99% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.emoji-hover {
+  animation: emojihover 75ms 1;
+}
+</style>
 
 
 
