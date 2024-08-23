@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { type Schedule } from '@/types';
 import { watch } from 'vue';
-import CalendarMark from '@/components/icons/CalendarMark.vue'
-import DangerTriangle from '@/components/icons/DangerTriangle.vue'
+import CalendarMarkIcon from '@/components/icons/CalendarMarkIcon.vue'
+import DangerTriangleIcon from '@/components/icons/DangerTriangleIcon.vue'
 import Emojis from './Emojis.vue'
 
 const props = defineProps<{
@@ -34,7 +34,7 @@ const vTap = {
           'opacity-50': forceDaily
         }"
         v-tap="() => type = 'daily'">
-        <CalendarMark class="transition-[stroke] inline-block h-5 w-5 ml-1"
+        <CalendarMarkIcon class="transition-[stroke] inline-block h-5 w-5 ml-1"
           :class="[type == 'daily' ? 'stroke-pen/60' : 'stroke-pen/30']" />
         روزانه
       </button>
@@ -45,7 +45,7 @@ const vTap = {
           'opacity-50': forceDaily
         }"
         v-tap="() => type = 'mandatory'">
-        <DangerTriangle class="transition-[stroke] inline-block h-5 w-5 ml-1"
+        <DangerTriangleIcon class="transition-[stroke] inline-block h-5 w-5 ml-1"
           :class="[type == 'mandatory' ? 'stroke-pen/60' : 'stroke-pen/30']" />
         اجباری
       </button>
