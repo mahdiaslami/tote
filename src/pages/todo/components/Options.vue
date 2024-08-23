@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { type Schedule } from '@/types';
-import { nextTick, watch } from 'vue';
+import { watch } from 'vue';
 import CalendarMark from '@/components/icons/CalendarMark.vue'
 import DangerTriangle from '@/components/icons/DangerTriangle.vue'
 import Emojis from './Emojis.vue'
@@ -9,38 +9,10 @@ const props = defineProps<{
   forceDaily: boolean
 }>()
 
-const content = defineModel<string>('content')
 const type = defineModel<Schedule>('type')
+const emit = defineEmits(['emoji'])
 
 watch(props, () => type.value = props.forceDaily ? 'daily' : type.value)
-
-function regex() {
-  return /\p{Emoji_Presentation}/ug
-}
-
-function insertTextAndPreserveCursor(txt: string) {
-  const selection = window.getSelection()
-  if (selection && selection.rangeCount && content.value && content.value.length > 0) {
-    let range = selection.getRangeAt(0)
-
-    const prefix = content.value.slice(0, range.startOffset)
-    const suffix = content.value.slice(range.endOffset, content.value.length)
-
-    // logically each emoji is 2 or more character, but cursor assume
-    // it is one character.
-    const cursorOffset = prefix.replace(regex(), 'e').length
-
-    content.value = prefix + txt + suffix
-
-    nextTick(() => {
-      for (let i = 0; i <= cursorOffset; i++) {
-        selection.modify('move', 'forward', 'character')
-      }
-    })
-  } else {
-    content.value += txt
-  }
-}
 
 let hammer
 const vTap = {
@@ -80,7 +52,7 @@ const vTap = {
     </div>
 
     <Emojis class="pt-2"
-      @tap="(emoji) => insertTextAndPreserveCursor(emoji)" />
+      @tap="(emoji) => emit('emoji', emoji)" />
   </div>
 </template>
 

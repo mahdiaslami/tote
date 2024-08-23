@@ -7,7 +7,7 @@ import Calendar from './components/Calendar.vue'
 import Modal from '@/components/Modal.vue'
 import { useTodoStore } from '@/store/todo'
 import type { Todo, Schedule } from '@/types'
-import { reactive, ref } from 'vue'
+import { nextTick, reactive, ref } from 'vue'
 import { useKeyboard } from '@/composable/keyboard'
 import { useBackEventListener } from '@/composable/backbutton'
 
@@ -108,6 +108,30 @@ function handleGotoToday() {
   calendar.value?.reset()
 }
 
+function insertTextAndPreserveCursor(txt: string) {
+  const selection = window.getSelection()
+  if (selection && selection.rangeCount && data.content && data.content.length > 0) {
+    let range = selection.getRangeAt(0)
+
+    const prefix = data.content.slice(0, range.startOffset)
+    const suffix = data.content.slice(range.endOffset, data.content.length)
+
+    // logically each emoji is 2 or more character, but cursor assume
+    // it is one character.
+    const cursorOffset = prefix.replace(/\p{Emoji_Presentation}/ug, 'e').length
+
+    data.content = prefix + txt + suffix
+
+    nextTick(() => {
+      for (let i = 0; i <= cursorOffset; i++) {
+        selection.modify('move', 'forward', 'character')
+      }
+    })
+  } else {
+    data.content += txt
+  }
+}
+
 </script>
 
 <template>
@@ -150,8 +174,8 @@ function handleGotoToday() {
     <Transition name="options"
       :duration="keyboard.showing || keyboard.shown ? 1 : 300">
       <Options v-if="data.options"
-        v-model:content="data.content"
         v-model:type="data.type"
+        @emoji="emoji => insertTextAndPreserveCursor(emoji)"
         :force-daily="!isToday()"
         :style="{
           minHeight: `${optionsHeight()}px`,
