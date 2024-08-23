@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import emojis from '@/assets/emojis/emoji_15_0_ordering.json'
+import emojis from '@/assets/emoji_15_0_ordering.json'
 import { onMounted, reactive, ref } from 'vue';
 
 const container = ref<HTMLDivElement | null>(null)
@@ -9,6 +9,16 @@ const data = reactive({
   width: 0,
   unit: 1,
 })
+
+const categories = [
+  { "title": "لبخندها و احساسات", "image": "/images/emojis/smileys-and-emotions.png" },
+  { "title": "مردم", "image": "/images/emojis/people.png" },
+  { "title": "حیوانات و طبیعت", "image": "/images/emojis/animals-and-nature.png" },
+  { "title": "غذا و نوشیدنی", "image": "/images/emojis/food-and-drink.png" },
+  { "title": "سفر و مکان ها", "image": "/images/emojis/travel-and-places.png" },
+  { "title": "فعالیت ها و رویدادها", "image": "/images/emojis/activities-and-events.png" },
+  { "title": "اشیاء", "image": "/images/emojis/objects.png" },
+]
 
 const emit = defineEmits(['tap'])
 
@@ -80,40 +90,13 @@ const vTap = {
       class="absolute bg-secondary rounded-xl"
       :style="{ display: 'none', top: 0, left: 0, height: `${data.unit}px`, width: `${data.unit}px` }"></div>
 
-    <h3 class="text-sm font-semibold py-2 px-3 text-pen/30">لبخندها و احساسات</h3>
-    <img class="relative z-10"
-      src="@/assets/emojis/smileys-and-emotions.png"
-      v-tap="(ev) => fireTap(0, ev)" />
-
-    <h3 class="text-sm font-semibold py-2 px-3 text-pen/30">مردم</h3>
-    <img class="relative z-10"
-      src="@/assets/emojis/people.png"
-      v-tap="(ev) => fireTap(1, ev)" />
-
-    <h3 class="text-sm font-semibold py-2 px-3 text-pen/30">حیوانات و طبیعت</h3>
-    <img class="relative z-10"
-      src="@/assets/emojis/animals-and-nature.png"
-      v-tap="(ev) => fireTap(2, ev)" />
-
-    <h3 class="text-sm font-semibold py-2 px-3 text-pen/30">غذا و نوشیدنی</h3>
-    <img class="relative z-10"
-      src="@/assets/emojis/food-and-drink.png"
-      v-tap="(ev) => fireTap(3, ev)" />
-
-    <h3 class="text-sm font-semibold py-2 px-3 text-pen/30">سفر و مکان ها</h3>
-    <img class="relative z-10"
-      src="@/assets/emojis/travel-and-places.png"
-      v-tap="(ev) => fireTap(4, ev)" />
-
-    <h3 class="text-sm font-semibold py-2 px-3 text-pen/30">فعالیت ها و رویدادها</h3>
-    <img class="relative z-10"
-      src="@/assets/emojis/activities-and-events.png"
-      v-tap="(ev) => fireTap(5, ev)" />
-
-    <h3 class="text-sm font-semibold py-2 px-3 text-pen/30">اشیاء</h3>
-    <img class="relative z-10"
-      src="@/assets/emojis/objects.png"
-      v-tap="(ev) => fireTap(6, ev)" />
+    <template v-for="(category, cindex) in categories"
+      :key="cindex">
+      <h3 class="text-sm font-semibold py-2 px-3 text-pen/30">{{ category.title }}</h3>
+      <img class="relative z-10"
+        :src="category.image"
+        v-tap="(ev) => fireTap(0, ev)" />
+    </template>
   </div>
 </template>
 
