@@ -1,112 +1,140 @@
 <script setup lang="ts">
-import { ref, watch, nextTick, reactive } from 'vue'
+import { ref, nextTick, reactive, onUpdated, type Ref, watch } from 'vue'
+
+const textarea = ref<HTMLTextAreaElement | null>(null)
+const div = ref<HTMLDivElement | null>(null)
 
 const props = defineProps({
+  modelValue: {
+    type: String,
+    required: true
+  },
   placeholder: {
     type: String,
     default: ''
   }
 })
 
-const model = defineModel<string>({ required: true })
+const emit = defineEmits(['update:modelValue', 'keyup'])
 
-const emit = defineEmits(['keyup'])
-
-const textarea = ref<HTMLTextAreaElement | null>(null)
-const div = ref<HTMLDivElement | null>(null)
+useDynamicHeight()
+const mirror = useMirror()
+const editor = useEditor()
 
 defineExpose({
   focus: () => textarea.value?.focus(),
   blur: () => textarea.value?.blur(),
-  insertText: insertText,
+  insertText: (text: string) => editor.insert(text),
 })
 
-watch(
-  model,
-  () => {
-    updateMirror()
-    nextTick(updateHeight)
-  }
-)
+function useMirror() {
+  const mirror = reactive({
+    pre: '',
+    post: '',
 
-document.addEventListener(
-  'selectionchange',
-  () => document.activeElement === textarea.value && updateMirror()
-);
+    update() {
+      if (!textarea.value) {
+        return
+      }
 
-const mirror = reactive({
-  pre: '',
-  post: ''
-})
+      const caretPosition = textarea.value.selectionStart
+      this.pre = props.modelValue.substring(0, caretPosition)
+      this.post = props.modelValue.substring(caretPosition)
 
-function updateMirror() {
-  if (!textarea.value) {
-    return
-  }
+      console.log('mirror.update', caretPosition);
+    }
+  })
 
-  const caretPostion = textarea.value.selectionStart
-  mirror.pre = model.value.substring(0, caretPostion)
-  mirror.post = model.value.substring(caretPostion)
+  document.addEventListener(
+    'selectionchange',
+    () => mirror.update()
+  );
+
+  onUpdated(() => nextTick(() => mirror.update()))
+
+  return mirror
 }
 
-function updateHeight() {
-  if (!textarea.value || !div.value) {
-    return
-  }
+function useDynamicHeight() {
+  onUpdated(() => nextTick(() => {
+    if (!textarea.value || !div.value) {
+      return
+    }
 
-  textarea.value.style.height = ''
-  textarea.value.style.height = `${textarea.value.scrollHeight}px`
+    textarea.value.style.height = ''
+    textarea.value.style.height = `${textarea.value.scrollHeight}px`
 
-  const pt = getComputedStyle(div.value, 'padding-top')
-  const pb = getComputedStyle(div.value, 'padding-bottom')
+    const pt = getComputedStyle(div.value, 'padding-top')
+    const pb = getComputedStyle(div.value, 'padding-bottom')
 
-  const height = textarea.value.scrollHeight + pt + pb
+    const height = textarea.value.scrollHeight + pt + pb
 
-  if (div.value.clientHeight !== height) {
-    div.value.style.height = `${height}px`
-  }
+    if (div.value.clientHeight !== height) {
+      div.value.style.height = `${height}px`
+    }
+  }))
 }
 
 function getComputedStyle(el: Element, property: string) {
   return parseInt(window.getComputedStyle(el, null).getPropertyValue(property))
 }
 
-function insertText(txt: string) {
-  if (textarea.value) {
-    const caretPostion = textarea.value.selectionStart
+function useEditor() {
+  const editor = {
+    caretPosition: 0,
 
-    const pre = model.value.substring(0, textarea.value.selectionStart)
-    const post = model.value.substring(textarea.value.selectionEnd)
-
-    model.value = pre + txt + post;
-
-    setTimeout(() => {
-      if (textarea.value) {
-        textarea.value.selectionStart = textarea.value.selectionEnd = caretPostion + txt.length
+    insert(text: string) {
+      if (!textarea.value) {
+        return
       }
-    }, 1);
+
+      this.caretPosition = textarea.value.selectionStart
+
+      const pre = props.modelValue.substring(0, textarea.value.selectionStart)
+      const post = props.modelValue.substring(textarea.value.selectionEnd)
+
+      textarea.value.value = pre + text + post
+      this.caretPosition += text.length
+      emit('update:modelValue', textarea.value.value)
+
+      // I don't know why! but the only way that updating caret work is this.
+      setTimeout(() => this.updateCaret(), 1);
+    },
+
+    updateCaret() {
+      if (textarea.value) {
+        textarea.value.selectionStart = textarea.value.selectionEnd = editor.caretPosition
+        document.dispatchEvent(new Event('selectionchange'))
+      }
+    }
   }
+
+  return editor
 }
+
 </script>
 
 <template>
   <div ref="div"
     class="relative min-w-0 h-12 transition-[height]">
-    <span v-show="model.length === 0"
+    <span v-show="modelValue.length === 0"
       class="absolute select-none text-pen/40"
       @click="textarea?.focus()">{{ placeholder }}</span>
 
     <div class="relative">
       <textarea ref="textarea"
-        class=" block z-10 outline-none relative bg-transparent caret-transparent resize-none overflow-hidden w-full"
+        class="block z-10 outline-none relative bg-transparent caret-transparent resize-none overflow-hidden w-full"
+        style="unicode-bidi: embed;"
         rows="1"
-        v-model="model"
+        :value="modelValue"
+        @input="emit('update:modelValue', ($event.target as HTMLTextAreaElement).value)"
         @keyup="(ev) => emit('keyup', ev)">
         {{ modelValue }}
       </textarea>
 
       <!-- Mirror -->
-      <div class="absolute inset-0 select-none outline-none text-transparent whitespace-pre-wrap break-words">
+      <div class="absolute inset-0 select-none outline-none text-transparent whitespace-pre-wrap break-words"
+        style="unicode-bidi: embed;">
         {{ mirror.pre }}<span class="h-full animate-blink border border-blue-600"></span>{{ mirror.post }}
       </div>
     </div>
