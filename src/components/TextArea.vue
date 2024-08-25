@@ -106,7 +106,7 @@ function insertText(txt: string) {
       </textarea>
 
       <!-- Mirror -->
-      <div class="absolute inset-0 select-none outline-none text-transparent whitespace-pre-wrap">
+      <div class="absolute inset-0 select-none outline-none text-transparent whitespace-pre-wrap break-words">
         {{ mirror.pre }}<span class="h-full animate-blink border border-blue-600"></span>{{ mirror.post }}
       </div>
     </div>
