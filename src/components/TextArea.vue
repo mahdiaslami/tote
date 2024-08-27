@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, nextTick, reactive, onUpdated, type Ref, watch } from 'vue'
 
-const textarea = ref<HTMLTextAreaElement | null>(null)
+const textArea = ref<HTMLTextAreaElement | null>(null)
 const div = ref<HTMLDivElement | null>(null)
 
 const props = defineProps({
@@ -22,8 +22,8 @@ const mirror = useMirror()
 const editor = useEditor()
 
 defineExpose({
-  focus: () => textarea.value?.focus(),
-  blur: () => textarea.value?.blur(),
+  focus: () => textArea.value?.focus(),
+  blur: () => textArea.value?.blur(),
   insertText: (text: string) => editor.insert(text),
   removeText: () => editor.remove(),
 })
@@ -34,11 +34,11 @@ function useMirror() {
     post: '',
 
     update() {
-      if (!textarea.value) {
+      if (!textArea.value) {
         return
       }
 
-      const caretPosition = textarea.value.selectionStart
+      const caretPosition = textArea.value.selectionStart
       this.pre = props.modelValue.substring(0, caretPosition)
       this.post = props.modelValue.substring(caretPosition)
 
@@ -58,17 +58,17 @@ function useMirror() {
 
 function useDynamicHeight() {
   onUpdated(() => nextTick(() => {
-    if (!textarea.value || !div.value) {
+    if (!textArea.value || !div.value) {
       return
     }
 
-    textarea.value.style.height = ''
-    textarea.value.style.height = `${textarea.value.scrollHeight}px`
+    textArea.value.style.height = ''
+    textArea.value.style.height = `${textArea.value.scrollHeight}px`
 
     const pt = getComputedStyle(div.value, 'padding-top')
     const pb = getComputedStyle(div.value, 'padding-bottom')
 
-    const height = textarea.value.scrollHeight + pt + pb
+    const height = textArea.value.scrollHeight + pt + pb
 
     if (div.value.clientHeight !== height) {
       div.value.style.height = `${height}px`
@@ -85,27 +85,27 @@ function useEditor() {
     caretPosition: 0,
 
     insert(text: string) {
-      if (!textarea.value) {
+      if (!textArea.value) {
         return
       }
 
-      this.caretPosition = textarea.value.selectionStart
+      this.caretPosition = textArea.value.selectionStart
 
-      this.updateTextarea(
-        textarea.value,
-        textarea.value.selectionStart,
-        textarea.value.selectionEnd,
+      this.updateTextArea(
+        textArea.value,
+        textArea.value.selectionStart,
+        textArea.value.selectionEnd,
         text
       )
     },
 
     remove() {
-      if (!textarea.value) {
+      if (!textArea.value) {
         return
       }
 
-      let selectionStart = textarea.value.selectionStart
-      let selectionEnd = textarea.value.selectionEnd
+      let selectionStart = textArea.value.selectionStart
+      let selectionEnd = textArea.value.selectionEnd
 
       if (selectionStart == selectionEnd) {
         const pre = props.modelValue.slice(0, selectionStart)
@@ -115,29 +115,29 @@ function useEditor() {
 
       this.caretPosition = selectionStart
 
-      this.updateTextarea(
-        textarea.value,
+      this.updateTextArea(
+        textArea.value,
         selectionStart,
         selectionEnd,
         ''
       )
     },
 
-    updateTextarea(textarea: HTMLTextAreaElement, selectionStart: number, selectionEnd: number, text: string) {
+    updateTextArea(textArea: HTMLTextAreaElement, selectionStart: number, selectionEnd: number, text: string) {
       const pre = props.modelValue.substring(0, selectionStart)
       const post = props.modelValue.substring(selectionEnd)
 
-      textarea.value = pre + text + post
+      textArea.value = pre + text + post
       this.caretPosition += text.length
-      emit('update:modelValue', textarea.value)
+      emit('update:modelValue', textArea.value)
 
       // I don't know why! but the only way that updating caret work is this.
       setTimeout(() => this.updateCaret(), 1);
     },
 
     updateCaret() {
-      if (textarea.value) {
-        textarea.value.selectionStart = textarea.value.selectionEnd = editor.caretPosition
+      if (textArea.value) {
+        textArea.value.selectionStart = textArea.value.selectionEnd = editor.caretPosition
         document.dispatchEvent(new Event('selectionchange'))
       }
     }
@@ -153,10 +153,10 @@ function useEditor() {
     class="relative min-w-0 h-12 transition-[height]">
     <span v-show="modelValue.length === 0"
       class="absolute select-none text-pen/40"
-      @click="textarea?.focus()">{{ placeholder }}</span>
+      @click="textArea?.focus()">{{ placeholder }}</span>
 
     <div class="relative">
-      <textarea ref="textarea"
+      <textarea ref="textArea"
         class="block z-10 outline-none relative bg-transparent caret-transparent resize-none overflow-hidden w-full"
         style="unicode-bidi: embed;"
         rows="1"
