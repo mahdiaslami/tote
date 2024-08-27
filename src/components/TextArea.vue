@@ -90,12 +90,21 @@ function useEditor() {
 
       this.caretPosition = textarea.value.selectionStart
 
-      const pre = props.modelValue.substring(0, textarea.value.selectionStart)
-      const post = props.modelValue.substring(textarea.value.selectionEnd)
+      this.updateTextarea(
+        textarea.value,
+        textarea.value.selectionStart,
+        textarea.value.selectionEnd,
+        text
+      )
+    },
 
-      textarea.value.value = pre + text + post
+    updateTextarea(textarea: HTMLTextAreaElement, selectionStart: number, selectionEnd: number, text: string) {
+      const pre = props.modelValue.substring(0, selectionStart)
+      const post = props.modelValue.substring(selectionEnd)
+
+      textarea.value = pre + text + post
       this.caretPosition += text.length
-      emit('update:modelValue', textarea.value.value)
+      emit('update:modelValue', textarea.value)
 
       // I don't know why! but the only way that updating caret work is this.
       setTimeout(() => this.updateCaret(), 1);
