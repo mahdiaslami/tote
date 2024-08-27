@@ -154,6 +154,7 @@ function handleGotoToday() {
       <Options v-if="data.options"
         v-model:type="data.type"
         @emoji="emoji => footer?.insertText(emoji)"
+        @backspace="footer?.removeText"
         :force-daily="!isToday()"
         :style="{
           minHeight: `${optionsHeight()}px`,

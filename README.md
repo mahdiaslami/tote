@@ -125,3 +125,7 @@ In the `build.gradle` file, add the following configuration. The signingConfigs 
      }
  }
 ```
+
+
+
+TODO: rename all textarea to textArea

@@ -16,7 +16,8 @@ const textArea = ref<any | null>(null)
 const emit = defineEmits(['save'])
 
 defineExpose({
-  insertText: (text: string) => textArea.value?.insertText(text)
+  insertText: (text: string) => textArea.value?.insertText(text),
+  removeText: () => textArea.value?.removeText(),
 })
 
 function save() {

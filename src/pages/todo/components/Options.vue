@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { type Schedule } from '@/types';
-import { watch } from 'vue';
+import { ref, watch } from 'vue';
 import CalendarMarkIcon from '@/components/icons/CalendarMarkIcon.vue'
 import DangerTriangleIcon from '@/components/icons/DangerTriangleIcon.vue'
+import BackspaceIcon from '@/components/icons/BackspaceIcon.vue'
 import Emojis from './Emojis.vue'
 
 const props = defineProps<{
@@ -10,7 +11,7 @@ const props = defineProps<{
 }>()
 
 const type = defineModel<Schedule>('type')
-const emit = defineEmits(['emoji'])
+const emit = defineEmits(['emoji', 'backspace'])
 
 watch(props, () => type.value = props.forceDaily ? 'daily' : type.value)
 
@@ -23,10 +24,28 @@ const vTap = {
   }
 }
 
+const footer = ref<boolean>(true)
+
+let prvScrollTop = 0
+function handleScroll(ev: any) {
+  const curScrollTop = ev.target.scrollTop
+  const target = ev.target
+
+  if (curScrollTop > target.clientHeight
+    && curScrollTop < (target.scrollHeight - 3 * target.clientHeight)) {
+    footer.value = prvScrollTop - curScrollTop > 0
+  } else {
+    footer.value = true
+  }
+
+  prvScrollTop = curScrollTop
+}
+
 </script>
 
 <template>
-  <div class="bg-secondary-1 px-1 flex flex-col overflow-y-scroll">
+  <div class="bg-secondary-1 px-1 flex flex-col overflow-y-scroll"
+    @scroll="handleScroll">
     <div class="text-xs font-semibold text-pen/30 mt-2 p-0.5 rounded-full w-fit">
       <button class="transition-colors rounded-full px-2 py-1"
         :class="{
@@ -53,6 +72,16 @@ const vTap = {
 
     <Emojis class="pt-2"
       @tap="(emoji) => emit('emoji', emoji)" />
+
+    <Transition name="options-footer">
+      <div v-show="footer"
+        class="sticky bottom-0 bg-secondary-1 border-t border-pen/10 px-2">
+        <button class="block p-2 active:scale-90"
+          @click="emit('backspace')">
+          <BackspaceIcon class="h-7 w-7 stroke-pen/50" />
+        </button>
+      </div>
+    </Transition>
   </div>
 </template>
 
@@ -60,5 +89,15 @@ const vTap = {
 .emoji-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+}
+
+.options-footer-enter-active,
+.options-footer-leave-active {
+  transition: transform 200ms linear;
+}
+
+.options-footer-enter-from,
+.options-footer-leave-to {
+  transform: translateY(100%);
 }
 </style>

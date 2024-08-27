@@ -25,6 +25,7 @@ defineExpose({
   focus: () => textarea.value?.focus(),
   blur: () => textarea.value?.blur(),
   insertText: (text: string) => editor.insert(text),
+  removeText: () => editor.remove(),
 })
 
 function useMirror() {
@@ -95,6 +96,30 @@ function useEditor() {
         textarea.value.selectionStart,
         textarea.value.selectionEnd,
         text
+      )
+    },
+
+    remove() {
+      if (!textarea.value) {
+        return
+      }
+
+      let selectionStart = textarea.value.selectionStart
+      let selectionEnd = textarea.value.selectionEnd
+
+      if (selectionStart == selectionEnd) {
+        const pre = props.modelValue.slice(0, selectionStart)
+        const lastUtf8CharacterIndex = pre.search(/.$/u)
+        selectionStart -= pre.length - lastUtf8CharacterIndex
+      }
+
+      this.caretPosition = selectionStart
+
+      this.updateTextarea(
+        textarea.value,
+        selectionStart,
+        selectionEnd,
+        ''
       )
     },
 
