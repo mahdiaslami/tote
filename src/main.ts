@@ -1,4 +1,4 @@
-import { createApp } from 'vue'
+import { createApp, type App as VueApp } from 'vue'
 import { createPinia } from 'pinia'
 import { Capacitor } from '@capacitor/core'
 import { StatusBar, Style } from '@capacitor/status-bar'
@@ -9,6 +9,19 @@ import router from '@/router'
 import { initKeyboard } from '@/composable/keyboard'
 
 import '@/assets/index.css'
+
+const hammerPlugin = {
+  install(app: VueApp) {
+    app.directive<any, HammerListener>('touch', {
+      mounted(el, { arg, modifiers, value }) {
+        const hammer = new Hammer(el)
+        const eventName = [arg, ...Object.keys(modifiers)].join(' ')
+
+        hammer.on(eventName, value)
+      }
+    })
+  }
+};
 
 (async () => {
   if (Capacitor.isNativePlatform()) {
@@ -25,6 +38,6 @@ import '@/assets/index.css'
   createApp(App)
     .use(createPinia())
     .use(router)
+    .use(hammerPlugin)
     .mount('#app')
 })()
-
