@@ -114,10 +114,9 @@ function handleGotoToday() {
 <template>
   <div class="flex flex-col h-full">
     <Calendar ref="calendar"
+      v-slot="{ date, active }"
       class="min-h-0 flex-grow"
-      @datechange="handleDateChange"
-      v-slot="{ date, active }">
-
+      @datechange="handleDateChange">
       <Header class="w-full z-10"
         :date="date" />
 
@@ -128,17 +127,19 @@ function handleGotoToday() {
         @edit="handleSelect"
         @delete="handleDelete"
         @tick="(todo: any) => todoStore.toggleCompleted(todo.id)" />
-
     </Calendar>
 
     <div class="relative h-0 overflow-x-clip">
       <div class="absolute bottom-0 w-full min-w-0 flex flex-col">
         <Transition name="left-slide">
           <div v-if="isToday() === false"
-            class="z-10 self-end w-fit shadow-md rounded-r-full text-pen text-xs mb-2 transition-all">
+            class="z-10 self-end w-fit shadow-md rounded-r-full text-pen text-xs
+              mb-2 transition-all">
             <button type="button"
-              @click="handleGotoToday"
-              class="px-4 py-2 rounded-r-full font-medium bg-info text-white">بازگشت به روز جاری</button>
+              class="px-4 py-2 rounded-r-full font-medium bg-info text-white"
+              @click="handleGotoToday">
+              بازگشت به روز جاری
+            </button>
           </div>
         </Transition>
       </div>
@@ -153,19 +154,18 @@ function handleGotoToday() {
       :duration="keyboard.showing || keyboard.shown ? 1 : 300">
       <Options v-if="data.options"
         v-model:type="data.type"
-        @emoji="emoji => footer?.insertText(emoji)"
-        @backspace="footer?.removeText"
         :force-daily="!isToday()"
         :style="{
           minHeight: `${optionsHeight()}px`,
           height: `${optionsHeight()}px`,
-        }" />
+        }"
+        @emoji="emoji => footer?.insertText(emoji)"
+        @backspace="footer?.removeText" />
     </Transition>
 
     <Modal v-model="deleteModal.visiable"
       :cancelable="true"
       class="p-4 font-light select-none">
-
       <h2 class="text-lg mb-1">حذف کار</h2>
       <p class="mb-6">مطمئنی میخوای حذف کنی؟</p>
 
@@ -173,14 +173,18 @@ function handleGotoToday() {
         <!-- TODO: add bg-gray-50 and etc to palette -->
         <button class="p-2 w-full bg-gray-50 active:bg-gray-100
           rounded-xl mx-1 transition-colors"
-          @click="deleteModal.clear()">نه</button>
+          @click="deleteModal.clear()">
+          نه
+        </button>
 
         <button class="p-2 w-full text-danger active:bg-gray-50
           rounded-xl mx-1 transition-colors"
           @click="() => {
             todoStore.remove(deleteModal.todo!.id)
             deleteModal.clear()
-          }">آره</button>
+          }">
+          آره
+        </button>
       </div>
     </Modal>
   </div>
