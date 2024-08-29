@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import emojis from '@/assets/emoji_15_0_ordering.json'
-import { onMounted, reactive, ref } from 'vue';
+import { onMounted, reactive, ref } from 'vue'
 
 const container = ref<HTMLDivElement | null>(null)
 const hoverDiv = ref<HTMLDivElement | null>(null)
@@ -11,13 +11,13 @@ const data = reactive({
 })
 
 const categories = [
-  { "title": "لبخندها و احساسات", "image": "/images/emojis/smileys-and-emotions.png" },
-  { "title": "مردم", "image": "/images/emojis/people.png" },
-  { "title": "حیوانات و طبیعت", "image": "/images/emojis/animals-and-nature.png" },
-  { "title": "غذا و نوشیدنی", "image": "/images/emojis/food-and-drink.png" },
-  { "title": "سفر و مکان ها", "image": "/images/emojis/travel-and-places.png" },
-  { "title": "فعالیت ها و رویدادها", "image": "/images/emojis/activities-and-events.png" },
-  { "title": "اشیاء", "image": "/images/emojis/objects.png" },
+  { 'title': 'لبخندها و احساسات', 'image': '/images/emojis/smileys-and-emotions.png' },
+  { 'title': 'مردم', 'image': '/images/emojis/people.png' },
+  { 'title': 'حیوانات و طبیعت', 'image': '/images/emojis/animals-and-nature.png' },
+  { 'title': 'غذا و نوشیدنی', 'image': '/images/emojis/food-and-drink.png' },
+  { 'title': 'سفر و مکان ها', 'image': '/images/emojis/travel-and-places.png' },
+  { 'title': 'فعالیت ها و رویدادها', 'image': '/images/emojis/activities-and-events.png' },
+  { 'title': 'اشیاء', 'image': '/images/emojis/objects.png' },
 ]
 
 const emit = defineEmits(['tap'])
@@ -86,17 +86,24 @@ const vTap = {
 <template>
   <div ref="container"
     class="relative select-none">
-
     <div ref="hoverDiv"
       class="absolute bg-secondary-2 rounded-xl opacity-0"
-      :style="{ top: 0, left: 0, height: `${data.unit}px`, width: `${data.unit}px` }"></div>
+      :style="{
+        top: 0,
+        left: 0,
+        height: `${data.unit}px`,
+        width: `${data.unit}px`
+      }" />
 
     <template v-for="(category, cindex) in categories"
       :key="cindex">
-      <h3 class="text-sm font-semibold py-2 px-3 text-pen/30">{{ category.title }}</h3>
-      <img class="relative"
-        :src="category.image"
-        v-tap="(ev) => fireTap(0, ev)" />
+      <h3 class="text-sm font-semibold py-2 px-3 text-pen/30">
+        {{ category.title }}
+      </h3>
+
+      <img v-tap="(ev) => fireTap(0, ev)"
+        class="relative"
+        :src="category.image">
     </template>
   </div>
 </template>
@@ -118,10 +125,3 @@ const vTap = {
   animation: emojihover 75ms 1;
 }
 </style>
-
-
-
-
-
-
-
