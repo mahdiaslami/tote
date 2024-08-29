@@ -14,7 +14,6 @@
 .app-init-enter-active {
   transition-property: opacity;
   transition-duration: 500ms;
-  transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
 }
 
 .app-init-enter-from {

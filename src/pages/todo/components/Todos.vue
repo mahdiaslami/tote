@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Todo } from '@/types'
 import PannableTodo from '@/components/PannableTodo.vue'
-import { ref } from 'vue';
+import { ref } from 'vue'
 
 const div = ref<HTMLDivElement | null>(null)
 const lastElementChild = ref<HTMLDivElement | null>(null)
@@ -34,15 +34,15 @@ function handleBeforeLeave(el: any) {
       :duration="animate ? 300 : 1"
       @before-leave="handleBeforeLeave">
       <PannableTodo v-for="todo in list"
-        class="py-3 w-full overflow-hidden"
         :key="todo.id"
+        class="py-3 w-full overflow-hidden"
         :todo="todo"
         @edit="emit('edit', todo)"
         @delete="emit('delete', todo)"
         @tick="emit('tick', todo)" />
     </TransitionGroup>
     <div ref="lastElementChild"
-      class="pt-12"></div>
+      class="pt-12" />
   </div>
 </template>
 
@@ -69,7 +69,7 @@ function handleBeforeLeave(el: any) {
 .todo-leave-active {
   transition-property: opacity, height, padding;
   transition-duration: 300ms;
-  transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
+  transition-timing-function: ease-out;
 }
 
 .todo-enter-from,

@@ -20,7 +20,8 @@ useBackEventListener('modal', () => {
   return true
 })
 
-// TODO(ios): As the ios doesn't have transparent status bar we have to change it mannually
+// TODO(ios): As the ios doesn't have transparent status bar we have to change
+// it mannually
 // watch(model, () => {
 //   if (model.value) {
 //     StatusBar.setBackgroundColor({ color: '#f2f2f2' })
@@ -38,8 +39,7 @@ useBackEventListener('modal', () => {
       <div v-if="model"
         class="fixed top-0 h-full w-full z-10 bg-black/10"
         @click="model = !cancelable">
-
-        <div class="bg-primary w-11/12 absolute bottom-4 left-1/2 -translate-x-1/2
+<div class="bg-primary w-11/12 absolute bottom-4 left-1/2 -translate-x-1/2
           rounded-3xl shadow max-w-md"
           v-bind="$attrs"
           @click="ev => ev.stopPropagation()">
@@ -54,16 +54,16 @@ useBackEventListener('modal', () => {
 .modal-leave-active,
 .modal-leave-active>div {
   transition-property: opacity, bottom;
-  transition-duration: 400ms, 350ms;
-  transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
+  transition-duration: 200ms, 150ms;
+  transition-timing-function: ease-out;
 }
 
 .modal-enter-active,
 .modal-enter-active>div {
   /* TODO: use variable for all ease function animations */
   transition-property: opacity, bottom;
-  transition-duration: 400ms;
-  transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
+  transition-duration: 250ms;
+  transition-timing-function: ease-out;
 }
 
 .modal-enter-from,

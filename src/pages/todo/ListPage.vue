@@ -193,7 +193,7 @@ function handleGotoToday() {
 <style>
 .left-slide-enter-active,
 .left-slide-leave-active {
-  transition: transform 0.5s cubic-bezier(0.55, 0, 0.1, 1);
+  transition: transform 300ms ease-out;
 }
 
 .left-slide-enter-from,
@@ -204,13 +204,13 @@ function handleGotoToday() {
 .options-enter-active {
   transition-property: min-height, max-height, height;
   transition-duration: 200ms;
-  transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
+  transition-timing-function: ease-out;
 }
 
 .options-leave-active {
   transition-property: min-height, max-height, height;
   transition-duration: 200ms;
-  transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
+  transition-timing-function: ease-out;
 }
 
 .options-enter-from,
