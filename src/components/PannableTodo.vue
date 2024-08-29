@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { nextTick, onMounted, reactive, ref } from 'vue'
-import Hammer from 'hammerjs'
+import { nextTick, reactive } from 'vue'
 import SimpleTodo from './SimpleTodo.vue'
 import type { Todo } from '@/types'
 
@@ -9,8 +8,6 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits(['edit', 'delete', 'click', 'tick'])
-
-const simpleTodo = ref<InstanceType<typeof SimpleTodo> | null>(null)
 
 const data = reactive({
   deltaX: 0,
@@ -30,50 +27,42 @@ const transition = reactive({
   }
 })
 
-onMounted(() => {
-  if (simpleTodo.value === null) {
-    throw new Error('simple todo should not be null')
+function handlePans(ev: HammerInput, hammer: HammerManager) {
+  transition.disable()
+
+  if (!guessEventName(ev.deltaX / 2.5)) {
+    data.deltaX = ev.deltaX / 2.5
+    data.wiggle = false
+  } else {
+    data.wiggle = true
   }
 
-  const hammer = new Hammer(simpleTodo.value.$refs.container as HTMLElement)
-
-  hammer.on('panright panleft panup pandown', (ev) => {
-    transition.disable()
-
-    if (!guessEventName(ev.deltaX / 2.5)) {
-      data.deltaX = ev.deltaX / 2.5
-      data.wiggle = false
-    } else {
-      data.wiggle = true
-    }
-
-    if (ev.isFinal) {
-      hammer.stop(true)
-      transition.enable()
-    }
-  })
-
-  hammer.on('panend', (ev) => {
-    const eventName = guessEventName(ev.deltaX / 2.5)
-
-    if (eventName) {
-      emit(eventName, props.todo)
-    }
-
+  if (ev.isFinal) {
     hammer.stop(true)
     transition.enable()
-  })
-
-  function guessEventName(deltaX: number): 'edit' | 'delete' | null {
-    if (deltaX > 48) {
-      return 'delete'
-    } else if (deltaX < -48) {
-      return 'edit'
-    }
-
-    return null
   }
-})
+}
+
+function handlePanEnd(ev: HammerInput, hammer: HammerManager) {
+  const eventName = guessEventName(ev.deltaX / 2.5)
+
+  if (eventName) {
+    emit(eventName, props.todo)
+  }
+
+  hammer.stop(true)
+  transition.enable()
+}
+
+function guessEventName(deltaX: number): 'edit' | 'delete' | null {
+  if (deltaX > 48) {
+    return 'delete'
+  } else if (deltaX < -48) {
+    return 'edit'
+  }
+
+  return null
+}
 
 </script>
 
@@ -94,7 +83,9 @@ onMounted(() => {
           src="@/assets/bin.png">
       </div>
 
-      <SimpleTodo ref="simpleTodo"
+      <SimpleTodo
+        v-touch:panright.panleft.panup.pandown="handlePans"
+        v-touch:panend="handlePanEnd"
         :class="{ 'transition-transform duration-100': transition.value }"
         :style="{ transform: `translate(${data.deltaX}px)` }"
         :todo="todo"
