@@ -92,7 +92,7 @@ function hover(top: number, left: number) {
         {{ category.title }}
       </h3>
 
-      <img v-touch:tap="(ev) => fireTap(0, ev)"
+      <img v-touch:tap="(ev: HammerInput) => fireTap(0, ev)"
         class="relative"
         :src="category.image">
     </template>
