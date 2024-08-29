@@ -72,15 +72,6 @@ function hover(top: number, left: number) {
   }
 }
 
-let hammer
-const vTap = {
-  mounted(el: HTMLElement, { value }: { value: HammerListener }) {
-    hammer = new Hammer(el)
-
-    hammer.on('tap', value)
-  }
-}
-
 </script>
 
 <template>
@@ -101,7 +92,7 @@ const vTap = {
         {{ category.title }}
       </h3>
 
-      <img v-tap="(ev) => fireTap(0, ev)"
+      <img v-touch:tap="(ev) => fireTap(0, ev)"
         class="relative"
         :src="category.image">
     </template>
