@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, nextTick, reactive, onUpdated, type Ref, watch } from 'vue'
+import { ref, nextTick, reactive, onUpdated } from 'vue'
 
 const textArea = ref<HTMLTextAreaElement | null>(null)
 const div = ref<HTMLDivElement | null>(null)
@@ -41,15 +41,13 @@ function useMirror() {
       const caretPosition = textArea.value.selectionStart
       this.pre = props.modelValue.substring(0, caretPosition)
       this.post = props.modelValue.substring(caretPosition)
-
-      console.log('mirror.update', caretPosition);
     }
   })
 
   document.addEventListener(
     'selectionchange',
     () => mirror.update()
-  );
+  )
 
   onUpdated(() => nextTick(() => mirror.update()))
 
@@ -123,7 +121,12 @@ function useEditor() {
       )
     },
 
-    updateTextArea(textArea: HTMLTextAreaElement, selectionStart: number, selectionEnd: number, text: string) {
+    updateTextArea(
+      textArea: HTMLTextAreaElement,
+      selectionStart: number,
+      selectionEnd: number,
+      text: string
+    ) {
       const pre = props.modelValue.substring(0, selectionStart)
       const post = props.modelValue.substring(selectionEnd)
 
@@ -132,7 +135,7 @@ function useEditor() {
       emit('update:modelValue', textArea.value)
 
       // I don't know why! but the only way that updating caret work is this.
-      setTimeout(() => this.updateCaret(), 1);
+      setTimeout(() => this.updateCaret(), 1)
     },
 
     updateCaret() {
@@ -157,21 +160,23 @@ function useEditor() {
 
     <div class="relative">
       <textarea ref="textArea"
-        class="block z-10 outline-none relative bg-transparent caret-transparent resize-none overflow-hidden w-full"
+        class="block z-10 outline-none relative bg-transparent caret-transparent
+          resize-none overflow-hidden w-full"
         style="unicode-bidi: embed;"
         rows="1"
         :value="modelValue"
-        @input="emit('update:modelValue', ($event.target as HTMLTextAreaElement).value)"
-        @keyup="(ev) => emit('keyup', ev)">
-        {{ modelValue }}
-      </textarea>
+        @input="emit(
+          'update:modelValue',
+          ($event.target as HTMLTextAreaElement).value
+        )"
+        @keyup="(ev) => emit('keyup', ev)" />
 
       <!-- Mirror -->
-      <div class="absolute inset-0 select-none outline-none text-transparent whitespace-pre-wrap break-words"
+      <div class="absolute inset-0 select-none outline-none text-transparent
+        whitespace-pre-wrap break-words"
         style="unicode-bidi: embed;">
-        {{ mirror.pre }}<span class="h-full animate-blink border border-blue-600"></span>{{ mirror.post }}
+        {{ mirror.pre }}<span class="h-full animate-blink border border-blue-600" />{{ mirror.post }}
       </div>
     </div>
   </div>
 </template>
-
