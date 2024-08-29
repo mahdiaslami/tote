@@ -3,6 +3,7 @@ import { createPinia } from 'pinia'
 import { Capacitor } from '@capacitor/core'
 import { StatusBar, Style } from '@capacitor/status-bar'
 import { register } from 'swiper/element/bundle'
+import 'hammerjs'
 
 import App from './App.vue'
 import router from '@/router'
@@ -10,14 +11,21 @@ import { initKeyboard } from '@/composable/keyboard'
 
 import '@/assets/index.css'
 
+interface TouchListener {
+  (event: HammerInput, manager: HammerManager): void
+}
 const hammerPlugin = {
   install(app: VueApp) {
-    app.directive<any, HammerListener>('touch', {
+    app.directive<any, TouchListener>('touch', {
       mounted(el, { arg, modifiers, value }) {
         const hammer = new Hammer(el)
         const eventName = [arg, ...Object.keys(modifiers)].join(' ')
 
-        hammer.on(eventName, value)
+        hammer.on(eventName, (ev: HammerInput) => value(ev, hammer))
+        el.vhammer = hammer
+      },
+      unmounted(el) {
+        el.vhammer?.destroy()
       }
     })
   }
