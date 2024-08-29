@@ -2,7 +2,7 @@
 import { nextTick, onMounted, reactive, ref } from 'vue'
 import Hammer from 'hammerjs'
 import SimpleTodo from './SimpleTodo.vue'
-import type { Todo } from '@/types';
+import type { Todo } from '@/types'
 
 const props = defineProps<{
   todo: Todo
@@ -32,7 +32,7 @@ const transition = reactive({
 
 onMounted(() => {
   if (simpleTodo.value === null) {
-    throw new Error("simple todo should not be null");
+    throw new Error('simple todo should not be null')
   }
 
   const hammer = new Hammer(simpleTodo.value.$refs.container as HTMLElement)
