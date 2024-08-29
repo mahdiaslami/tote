@@ -64,7 +64,7 @@ function handleScroll(ev: any) {
     </div>
 
     <Emojis class="pt-2"
-      @tap="(emoji) => emit('emoji', emoji)" />
+      @tap="(emoji: string) => emit('emoji', emoji)" />
 
     <Transition name="options-footer">
       <div v-show="footer"

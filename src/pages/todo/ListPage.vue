@@ -159,7 +159,7 @@ function handleGotoToday() {
           minHeight: `${optionsHeight()}px`,
           height: `${optionsHeight()}px`,
         }"
-        @emoji="emoji => footer?.insertText(emoji)"
+        @emoji="(emoji: string) => footer?.insertText(emoji)"
         @backspace="footer?.removeText" />
     </Transition>
 
