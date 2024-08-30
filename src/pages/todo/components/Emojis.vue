@@ -1,47 +1,60 @@
 <script setup lang="ts">
 import emojis from '@/assets/emoji_15_0_ordering.json'
-import { onMounted, reactive, ref } from 'vue'
+import { ref } from 'vue'
 
 const container = ref<HTMLDivElement | null>(null)
 const hoverDiv = ref<HTMLDivElement | null>(null)
 
-const data = reactive({
-  width: 0,
-  unit: 1,
-})
-
 const categories = [
-  { 'title': 'لبخندها و احساسات', 'image': '/images/emojis/smileys-and-emotions.png' },
-  { 'title': 'مردم', 'image': '/images/emojis/people.png' },
-  { 'title': 'حیوانات و طبیعت', 'image': '/images/emojis/animals-and-nature.png' },
-  { 'title': 'غذا و نوشیدنی', 'image': '/images/emojis/food-and-drink.png' },
-  { 'title': 'سفر و مکان ها', 'image': '/images/emojis/travel-and-places.png' },
-  { 'title': 'فعالیت ها و رویدادها', 'image': '/images/emojis/activities-and-events.png' },
-  { 'title': 'اشیاء', 'image': '/images/emojis/objects.png' },
+  {
+    'title': 'لبخندها و احساسات',
+    'image': '/images/emojis/smileys-and-emotions.png'
+  },
+  {
+    'title': 'مردم',
+    'image': '/images/emojis/people.png'
+  },
+  {
+    'title': 'حیوانات و طبیعت',
+    'image': '/images/emojis/animals-and-nature.png'
+  },
+  {
+    'title': 'غذا و نوشیدنی',
+    'image': '/images/emojis/food-and-drink.png'
+  },
+  {
+    'title': 'سفر و مکان ها',
+    'image': '/images/emojis/travel-and-places.png'
+  },
+  {
+    'title': 'فعالیت ها و رویدادها',
+    'image': '/images/emojis/activities-and-events.png'
+  },
+  {
+    'title': 'اشیاء',
+    'image': '/images/emojis/objects.png'
+  },
 ]
 
 const emit = defineEmits(['tap'])
-
-onMounted(() => {
-  if (container.value) {
-    data.width = container.value.clientWidth
-    data.unit = data.width / 8
-  }
-})
 
 function fireTap(groupIndex: number, ev: HammerInput) {
   if (!(ev.srcEvent instanceof MouseEvent)) {
     return
   }
 
+  const unit = getUnit()
+
   const { yindex, xindex, index } = guessIndexes(
     ev.srcEvent.offsetX,
-    ev.srcEvent.offsetY
+    ev.srcEvent.offsetY,
+    unit
   )
 
   hover(
-    ev.target.offsetTop + yindex * data.unit,
-    ev.target.offsetLeft + xindex * data.unit
+    ev.target.offsetTop + yindex * unit,
+    ev.target.offsetLeft + xindex * unit,
+    unit
   )
 
   const entry = emojis[groupIndex].emoji[index]
@@ -51,18 +64,28 @@ function fireTap(groupIndex: number, ev: HammerInput) {
   }
 }
 
-function guessIndexes(x: number, y: number) {
-  const yindex = Math.floor((y / data.unit))
-  const xindex = Math.floor(x / data.unit)
+function getUnit() {
+  if (container.value) {
+    return container.value.clientWidth / 8
+  }
+
+  return 1
+}
+
+function guessIndexes(x: number, y: number, unit: number) {
+  const yindex = Math.floor((y / unit))
+  const xindex = Math.floor(x / unit)
   const index = yindex * 8 + xindex
 
   return { yindex, xindex, index }
 }
 
-function hover(top: number, left: number) {
+function hover(top: number, left: number, unit: number) {
   if (hoverDiv.value) {
     hoverDiv.value.style.top = `${top}px`
     hoverDiv.value.style.left = `${left}px`
+    hoverDiv.value.style.height = `${unit}px`
+    hoverDiv.value.style.width = `${unit}px`
 
     hoverDiv.value.classList.remove('emoji-hover')
     setTimeout(
@@ -81,9 +104,7 @@ function hover(top: number, left: number) {
       class="absolute bg-secondary-2 rounded-xl opacity-0"
       :style="{
         top: 0,
-        left: 0,
-        height: `${data.unit}px`,
-        width: `${data.unit}px`
+        left: 0
       }" />
 
     <template v-for="(category, cindex) in categories"

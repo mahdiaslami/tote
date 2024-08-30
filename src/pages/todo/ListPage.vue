@@ -152,7 +152,7 @@ function handleGotoToday() {
 
     <Transition name="options"
       :duration="keyboard.showing || keyboard.shown ? 1 : 300">
-      <Options v-if="data.options"
+      <Options v-show="data.options"
         v-model:type="data.type"
         :force-daily="!isToday()"
         :style="{
@@ -203,13 +203,13 @@ function handleGotoToday() {
 
 .options-enter-active {
   transition-property: min-height, max-height, height;
-  transition-duration: 200ms;
+  transition-duration: 250ms;
   transition-timing-function: ease-out;
 }
 
 .options-leave-active {
   transition-property: min-height, max-height, height;
-  transition-duration: 200ms;
+  transition-duration: 250ms;
   transition-timing-function: ease-out;
 }
 
