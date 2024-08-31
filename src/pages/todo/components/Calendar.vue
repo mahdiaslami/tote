@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { PersianDate } from '@/class/persiandate';
-import type { SwiperContainer } from 'swiper/element';
-import { reactive, ref } from 'vue';
+import { PersianDate } from '@/class/persiandate'
+import type { SwiperContainer } from 'swiper/element'
+import { reactive, ref } from 'vue'
 
 const swiperContainer = ref<SwiperContainer | null>(null)
 
@@ -34,7 +34,7 @@ function current(): PersianDate {
 
 function reset() {
   if (swiperContainer.value === null) {
-    throw 'swiper container is null';
+    throw 'swiper container is null'
   }
 
   reseting = true
@@ -91,13 +91,11 @@ function handleSlideChangeTransitionEnd(ev: any) {
     loop="true"
     @swiperslidechange="handleSlideChange"
     @swiperslidechangetransitionend="handleSlideChangeTransitionEnd">
-
-    <swiper-slide class="flex flex-col h-full border-r"
-      v-for="(date, index) in data.dates"
-      :key="index">
-
+    <swiper-slide v-for="(date, dindex) in data.dates"
+      :key="dindex"
+      class="flex flex-col h-full border-r">
       <slot :date="date"
-        :active="index == data.activeIndex" />
+        :active="dindex == data.activeIndex" />
     </swiper-slide>
   </swiper-container>
 </template>
