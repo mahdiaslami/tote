@@ -1,9 +1,9 @@
 import { App, type BackButtonListenerEvent } from '@capacitor/app'
 import { onMounted, onUnmounted } from 'vue'
 
-type Listener = (canGoBack: boolean) => boolean
+type ListenerCallback = (canGoBack: boolean) => boolean
 
-const listeners: { [tag: string]: Listener } = {}
+const listeners: { [tag: string]: ListenerCallback } = {}
 
 App.addListener('backButton', (ev: BackButtonListenerEvent) => {
   let exit = true
@@ -16,7 +16,7 @@ App.addListener('backButton', (ev: BackButtonListenerEvent) => {
   }
 })
 
-export function useBackEventListener(tag: string, callback: Listener) {
+export function useBackEventListener(tag: string, callback: ListenerCallback) {
   onMounted(() => listeners[tag] = callback)
   onUnmounted(() => delete listeners[tag])
 }

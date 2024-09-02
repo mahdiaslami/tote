@@ -1,12 +1,10 @@
 import { Keyboard } from '@capacitor/keyboard'
 import { onMounted, onUnmounted, reactive } from 'vue'
 
-// TODO: move keyboard to composables
-// TODO: rename to ListenerCallback. don't forget backbutton.ts
-type Listener = (keyboardHeight: number) => void
+type ListenerCallback = (keyboardHeight: number) => void
 type Events = 'keyboardWillShow' | 'keyboardDidShow' |
     'keyboardWillHide' | 'keyboardDidHide'
-type Listeners = { [tag: string]: Listener }
+type Listeners = { [tag: string]: ListenerCallback }
 
 const data = reactive({
   keyboardHeight: 0,
@@ -69,7 +67,7 @@ export function useKeyboard() {
 export function useKeyboardEventListener(
   eventName: Events,
   tag: string,
-  callback: Listener
+  callback: ListenerCallback
 ) {
   onMounted(() => listeners[eventName][tag] = callback)
   onUnmounted(() => delete listeners[eventName][tag])
