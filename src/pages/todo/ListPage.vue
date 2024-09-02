@@ -5,6 +5,7 @@ import Options from './components/Options.vue'
 import Todos from './components/Todos.vue'
 import Calendar from './components/Calendar.vue'
 import Modal from '@/components/Modal.vue'
+import Animate from '@/components/Animate.vue'
 import { useTodoStore } from '@/store/todo'
 import type { Todo, Schedule } from '@/types'
 import { reactive, ref } from 'vue'
@@ -150,18 +151,21 @@ function handleGotoToday() {
       v-model:options="data.options"
       @save="handleSave" />
 
-    <Transition name="options"
-      :duration="keyboard.showing || keyboard.shown ? 1 : 300">
+    <Animate name="options"
+      :from="{ minHeight: 0, height: 0 }"
+      :to="{ minHeight: optionsHeight(), height: optionsHeight()}"
+      easing="easeOutQuad"
+      :duration="300">
       <Options v-show="data.options"
         v-model:type="data.type"
         :force-daily="!isToday()"
         :style="{
-          minHeight: `${optionsHeight()}px`,
-          height: `${optionsHeight()}px`,
+          minHeight: 0,
+          height: 0,
         }"
         @emoji="(emoji: string) => footer?.insertText(emoji)"
         @backspace="footer?.removeText" />
-    </Transition>
+    </Animate>
 
     <Modal v-model="deleteModal.visiable"
       :cancelable="true"
@@ -201,22 +205,4 @@ function handleGotoToday() {
   transform: translateX(-100%);
 }
 
-.options-enter-active {
-  transition-property: min-height, max-height, height;
-  transition-duration: 250ms;
-  transition-timing-function: ease-out;
-}
-
-.options-leave-active {
-  transition-property: min-height, max-height, height;
-  transition-duration: 250ms;
-  transition-timing-function: ease-out;
-}
-
-.options-enter-from,
-.options-leave-to {
-  min-height: 0 !important;
-  max-height: 0 !important;
-  height: 0 !important;
-}
 </style>
