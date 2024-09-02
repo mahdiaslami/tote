@@ -10,6 +10,7 @@ import router from '@/router'
 import { initKeyboard } from '@/composable/keyboard'
 
 import '@/assets/index.css'
+import { SplashScreen } from '@capacitor/splash-screen'
 
 interface TouchListener {
   (event: HammerInput, manager: HammerManager): void
@@ -29,9 +30,9 @@ const hammerPlugin = {
       }
     })
   }
-};
+}
 
-(async () => {
+async function init() {
   if (Capacitor.isNativePlatform()) {
     await StatusBar.setStyle({ style: Style.Light })
     await StatusBar.setOverlaysWebView({ overlay: true })
@@ -48,4 +49,6 @@ const hammerPlugin = {
     .use(router)
     .use(hammerPlugin)
     .mount('#app')
-})()
+}
+
+init()
