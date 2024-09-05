@@ -1,4 +1,4 @@
-import { Keyboard } from '@capacitor/keyboard'
+import { Keyboard, type KeyboardInfo } from '@capacitor/keyboard'
 import { onMounted, onUnmounted, reactive } from 'vue'
 
 type ListenerCallback = (keyboardHeight: number) => void
@@ -7,8 +7,7 @@ type Events = 'keyboardWillShow' | 'keyboardDidShow' |
 type Listeners = { [tag: string]: ListenerCallback }
 
 const data = reactive({
-  keyboardHeight: 0,
-  screenHeight: 0,
+  keyboardHeight: window.screen.height * 0.41,
   showing: false,
   shown: false,
 
@@ -23,41 +22,46 @@ const listeners: { [id in Events]: Listeners } = {
   'keyboardDidHide': {},
 }
 
-function fire(eventName: Events) {
+function fire(eventName: Events, info?: KeyboardInfo) {
+  if (info) {
+    measureAndUpdateKeyboardHeight(info)
+  }
+
   Object.values(listeners[eventName])
     .forEach((callback) => callback(data.keyboardHeight))
 }
 
-function guessHeight() {
-  data.screenHeight = document.body.clientHeight
+function measureAndUpdateKeyboardHeight(info: KeyboardInfo) {
+  const virtualHardwareMenuHeight = window.screen.height - window.innerHeight
+  const keyboardHeight = info.keyboardHeight - virtualHardwareMenuHeight
 
-  return new Promise((resolve) => {
-    Keyboard.addListener('keyboardDidShow', () => {
-      const app = document.getElementById('app')
-      data.keyboardHeight = data.screenHeight - app!.clientHeight
-
-      Keyboard.hide()
-        .then(() => Keyboard.removeAllListeners())
-        .then(() => resolve(null))
-    })
-
-    Keyboard.show()
-  })
+  if (data.keyboardHeight != keyboardHeight && keyboardHeight > 0) {
+    data.keyboardHeight = keyboardHeight
+  }
 }
 
-
 export async function initKeyboard() {
-  await guessHeight()
-
   listeners['keyboardWillShow']['showing'] = () => data.showing = true
   listeners['keyboardWillHide']['showing'] = () => data.showing = false
   listeners['keyboardDidShow']['shown'] = () => data.shown = true
   listeners['keyboardDidHide']['shown'] = () => data.shown = false
 
-  Keyboard.addListener('keyboardWillShow', () => fire('keyboardWillShow'))
-  Keyboard.addListener('keyboardDidShow', () => fire('keyboardDidShow'))
-  Keyboard.addListener('keyboardWillHide', () => fire('keyboardWillHide'))
-  Keyboard.addListener('keyboardDidHide', () => fire('keyboardDidHide'))
+  Keyboard.addListener(
+    'keyboardWillShow',
+    (info) => fire('keyboardWillShow', info)
+  )
+  Keyboard.addListener(
+    'keyboardDidShow',
+    (info) => fire('keyboardDidShow', info)
+  )
+  Keyboard.addListener(
+    'keyboardWillHide',
+    () => fire('keyboardWillHide')
+  )
+  Keyboard.addListener(
+    'keyboardDidHide',
+    () => fire('keyboardDidHide')
+  )
 }
 
 export function useKeyboard() {

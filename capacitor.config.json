@@ -4,7 +4,7 @@
   "webDir": "dist",
   "plugins": {
     "Keyboard": {
-      "resizeOnFullScreen": true
+      "resizeOnFullScreen": false
     },
     "SplashScreen": {
       "launchAutoHide": false

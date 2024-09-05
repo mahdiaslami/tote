@@ -49,6 +49,8 @@ async function init() {
     .use(router)
     .use(hammerPlugin)
     .mount('#app')
+
+  await SplashScreen.hide()
 }
 
 init()

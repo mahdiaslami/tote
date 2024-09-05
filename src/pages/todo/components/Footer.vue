@@ -56,14 +56,11 @@ useKeyboardEventListener('keyboardWillHide', 'options', () => {
 useKeyboardEventListener('keyboardDidHide', 'options', () => {
   if (manuallyHideKeyboard) {
     manuallyHideKeyboard = false
-  } else {
-    document.body.style.height = `100%`
   }
 })
 
 useKeyboardEventListener('keyboardWillShow', 'options', () => {
   options.value = true
-  document.body.style.height = `${keyboard.screenHeight}px`
 })
 
 </script>

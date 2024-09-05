@@ -57,10 +57,6 @@ function isToday() {
   return calendar.value && calendar.value.current().isToday()
 }
 
-function optionsHeight() {
-  return keyboard.keyboardHeight > 0 ? keyboard.keyboardHeight : 250
-}
-
 function handleSave() {
   const trimedContent = data.content.trim()
 
@@ -152,10 +148,16 @@ function handleGotoToday() {
       @save="handleSave" />
 
     <Animate name="options"
-      :from="{ minHeight: 0, height: 0 }"
-      :to="{ minHeight: optionsHeight(), height: optionsHeight()}"
-      easing="easeOutQuad"
-      :duration="300">
+      :from="{
+        minHeight: keyboard.showing ? keyboard.keyboardHeight / 2 : 0,
+        height: keyboard.showing ? keyboard.keyboardHeight / 2 : 0
+      }"
+      :to="{
+        minHeight: keyboard.keyboardHeight,
+        height: keyboard.keyboardHeight
+      }"
+      easing="easeOutExpo"
+      :duration="500">
       <Options v-show="data.options"
         v-model:type="data.type"
         :force-daily="!isToday()"
@@ -204,5 +206,4 @@ function handleGotoToday() {
 .left-slide-leave-to {
   transform: translateX(-100%);
 }
-
 </style>
