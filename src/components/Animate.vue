@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import anime from 'animejs/lib/anime.es'
+import { ref, watch } from 'vue'
 
 
 type Easing = 'linear' |
@@ -13,12 +14,31 @@ type Easing = 'linear' |
   'easeInBack' | 'easeOutBack' | 'easeInOutBack' | 'easeOutInBack' |
   'easeInBounce' | 'easeOutBounce' | 'easeInOutBounce' | 'easeOutInBounce'
 
+const transitionEl = ref(null)
+
 const props = defineProps<{
   from: object
   to: object
   duration: number
   easing: Easing
 }>()
+
+watch(
+  props,
+  () => {
+    if (transitionEl.value) {
+      anime({
+        targets: transitionEl.value,
+        keyframes: [props.to, props.to],
+        duration: props.duration,
+        direction: 'normal',
+        loop: false,
+        autoplay: false,
+        easing: props.easing,
+      }).play()
+    }
+  }
+)
 
 function handleEnter(el: any, done: any) {
   anime({
@@ -49,7 +69,8 @@ function handleLeave(el: any, done: any) {
 </script>
 
 <template>
-  <Transition :css="false"
+  <Transition ref="transitionEl"
+    :css="false"
     @before-enter="(el: any) => anime.set(el, from)"
     @enter="handleEnter"
     @before-leave="(el: any) => anime.set(el, to)"

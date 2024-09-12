@@ -147,7 +147,7 @@ function handleGotoToday() {
       v-model:options="data.options"
       @save="handleSave" />
 
-    <Animate name="options"
+    <Animate
       :from="{
         minHeight: keyboard.showing ? keyboard.keyboardHeight / 2 : 0,
         height: keyboard.showing ? keyboard.keyboardHeight / 2 : 0
