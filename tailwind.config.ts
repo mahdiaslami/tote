@@ -33,7 +33,7 @@ export default {
         },
         blink: {
           '0%, 50%': { visibility: 'hidden' },
-          '51%, 100%': { visibility: 'visiable' },
+          '51%, 100%': { visibility: 'visible' },
         }
       },
 

@@ -43,12 +43,11 @@ useBackEventListener('options', (): boolean => {
 })
 
 const deleteModal = reactive({
-  // TODO: fix typo of visible <= correct
-  visiable: false,
+  visible: false,
   todo: null as Todo | null,
 
   clear() {
-    this.visiable = false
+    this.visible = false
     this.todo = null
   }
 })
@@ -90,7 +89,7 @@ function handleDelete(todo: Todo) {
     return
   }
 
-  deleteModal.visiable = true
+  deleteModal.visible = true
   deleteModal.todo = todo
 }
 
@@ -167,7 +166,7 @@ function handleGotoToday() {
         @backspace="footer?.removeText" />
     </Animate>
 
-    <Modal v-model="deleteModal.visiable"
+    <Modal v-model="deleteModal.visible"
       :cancelable="true"
       class="p-4 font-light select-none">
       <h2 class="text-lg mb-1">حذف کار</h2>
