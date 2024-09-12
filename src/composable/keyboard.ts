@@ -1,5 +1,5 @@
 import { Keyboard, type KeyboardInfo } from '@capacitor/keyboard'
-import { onMounted, onUnmounted, reactive } from 'vue'
+import { onMounted, onUnmounted, reactive, watch } from 'vue'
 
 type ListenerCallback = (keyboardHeight: number) => void
 type Events = 'keyboardWillShow' | 'keyboardDidShow' |
@@ -39,6 +39,17 @@ function measureAndUpdateKeyboardHeight(info: KeyboardInfo) {
     data.keyboardHeight = keyboardHeight
   }
 }
+
+const temp1 = localStorage.getItem('v1/keyboard/height')
+const temp2 = temp1 ? parseInt(temp1) : 0
+data.keyboardHeight = temp2 > 0 ? temp2 : data.keyboardHeight
+
+watch(
+  data,
+  (value) => localStorage.setItem(
+    'v1/keyboard/height', `${value.keyboardHeight}`),
+  { immediate: true }
+)
 
 export async function initKeyboard() {
   listeners['keyboardWillShow']['showing'] = () => data.showing = true
