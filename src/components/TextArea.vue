@@ -87,8 +87,6 @@ function useEditor() {
         return
       }
 
-      this.caretPosition = textArea.value.selectionStart
-
       this.updateTextArea(
         textArea.value,
         textArea.value.selectionStart,
@@ -106,12 +104,14 @@ function useEditor() {
       let selectionEnd = textArea.value.selectionEnd
 
       if (selectionStart == selectionEnd) {
+        if (selectionStart == 0) {
+          return
+        }
+
         const pre = props.modelValue.slice(0, selectionStart)
         const lastUtf8CharacterIndex = pre.search(/.$/u)
-        selectionStart -= pre.length - lastUtf8CharacterIndex
+        selectionStart = lastUtf8CharacterIndex
       }
-
-      this.caretPosition = selectionStart
 
       this.updateTextArea(
         textArea.value,
@@ -131,18 +131,14 @@ function useEditor() {
       const post = props.modelValue.substring(selectionEnd)
 
       textArea.value = pre + text + post
-      this.caretPosition += text.length
-      this.updateCaret()
-      mirror.update()
+      const newSelectionStart = selectionStart + text.length
+      const newSelectionEnd = selectionStart + text.length
+      textArea.setSelectionRange(newSelectionStart, newSelectionEnd)
+
+      textArea.focus()
+      textArea.blur()
       emit('update:modelValue', textArea.value)
     },
-
-    updateCaret() {
-      if (textArea.value) {
-        textArea.value.selectionStart = textArea.value.selectionEnd = editor.caretPosition
-        document.dispatchEvent(new Event('selectionchange'))
-      }
-    }
   }
 
   return editor
