@@ -147,17 +147,18 @@ function handleGotoToday() {
       v-model:options="data.options"
       @save="handleSave" />
 
-    <Animate
-      :from="{
-        minHeight: keyboard.showing ? keyboard.keyboardHeight / 2 : 0,
-        height: keyboard.showing ? keyboard.keyboardHeight / 2 : 0
-      }"
+    <!-- 144px is max height of the footer textarea -->
+    <Animate :from="{
+      minHeight: keyboard.shown ? `${keyboard.keyboardHeight - 144}px` : 0,
+      height: keyboard.shown ? `${keyboard.keyboardHeight - 144}px` : 0
+    }"
       :to="{
         minHeight: keyboard.keyboardHeight,
         height: keyboard.keyboardHeight
       }"
       easing="easeOutExpo"
-      :duration="500">
+      :duration="keyboard.shown ? (keyboard.showing ? 100 : 10) : 500"
+      :watch-to="keyboard.showing">
       <Options v-show="data.options"
         v-model:type="data.type"
         :force-daily="!isToday()"

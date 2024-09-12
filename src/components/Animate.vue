@@ -16,17 +16,18 @@ type Easing = 'linear' |
 
 const transitionEl = ref(null)
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   from: object
   to: object
   duration: number
-  easing: Easing
-}>()
+  easing: Easing,
+  watchTo: boolean
+}>(), { watchTo: false })
 
 watch(
   props,
   () => {
-    if (transitionEl.value) {
+    if (transitionEl.value && props.watchTo) {
       anime({
         targets: transitionEl.value,
         keyframes: [props.to, props.to],

@@ -59,7 +59,7 @@ useKeyboardEventListener('keyboardDidHide', 'options', () => {
   }
 })
 
-useKeyboardEventListener('keyboardWillShow', 'options', () => {
+useKeyboardEventListener('keyboardDidShow', 'options', () => {
   options.value = true
 })
 
