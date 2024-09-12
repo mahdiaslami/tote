@@ -132,10 +132,9 @@ function useEditor() {
 
       textArea.value = pre + text + post
       this.caretPosition += text.length
+      this.updateCaret()
+      mirror.update()
       emit('update:modelValue', textArea.value)
-
-      // I don't know why! but the only way that updating caret work is this.
-      setTimeout(() => this.updateCaret(), 1)
     },
 
     updateCaret() {
