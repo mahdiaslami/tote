@@ -29,18 +29,9 @@ const data = reactive({
     this.content = ''
     this.type = 'daily'
   },
-
-  options: false,
 })
 
-useBackEventListener('options', (): boolean => {
-  if (data.options) {
-    data.options = false
-    return false
-  }
-
-  return true
-})
+const optionsMenu = useOptionsMenu()
 
 const deleteModal = reactive({
   visible: false,
@@ -105,6 +96,48 @@ function handleGotoToday() {
   calendar.value?.reset()
 }
 
+function useOptionsMenu() {
+  const optionsMenu = reactive({
+    visible: false,
+
+    fromHeight() {
+      return 0
+      // return keyboard.shown ? `${keyboard.keyboardHeight - 144}px` : 0
+    },
+
+    toHeight() {
+      return keyboard.keyboardHeight
+    },
+
+    duration() {
+      if (keyboard.showing !== keyboard.shown) {
+        if (keyboard.showing) {
+          return 200
+        } else {
+          return 10
+        }
+      }
+
+      return 500
+    },
+
+    watchTo() {
+      return keyboard.showing
+    }
+  })
+
+  useBackEventListener('options', (): boolean => {
+    if (optionsMenu.visible) {
+      optionsMenu.visible = false
+      return false
+    }
+
+    return true
+  })
+
+  return optionsMenu
+}
+
 </script>
 
 <template>
@@ -143,22 +176,22 @@ function handleGotoToday() {
 
     <Footer ref="footer"
       v-model:content="data.content"
-      v-model:options="data.options"
+      v-model:options="optionsMenu.visible"
       @save="handleSave" />
 
     <!-- 144px is max height of the footer textarea -->
     <Animate :from="{
-      minHeight: keyboard.shown ? `${keyboard.keyboardHeight - 144}px` : 0,
-      height: keyboard.shown ? `${keyboard.keyboardHeight - 144}px` : 0
+      minHeight: optionsMenu.fromHeight(),
+      height: optionsMenu.fromHeight()
     }"
       :to="{
-        minHeight: keyboard.keyboardHeight,
-        height: keyboard.keyboardHeight
+        minHeight: optionsMenu.toHeight(),
+        height: optionsMenu.toHeight()
       }"
       easing="easeOutExpo"
-      :duration="keyboard.shown ? (keyboard.showing ? 100 : 10) : 500"
-      :watch-to="keyboard.showing">
-      <Options v-show="data.options"
+      :duration="optionsMenu.duration()"
+      :watch-to="optionsMenu.watchTo()">
+      <Options v-show="optionsMenu.visible"
         v-model:type="data.type"
         :force-daily="!isToday()"
         class="h-0 min-h-0"
