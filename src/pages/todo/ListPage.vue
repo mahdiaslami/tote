@@ -161,10 +161,7 @@ function handleGotoToday() {
       <Options v-show="data.options"
         v-model:type="data.type"
         :force-daily="!isToday()"
-        :style="{
-          minHeight: 0,
-          height: 0,
-        }"
+        class="h-0 min-h-0"
         @emoji="(emoji: string) => footer?.insertText(emoji)"
         @backspace="footer?.removeText" />
     </Animate>
