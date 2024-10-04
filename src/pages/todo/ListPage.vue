@@ -20,12 +20,12 @@ const todos = ref<any | null>(null)
 const footer = ref<any | null>(null)
 
 const data = reactive({
-  id: null as string | null,
+  selected: null as Todo | null,
   content: '',
   type: 'daily' as Schedule,
 
   clear() {
-    this.id = null
+    this.selected = null
     this.content = ''
     this.type = 'daily'
   },
@@ -56,8 +56,8 @@ function handleSave() {
 
   const date = data.type === 'daily' ? calendar.value.current() : null
 
-  if (data.id !== null) {
-    todoStore.update(data.id, trimedContent, date)
+  if (data.selected !== null) {
+    todoStore.update(data.selected.id, trimedContent, date)
   } else {
     todoStore.addNew(trimedContent, date)
     setTimeout(
@@ -70,13 +70,13 @@ function handleSave() {
 }
 
 function handleSelect(todo: Todo) {
-  data.id = todo.id
+  data.selected = todo
   data.content = todo.content
   data.type = todo.type
 }
 
 function handleDelete(todo: Todo) {
-  if (todo.id == data.id) {
+  if (todo.id == data.selected?.id) {
     return
   }
 
