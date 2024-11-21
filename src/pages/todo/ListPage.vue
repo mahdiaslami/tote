@@ -47,6 +47,14 @@ function isToday() {
   return calendar.value && calendar.value.current().isToday()
 }
 
+function less(str: string) {
+  if (str.length > 50) {
+    return `${str.substring(0, 47)}...`
+  }
+
+  return str
+}
+
 function handleSave() {
   const trimedContent = data.content.trim()
 
@@ -172,11 +180,25 @@ function useOptionsMenu() {
           </div>
         </Transition>
       </div>
+
+      <div class="absolute bottom-0 w-full min-w-0 flex flex-col">
+        <Transition name="bottom-slide">
+          <div v-if="data.selected"
+            class="z-10 py-2 px-4 border-t border-info/50 bg-white">
+            <h2 class="text-sm text-info mb-1">ویرایش کار:</h2>
+
+            <p class="text-xs text-pen/30 mx-2">
+              {{ less(data.selected.content) }}
+            </p>
+          </div>
+        </Transition>
+      </div>
     </div>
 
     <Footer ref="footer"
       v-model:content="data.content"
       v-model:options="optionsMenu.visible"
+      class="z-10"
       @save="handleSave" />
 
     <!-- 144px is max height of the footer textarea -->
@@ -235,5 +257,15 @@ function useOptionsMenu() {
 .left-slide-enter-from,
 .left-slide-leave-to {
   transform: translateX(-100%);
+}
+
+.bottom-slide-enter-active,
+.bottom-slide-leave-active {
+  transition: transform 150ms ease-out;
+}
+
+.bottom-slide-enter-from,
+.bottom-slide-leave-to {
+  transform: translateY(100%);
 }
 </style>
