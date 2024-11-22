@@ -2,14 +2,15 @@ import { reactive, watch } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 import { migrate } from '@/migrations'
 import type { Todo } from '@/types'
+import { PersianDate } from '@/class/persiandate'
 
 migrate()
 
 const todoStore = reactive({
   todos: [] as Todo[],
 
-  get(date: Date | null) {
-    const dateGroup = this._getDateGroup(date ?? new Date())
+  get(date: PersianDate | null) {
+    const dateGroup = (date ?? new PersianDate()).toDateGroup()
     const isToday = dateGroup == this._todayGroup()
 
     return this.todos.filter((t) => {
@@ -28,32 +29,21 @@ const todoStore = reactive({
   },
 
   _todayGroup() {
-    return this._getDateGroup(new Date())
+    return (new PersianDate()).toDateGroup()
   },
 
-  _getDateGroup(date: Date) {
-    const options = {
-      numberingSystem: 'latn',
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit'
-    } as Intl.DateTimeFormatOptions
-
-    return date.toLocaleDateString('fa-IR', options)
-  },
-
-  addNew(content: string, date: Date | null = null) {
+  addNew(content: string, date: PersianDate | null = null) {
     this.todos.push({
       id: uuidv4(),
       completed_at: null,
       content: content,
       type: date ? 'daily' : 'mandatory',
       // date_group of mandatory todos is null
-      date_group: date && this._getDateGroup(date),
+      date_group: date && date.toDateGroup(),
     })
   },
 
-  update(id: string, content: string, date: Date | null = null) {
+  update(id: string, content: string, date: PersianDate | null = null) {
     const index = this.todos.findIndex((a) => a.id == id)
     const todo = this.todos[index]
     this.todos[index] = {
@@ -61,7 +51,7 @@ const todoStore = reactive({
       completed_at: null,
       content,
       type: date ? 'daily' : 'mandatory',
-      date_group: date && this._getDateGroup(date),
+      date_group: date && date.toDateGroup(),
     } as Todo
   },
 
