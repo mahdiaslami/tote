@@ -35,6 +35,7 @@ const todoStore = reactive({
   addNew(content: string, date: PersianDate | null = null) {
     this.todos.push({
       id: uuidv4(),
+      started_at: Date.now(),
       completed_at: null,
       content: content,
       type: date ? 'daily' : 'mandatory',
@@ -48,6 +49,7 @@ const todoStore = reactive({
     const todo = this.todos[index]
     this.todos[index] = {
       id: todo.id,
+      started_at: todo.started_at,
       completed_at: null,
       content,
       type: date ? 'daily' : 'mandatory',

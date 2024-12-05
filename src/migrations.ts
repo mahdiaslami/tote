@@ -34,4 +34,12 @@ const migrations = [
       type: el.type ?? (el.date_group ? 'daily' : 'mandatory')
     }))
   },
+
+  // add started_at key
+  (todos: any) => {
+    return todos.map((el: any) => ({
+      ...el,
+      started_at: el.started_at ?? el.completed_at ?? Date.now()
+    }))
+  }
 ]
