@@ -72,6 +72,12 @@ export class PersianDate extends Date {
     return new PersianDate(p2j(year, month, day))
   }
 
+  static today() {
+    const result = new PersianDate()
+    result.setHours(0, 0, 0, 0)
+    return result
+  }
+
   addDay(): this {
     return this.addDays(1)
   }
