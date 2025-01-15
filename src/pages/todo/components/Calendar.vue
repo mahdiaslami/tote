@@ -10,9 +10,9 @@ const data = reactive({
   activeIndex: 0,
 
   dates: [
-    PersianDate.create(),
-    PersianDate.create().addDay(),
-    PersianDate.create().subDay(),
+    PersianDate.today(),
+    PersianDate.today().addDay(),
+    PersianDate.today().subDay(),
   ],
 })
 
@@ -45,12 +45,12 @@ function reset() {
 
   if (distance > 0) {
     const next = (cur + 1) % 3
-    data.dates[next] = PersianDate.create()
+    data.dates[next] = PersianDate.today()
 
     swiper.slideNext()
   } else if (distance < 0) {
     const prev = (cur + 2) % 3
-    data.dates[prev] = PersianDate.create()
+    data.dates[prev] = PersianDate.today()
 
     swiper.slidePrev()
   }
