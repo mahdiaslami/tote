@@ -11,18 +11,18 @@ const todoStore = reactive({
 
   get(date: PersianDate) {
     const theDate = (date?.duplicate() ?? new PersianDate())
-    const dateGroup = theDate.toDateGroup()
 
     return this.todos.filter((t) => {
-      if (t.date_group) {
-        return t.date_group == dateGroup
+      if (t.type == 'daily') {
+        return theDate.isInSameDay(t.started_at)
       }
 
-      // The todo is mandatory
-      const isInSameDay = theDate.isInSameDay(t.started_at)
-
-      if (isInSameDay || theDate.isAfter(t.started_at)) {
+      if (theDate.isInSameDay(t.started_at)) {
         return true
+      }
+
+      if (theDate.isAfter(t.started_at)) {
+        return t.completed_at == null ? true : theDate.isBefore(t.completed_at)
       }
 
       return false
