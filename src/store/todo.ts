@@ -9,18 +9,19 @@ migrate()
 const todoStore = reactive({
   todos: [] as Todo[],
 
-  get(date: PersianDate | null) {
-    const dateGroup = (date ?? new PersianDate()).toDateGroup()
-    const isToday = dateGroup == this._todayGroup()
+  get(date: PersianDate) {
+    const theDate = (date?.duplicate() ?? new PersianDate())
+    const dateGroup = theDate.toDateGroup()
 
     return this.todos.filter((t) => {
       if (t.date_group) {
         return t.date_group == dateGroup
       }
 
-      // todos wihout date_group is mandatory, and have to show only in
-      // today page not tomorrow or other days when user swiping
-      if (isToday) {
+      // The todo is mandatory
+      const isInSameDay = theDate.isInSameDay(t.started_at)
+
+      if (isInSameDay || theDate.isAfter(t.started_at)) {
         return true
       }
 
@@ -70,16 +71,6 @@ const todoStore = reactive({
     const index = this.todos.findIndex((a) => a.id == id)
     const todo = this.todos[index]
     todo.completed_at = todo.completed_at ? null : Date.now()
-
-    // set date group of mandatory todo to today group to prevent
-    // repeating it anymore when its completed
-    if (todo.type == 'mandatory') {
-      if (todo.completed_at == null) {
-        todo.date_group = null
-      } else {
-        todo.date_group = this._todayGroup()
-      }
-    }
   },
 
 })
