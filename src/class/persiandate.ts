@@ -55,6 +55,10 @@ export class PersianDate extends Date {
     return date < this
   }
 
+  isBefore(date: (Date | number)) {
+    return date > this
+  }
+
   static create() {
     return new PersianDate()
   }
