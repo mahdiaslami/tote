@@ -43,6 +43,18 @@ export class PersianDate extends Date {
     return (today - cur) / 86400000
   }
 
+  isInSameDay(date: (Date | number)) {
+    const aDate = new Date(date)
+
+    return this.getFullYear() === aDate.getFullYear() &&
+      this.getMonth() === aDate.getMonth() &&
+      this.getDate() === aDate.getDate()
+  }
+
+  isAfter(date: (Date | number)) {
+    return date < this
+  }
+
   static create() {
     return new PersianDate()
   }
