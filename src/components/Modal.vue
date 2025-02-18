@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { useBackEventListener } from '@/composable/backbutton'
+import { useKeyboard } from '@/composable/keyboard'
+import { computed } from 'vue'
 
 withDefaults(defineProps<{
   cancelable: boolean
@@ -8,6 +10,8 @@ withDefaults(defineProps<{
 defineOptions({
   inheritAttrs: false
 })
+
+const keyboard = useKeyboard()
 
 const model = defineModel<boolean>({ default: false })
 
@@ -18,6 +22,19 @@ useBackEventListener('modal', () => {
   }
 
   return true
+})
+
+const style = computed(() => {
+  const spacing4 = 16
+  let result = spacing4+'px'
+
+  if (keyboard.shown) {
+    result = `${keyboard.keyboardHeight + spacing4}px`
+  }
+
+  return {
+    'bottom': result
+  }
 })
 
 // TODO(ios): As the ios doesn't have transparent status bar we have to change
@@ -39,8 +56,9 @@ useBackEventListener('modal', () => {
       <div v-if="model"
         class="fixed top-0 h-full w-full z-10 bg-black/10"
         @click="model = !cancelable">
-<div class="bg-primary w-11/12 absolute bottom-4 left-1/2 -translate-x-1/2
+        <div class="bg-primary w-11/12 absolute left-1/2 -translate-x-1/2
           rounded-3xl shadow max-w-md"
+          :style="style"
           v-bind="$attrs"
           @click="ev => ev.stopPropagation()">
           <slot />
