@@ -5,11 +5,6 @@
 @layer base {
     :root {
         /* For rgb(R G B / <alpha-value>) */
-        --color-secondary-1: 247 248 249; /* 25% lighter */
-        --color-secondary-2: 240 241 243; /* 50% lighter */
-        --color-secondary-3: 234 234 237; /* 75% lighter */
-        --color-secondary: 227 228 232;
-
         --color-success: 5 150 105;
         --color-info: 127 127 255;
         --color-danger: 255 76 76;

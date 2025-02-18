@@ -101,7 +101,7 @@ function hover(top: number, left: number, unit: number) {
   <div ref="container"
     class="relative select-none">
     <div ref="hoverDiv"
-      class="absolute bg-secondary-2 rounded-xl opacity-0"
+      class="absolute bg-slate-100 rounded-xl opacity-0"
       :style="{
         top: 0,
         left: 0

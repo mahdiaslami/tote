@@ -35,14 +35,14 @@ function handleScroll(ev: any) {
 </script>
 
 <template>
-  <div class="bg-secondary-1 px-1 flex flex-col overflow-y-scroll"
+  <div class="bg-slate-50 px-1 flex flex-col overflow-y-scroll"
     @scroll="handleScroll">
     <div class="text-xs font-semibold
       text-pen/30 mt-2 p-0.5 rounded-full w-fit">
       <button v-touch:tap="() => type = 'daily'"
         class="transition-colors rounded-full px-2 py-1"
         :class="{
-          'bg-secondary-2 text-pen/60': type == 'daily',
+          'bg-slate-100 text-pen/60': type == 'daily',
           'opacity-50': forceDaily
         }">
         <CalendarMarkIcon class="transition-[stroke] inline-block h-5 w-5 ml-1"
@@ -53,7 +53,7 @@ function handleScroll(ev: any) {
       <button v-touch:tap="() => type = 'mandatory'"
         class="transition-colors rounded-full px-2 py-1"
         :class="{
-          'bg-secondary-2 text-pen/60': type == 'mandatory',
+          'bg-slate-100 text-pen/60': type == 'mandatory',
           'opacity-50': forceDaily
         }">
         <DangerTriangleIcon class="transition-[stroke]
@@ -68,7 +68,7 @@ function handleScroll(ev: any) {
 
     <Transition name="options-footer">
       <div v-show="footer"
-        class="sticky bottom-0 bg-secondary-1 border-t border-pen/10 px-2">
+        class="sticky bottom-0 bg-slate-50 border-t border-pen/10 px-2">
         <button class="block p-2 active:scale-90"
           @click="emit('backspace')">
           <BackspaceIcon class="h-7 w-7 stroke-pen/50" />
