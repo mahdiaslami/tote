@@ -22,7 +22,12 @@ const todoStore = reactive({
       }
 
       if (theDate.isAfter(t.started_at)) {
-        return t.completed_at == null ? true : theDate.isBefore(t.completed_at)
+        if (t.completed_at != null) {
+          return theDate.isBefore(t.completed_at)
+            || theDate.isInSameDay(t.completed_at)
+        }
+
+        return true
       }
 
       return false
