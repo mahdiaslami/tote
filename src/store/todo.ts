@@ -72,10 +72,10 @@ const todoStore = reactive({
     this.todos = []
   },
 
-  toggleCompleted(id: string) {
+  toggleCompleted(id: string, date = Date.now()) {
     const index = this.todos.findIndex((a) => a.id == id)
     const todo = this.todos[index]
-    todo.completed_at = todo.completed_at ? null : Date.now()
+    todo.completed_at = todo.completed_at ? null : date
   },
 
 })

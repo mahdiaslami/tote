@@ -163,7 +163,9 @@ function useOptionsMenu() {
         :list="todoStore.get(date)"
         @edit="handleSelect"
         @delete="handleDelete"
-        @tick="(todo: any) => todoStore.toggleCompleted(todo.id)" />
+        @tick="(todo: any) => {
+          return todoStore.toggleCompleted(todo.id, date.getTime())
+        }" />
     </Calendar>
 
     <div class="relative h-0 overflow-x-clip">
