@@ -66,7 +66,7 @@ useKeyboardEventListener('keyboardWillShow', 'options', () => {
 </script>
 
 <template>
-  <div class="relative flex flex-row items-end bg-primary border-t border-line/20">
+  <div class="relative flex flex-row items-end bg-white border-t border-line/20">
     <button class="flex items-center justify-center w-14 h-12 select-none"
       @mousedown.prevent="toggleOptionsKeyboard"
       @touchstart.prevent="toggleOptionsKeyboard">

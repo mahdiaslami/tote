@@ -12,7 +12,6 @@ export default {
 
     extend: {
       colors: {
-        primary: 'rgb(var(--color-primary) / <alpha-value>)',
         secondary: {
           1: 'rgb(var(--color-secondary-1) / <alpha-value>)',
           2: 'rgb(var(--color-secondary-2) / <alpha-value>)',

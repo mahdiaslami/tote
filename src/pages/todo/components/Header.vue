@@ -17,7 +17,7 @@ defineProps({
 </script>
 
 <template>
-    <div class="flex flex-row bg-primary border-b"
+    <div class="flex flex-row bg-white border-b"
         :class="[date.isHoliday() ? 'text-danger border-danger' : 'border-success']"
         :style="{ height: `${72 + statusBarHeight}px`, paddingTop: `${statusBarHeight}px` }">
         <div class="text-4xl p-4 w-18 text-center">{{ date.getPersianDate() }}</div>

@@ -56,7 +56,7 @@ const style = computed(() => {
       <div v-if="model"
         class="fixed top-0 h-full w-full z-10 bg-black/10"
         @click="model = !cancelable">
-        <div class="bg-primary w-11/12 absolute left-1/2 -translate-x-1/2
+        <div class="bg-white w-11/12 absolute left-1/2 -translate-x-1/2
           rounded-3xl shadow max-w-md"
           :style="style"
           v-bind="$attrs"
