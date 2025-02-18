@@ -96,8 +96,6 @@ function handleDateChange() {
   if (!isToday()) {
     data.type = 'daily'
   }
-
-  data.clear()
 }
 
 function handleGotoToday() {

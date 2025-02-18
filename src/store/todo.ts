@@ -55,8 +55,8 @@ const todoStore = reactive({
     const todo = this.todos[index]
     this.todos[index] = {
       id: todo.id,
-      started_at: todo.started_at,
-      completed_at: null,
+      started_at: date?.getTime() ?? todo.started_at,
+      completed_at: todo.completed_at,
       content,
       type: date ? 'daily' : 'mandatory',
       date_group: date && date.toDateGroup(),
