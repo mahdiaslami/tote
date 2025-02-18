@@ -215,7 +215,7 @@ function useOptionsMenu() {
       :watch-to="optionsMenu.watchTo()">
       <Options v-show="optionsMenu.visible"
         v-model:type="data.type"
-        :force-daily="!isToday()"
+        :force-daily="false"
         class="h-0 min-h-0"
         @emoji="(emoji: string) => footer?.insertText(emoji)"
         @backspace="footer?.removeText" />
