@@ -228,14 +228,13 @@ function useOptionsMenu() {
       <p class="mb-6">مطمئنی میخوای حذف کنی؟</p>
 
       <div class="flex flex-row -mx-0.5">
-        <!-- TODO: add bg-gray-50 and etc to palette -->
-        <button class="p-2 w-full bg-gray-50 active:bg-gray-100
+        <button class="p-2 w-full bg-slate-50 active:bg-slate-100
           rounded-xl mx-1 transition-colors"
           @click="deleteModal.clear()">
           نه
         </button>
 
-        <button class="p-2 w-full text-danger active:bg-gray-50
+        <button class="p-2 w-full text-danger active:bg-slate-50
           rounded-xl mx-1 transition-colors"
           @click="() => {
             todoStore.remove(deleteModal.todo!.id)

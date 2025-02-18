@@ -17,6 +17,10 @@ export default {
         force: 'rgb(var(--color-force) / <alpha-value>)',
         danger: 'rgb(var(--color-danger) / <alpha-value>)',
         pen: 'rgb(var(--color-pen) / <alpha-value>)'
+        // new colors:
+        // white
+        // black
+        // slate
       },
 
       keyframes: {
