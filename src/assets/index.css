@@ -2,13 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-    :root {
-        /* For rgb(R G B / <alpha-value>) */
-        --color-danger: 255 76 76;
-    }
-}
-
 * {
     box-sizing: border-box;
     margin: 0;

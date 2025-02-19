@@ -13,12 +13,12 @@ function textClasses() {
   if (props.todo.completed_at) {
     return [
       'line-through',
-      props.todo.type === 'daily' ? 'text-slate-600' : 'text-danger'
+      props.todo.type === 'daily' ? 'text-slate-600' : 'text-rose-300'
     ]
   }
 
   return [
-    props.todo.type === 'daily' ? 'text-slate-800' : 'text-danger'
+    props.todo.type === 'daily' ? 'text-slate-800' : 'text-rose-500'
   ]
 }
 </script>
@@ -33,7 +33,7 @@ function textClasses() {
         class="fill-emerald-600 -mt-1 h-7 w-7" />
       <FiberManualRecordIcon v-else
         class="h-7 w-7"
-        :class="[todo.type == 'daily' ? 'fill-slate-300' : 'fill-danger/30']" />
+        :class="[todo.type == 'daily' ? 'fill-slate-300' : 'fill-rose-300']" />
     </div>
 
     <p dir="auto"

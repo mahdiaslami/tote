@@ -5,6 +5,7 @@ import type { Config } from 'tailwindcss'
 // - black
 // - slate
 // - emerald
+// - rose
 export default {
   content: [
     './index.html',
@@ -18,7 +19,6 @@ export default {
     extend: {
       colors: {
         force: 'rgb(var(--color-force) / <alpha-value>)',
-        danger: 'rgb(var(--color-danger) / <alpha-value>)',
       },
 
       keyframes: {

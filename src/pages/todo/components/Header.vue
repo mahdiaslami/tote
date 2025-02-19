@@ -20,7 +20,7 @@ defineProps({
   <div class="flex flex-row bg-white border-b-2"
     :class="[
       date.isHoliday() ?
-        'text-danger border-danger'
+        'text-rose-500 border-rose-500'
         : 'border-slate-300'
     ]"
     :style="{ height: `${72 + statusBarHeight}px`, paddingTop: `${statusBarHeight}px` }">

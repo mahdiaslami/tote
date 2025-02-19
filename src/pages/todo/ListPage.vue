@@ -234,7 +234,7 @@ function useOptionsMenu() {
           نه
         </button>
 
-        <button class="p-2 w-full text-danger active:bg-slate-50
+        <button class="p-2 w-full text-rose-500 active:bg-slate-50
           rounded-xl mx-1 transition-colors"
           @click="() => {
             todoStore.remove(deleteModal.todo!.id)
