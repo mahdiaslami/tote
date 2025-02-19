@@ -109,7 +109,7 @@ function hover(top: number, left: number, unit: number) {
 
     <template v-for="(category, cindex) in categories"
       :key="cindex">
-      <h3 class="text-sm font-semibold py-2 px-3 text-pen/30">
+      <h3 class="text-sm font-semibold py-2 px-3 text-slate-300">
         {{ category.title }}
       </h3>
 

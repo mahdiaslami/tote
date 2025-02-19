@@ -150,7 +150,7 @@ function useEditor() {
   <div ref="div"
     class="relative min-w-0 h-12 transition-[height]">
     <span v-show="modelValue.length === 0"
-      class="absolute select-none text-pen/40"
+      class="absolute select-none text-slate-300"
       @click="textArea?.focus()">{{ placeholder }}</span>
 
     <div class="relative">

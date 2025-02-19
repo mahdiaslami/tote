@@ -170,8 +170,7 @@ function useOptionsMenu() {
       <div class="absolute bottom-0 w-full min-w-0 flex flex-col">
         <Transition name="left-slide">
           <div v-if="isToday() === false"
-            class="z-10 self-end w-fit shadow-md rounded-r-full text-pen text-xs
-              mb-2 transition-all">
+            class="z-10 self-end shadow-md text-xs mb-2 transition-all">
             <button type="button"
               class="px-4 py-2 rounded-r-full font-medium bg-info text-white"
               @click="handleGotoToday">
@@ -187,7 +186,7 @@ function useOptionsMenu() {
             class="z-10 py-2 px-4 border-t border-info/50 bg-white">
             <h2 class="text-sm text-info mb-1">ویرایش کار:</h2>
 
-            <p class="text-xs text-pen/30 mx-2">
+            <p class="text-xs text-slate-300 mx-2">
               {{ less(data.selected.content) }}
             </p>
           </div>

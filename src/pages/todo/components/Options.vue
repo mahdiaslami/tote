@@ -38,27 +38,25 @@ function handleScroll(ev: any) {
   <div class="bg-slate-50 px-1 flex flex-col overflow-y-scroll"
     @scroll="handleScroll">
     <div class="text-xs font-semibold
-      text-pen/30 mt-2 p-0.5 rounded-full w-fit">
+      text-slate-300 mt-2 p-0.5 rounded-full w-fit">
       <button v-touch:tap="() => type = 'daily'"
         class="transition-colors rounded-full px-2 py-1"
         :class="{
-          'bg-slate-100 text-pen/60': type == 'daily',
-          'opacity-50': forceDaily
+          'bg-slate-100 text-slate-500': type == 'daily',
         }">
         <CalendarMarkIcon class="transition-[stroke] inline-block h-5 w-5 ml-1"
-          :class="[type == 'daily' ? 'stroke-pen/60' : 'stroke-pen/30']" />
+          :class="[type == 'daily' ? 'stroke-slate-500' : 'stroke-slate-300']" />
         روزانه
       </button>
 
       <button v-touch:tap="() => type = 'mandatory'"
         class="transition-colors rounded-full px-2 py-1"
         :class="{
-          'bg-slate-100 text-pen/60': type == 'mandatory',
-          'opacity-50': forceDaily
+          'bg-slate-100 text-slate-500': type == 'mandatory',
         }">
         <DangerTriangleIcon class="transition-[stroke]
           inline-block h-5 w-5 ml-1"
-          :class="[type == 'mandatory' ? 'stroke-pen/60' : 'stroke-pen/30']" />
+          :class="[type == 'mandatory' ? 'stroke-slate-500' : 'stroke-slate-300']" />
         اجباری
       </button>
     </div>
@@ -68,10 +66,10 @@ function handleScroll(ev: any) {
 
     <Transition name="options-footer">
       <div v-show="footer"
-        class="sticky bottom-0 bg-slate-50 border-t border-pen/10 px-2">
+        class="sticky bottom-0 bg-slate-50 border-t border-slate-200 px-2">
         <button class="block p-2 active:scale-90"
           @click="emit('backspace')">
-          <BackspaceIcon class="h-7 w-7 stroke-pen/50" />
+          <BackspaceIcon class="h-7 w-7 stroke-slate-400" />
         </button>
       </div>
     </Transition>

@@ -73,9 +73,9 @@ useKeyboardEventListener('keyboardWillShow', 'options', () => {
       <Transition name="keyboard-options"
         mode="out-in">
         <KeyboardIcon v-if="!keyboard.showing && options"
-          class="h-7 w-7 fill-pen/40 stroke-pen/40" />
+          class="h-7 w-7 fill-slate-400 stroke-slate-400" />
         <OptionsIcon v-else
-          class="h-7 w-7 stroke-pen/40" />
+          class="h-7 w-7 stroke-slate-400" />
       </Transition>
     </button>
 
@@ -88,7 +88,7 @@ useKeyboardEventListener('keyboardWillShow', 'options', () => {
     <button class="flex items-center justify-center w-14 h-12 select-none"
       @touchstart.prevent="save"
       @mousedown.prevent="save">
-      <SaveIcon class="h-7 w-7 fill-pen/40" />
+      <SaveIcon class="h-7 w-7" />
     </button>
   </div>
 </template>
