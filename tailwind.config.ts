@@ -17,10 +17,6 @@ export default {
     },
 
     extend: {
-      colors: {
-        force: 'rgb(var(--color-force) / <alpha-value>)',
-      },
-
       keyframes: {
         wiggle: {
           '0%, 100%': { transform: 'rotate(-3deg)' },
