@@ -183,7 +183,7 @@ function useOptionsMenu() {
       <div class="absolute bottom-0 w-full min-w-0 flex flex-col">
         <Transition name="bottom-slide">
           <div v-if="data.selected"
-            class="z-10 py-2 px-4 border-t border-info/50 bg-white">
+            class="z-10 py-2 px-4 border-t border-slate-300 bg-white">
             <h2 class="text-sm text-info mb-1">ویرایش کار:</h2>
 
             <p class="text-xs text-slate-300 mx-2">
