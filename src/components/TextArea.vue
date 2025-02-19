@@ -156,7 +156,7 @@ function useEditor() {
     <div class="relative">
       <textarea ref="textArea"
         class="block z-10 outline-none relative bg-transparent caret-transparent
-          resize-none overflow-hidden w-full"
+          resize-none overflow-hidden w-full text-slate-800"
         style="unicode-bidi: embed;"
         rows="1"
         :value="modelValue"
