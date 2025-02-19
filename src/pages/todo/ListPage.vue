@@ -170,7 +170,8 @@ function useOptionsMenu() {
       <div class="absolute bottom-0 w-full min-w-0 flex flex-col">
         <Transition name="left-slide">
           <div v-if="isToday() === false"
-            class="z-10 self-end shadow-md text-xs mb-2 transition-all">
+            class="z-10 self-end shadow-md text-xs mb-2
+            transition-all rounded-r-full">
             <button type="button"
               class="px-4 py-2 rounded-r-full font-medium bg-info text-white"
               @click="handleGotoToday">
