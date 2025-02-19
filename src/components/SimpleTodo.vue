@@ -9,6 +9,18 @@ const props = defineProps<{
 
 const emit = defineEmits(['click', 'tick'])
 
+function textClasses() {
+  if (props.todo.completed_at) {
+    return [
+      'line-through',
+      props.todo.type === 'daily' ? 'text-slate-600' : 'text-danger'
+    ]
+  }
+
+  return [
+    props.todo.type === 'daily' ? 'text-slate-800' : 'text-danger'
+  ]
+}
 </script>
 
 <template>
@@ -26,11 +38,7 @@ const emit = defineEmits(['click', 'tick'])
 
     <p dir="auto"
       class="font-light break-words min-w-0"
-      :class="{
-        'line-through opacity-40': todo.completed_at !== null,
-        'text-slate-800': props.todo.type == 'daily',
-        'text-danger': props.todo.type == 'mandatory',
-      }">
+      :class="textClasses()">
       {{ todo.content }}
     </p>
 
