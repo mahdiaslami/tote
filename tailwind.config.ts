@@ -1,5 +1,9 @@
 import type { Config } from 'tailwindcss'
 
+// ## Colors
+// - white
+// - black
+// - slate
 export default {
   content: [
     './index.html',
@@ -16,10 +20,6 @@ export default {
         info: 'rgb(var(--color-info) / <alpha-value>)',
         force: 'rgb(var(--color-force) / <alpha-value>)',
         danger: 'rgb(var(--color-danger) / <alpha-value>)',
-        // new colors:
-        // white
-        // black
-        // slate
       },
 
       keyframes: {
