@@ -29,7 +29,7 @@ function handleBeforeLeave(el: any) {
 
 <template>
   <div ref="div"
-    class="paper-2 pt-4.5 scroll-smooth">
+    class="paper-3 pt-5 scroll-smooth">
     <TransitionGroup name="todo"
       :duration="animate ? 300 : 1"
       @before-leave="handleBeforeLeave">
@@ -55,6 +55,13 @@ function handleBeforeLeave(el: any) {
     linear-gradient(to bottom left, rgb(127 127 255 / 0.3), rgb(245 249 252 / 0.8)),
     linear-gradient(to bottom right, rgb(5 150 105 / 0.3), rgb(245 249 252 / 0.8));
   background-attachment: local, local, local, local, local;
+}
+
+.paper-3 {
+  background:
+    linear-gradient(#00000000, #00000000 23px, theme('colors.slate.300') 24px, theme('colors.slate.300') 24px, #00000000 25px) center top / 100% 24px repeat-y,
+    linear-gradient(135deg, theme('colors.sky.50') 0%, theme('colors.sky.100') 70%, theme('colors.slate.100') 100%);
+  background-attachment: local, local, scroll;
 }
 
 .paper-2 {
