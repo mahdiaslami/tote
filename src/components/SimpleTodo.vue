@@ -30,7 +30,7 @@ function textClasses() {
 <div class="h-6 pr-2 pl-2"
       @click="emit('tick', todo)">
       <TickIcon v-if="todo.completed_at"
-        class="fill-success -mt-1 h-7 w-7" />
+        class="fill-emerald-600 -mt-1 h-7 w-7" />
       <FiberManualRecordIcon v-else
         class="h-7 w-7"
         :class="[todo.type == 'daily' ? 'fill-slate-300' : 'fill-danger/30']" />
