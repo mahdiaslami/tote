@@ -167,31 +167,34 @@ function useOptionsMenu() {
     </Calendar>
 
     <div class="relative h-0 overflow-x-clip">
-      <div class="absolute bottom-0 w-full min-w-0 flex flex-col">
-        <Transition name="left-slide">
-          <div v-if="isToday() === false"
-            class="z-10 self-end shadow-md text-xs mb-2
-            transition-all rounded-r-full">
-            <button type="button"
-              class="px-4 py-2 rounded-r-full font-medium bg-slate-500 text-white"
-              @click="handleGotoToday">
-              بازگشت به روز جاری
-            </button>
-          </div>
-        </Transition>
-      </div>
+      <div class="absolute bottom-0 w-full min-w-0">
+        <div class="flex flex-col">
+          <Transition name="left-slide">
+            <div v-if="isToday() === false"
+              class="z-10 self-end shadow-md text-xs mb-2
+              transition-all rounded-r-full">
+              <button type="button"
+                class="px-4 py-2 rounded-r-full font-medium bg-slate-500
+                text-white"
+                @click="handleGotoToday">
+                بازگشت به روز جاری
+              </button>
+            </div>
+          </Transition>
+        </div>
 
-      <div class="absolute bottom-0 w-full min-w-0 flex flex-col">
-        <Transition name="bottom-slide">
-          <div v-if="data.selected"
-            class="z-10 py-2 px-4 border-t border-slate-300 bg-white">
-            <h2 class="text-sm text-slate-400 mb-1">ویرایش کار:</h2>
+        <div class="flex flex-col">
+          <Transition name="bottom-slide">
+            <div v-if="data.selected"
+              class="z-10 py-2 px-4 border-t border-slate-300 bg-white">
+              <h2 class="text-sm text-slate-400 mb-1">ویرایش کار:</h2>
 
-            <p class="text-xs text-slate-300 mx-2">
-              {{ less(data.selected.content) }}
-            </p>
-          </div>
-        </Transition>
+              <p class="text-xs text-slate-300 mx-2">
+                {{ less(data.selected.content) }}
+              </p>
+            </div>
+          </Transition>
+        </div>
       </div>
     </div>
 
