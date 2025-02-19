@@ -17,7 +17,6 @@ export default {
 
     extend: {
       colors: {
-        info: 'rgb(var(--color-info) / <alpha-value>)',
         force: 'rgb(var(--color-force) / <alpha-value>)',
         danger: 'rgb(var(--color-danger) / <alpha-value>)',
       },

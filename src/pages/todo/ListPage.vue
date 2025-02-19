@@ -173,7 +173,7 @@ function useOptionsMenu() {
             class="z-10 self-end shadow-md text-xs mb-2
             transition-all rounded-r-full">
             <button type="button"
-              class="px-4 py-2 rounded-r-full font-medium bg-info text-white"
+              class="px-4 py-2 rounded-r-full font-medium bg-slate-500 text-white"
               @click="handleGotoToday">
               بازگشت به روز جاری
             </button>
@@ -185,7 +185,7 @@ function useOptionsMenu() {
         <Transition name="bottom-slide">
           <div v-if="data.selected"
             class="z-10 py-2 px-4 border-t border-slate-300 bg-white">
-            <h2 class="text-sm text-info mb-1">ویرایش کار:</h2>
+            <h2 class="text-sm text-slate-400 mb-1">ویرایش کار:</h2>
 
             <p class="text-xs text-slate-300 mx-2">
               {{ less(data.selected.content) }}

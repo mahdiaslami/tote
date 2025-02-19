@@ -5,7 +5,6 @@
 @layer base {
     :root {
         /* For rgb(R G B / <alpha-value>) */
-        --color-info: 127 127 255;
         --color-danger: 255 76 76;
     }
 }
