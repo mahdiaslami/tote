@@ -54,7 +54,7 @@ jobs:
 
       # Show information about the APK's signing certificates
       - name: Verify Signature
-        run: $ANDROID_SDK_ROOT/build-tools/33.0.1/apksigner verify --print-certs android/app/build/outputs/apk/release/Tote.apk
+        run: $ANDROID_SDK_ROOT/build-tools/34.0.0/apksigner verify --print-certs android/app/build/outputs/apk/release/Tote.apk
 
       - name: Archive artifacts
         uses: actions/upload-artifact@v4
