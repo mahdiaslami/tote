@@ -13,12 +13,12 @@ function textClasses() {
   if (props.todo.completed_at) {
     return [
       'line-through',
-      props.todo.type === 'daily' ? 'text-slate-600' : 'text-rose-500'
+      props.todo.type === 'daily' ? 'text-slate-600' : 'text-sky-600'
     ]
   }
 
   return [
-    props.todo.type === 'daily' ? 'text-slate-800' : 'text-rose-500'
+    props.todo.type === 'daily' ? 'text-slate-800' : 'text-sky-600'
   ]
 }
 </script>
