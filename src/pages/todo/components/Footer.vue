@@ -66,7 +66,8 @@ useKeyboardEventListener('keyboardWillShow', 'options', () => {
 </script>
 
 <template>
-  <div class="relative flex flex-row items-end bg-white border-t border-slate-200">
+  <div class="relative flex flex-row items-end bg-white border-t
+    border-slate-200">
     <button class="flex items-center justify-center w-14 h-12 select-none"
       @mousedown.prevent="toggleOptionsKeyboard"
       @touchstart.prevent="toggleOptionsKeyboard">
@@ -81,7 +82,8 @@ useKeyboardEventListener('keyboardWillShow', 'options', () => {
 
     <AppTextArea ref="textArea"
       v-model="content"
-      class="w-full px-3 pt-2.5 pb-3.5 font-normal min-h-12 text-base max-h-36 overflow-y-auto"
+      class="w-full px-3 pt-3 pb-2.5 font-normal min-h-12 text-base/normal
+        max-h-36 overflow-y-auto"
       placeholder="کار من"
       @keyup.enter="save" />
 
