@@ -174,8 +174,8 @@ function useOptionsMenu() {
               class="z-10 self-end shadow-md text-xs mb-2
               transition-all rounded-r-full">
               <button type="button"
-                class="px-4 py-2 rounded-r-full font-medium bg-slate-500
-                text-white"
+                class="px-4 py-2 rounded-r-full font-medium bg-sky-600
+                text-sky-100"
                 @click="handleGotoToday">
                 بازگشت به روز جاری
               </button>
