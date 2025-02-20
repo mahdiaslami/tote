@@ -27,13 +27,12 @@ function textClasses() {
   <div ref="container"
     class="flex flex-row items-start"
     @click.prevent="emit('click', todo)">
-<div class="h-6 pr-2 pl-2"
+    <div class="h-7 w-7 mx-2"
       @click="emit('tick', todo)">
       <TickIcon v-if="todo.completed_at"
-        class="fill-emerald-600 -mt-1 h-7 w-7" />
+        class="fill-emerald-600 h-7 w-7 -mt-1" />
       <FiberManualRecordIcon v-else
-        class="h-7 w-7"
-        :class="[todo.type == 'daily' ? 'fill-slate-300' : 'fill-rose-300']" />
+        class="h-7 w-7 fill-slate-500" />
     </div>
 
     <p dir="auto"
