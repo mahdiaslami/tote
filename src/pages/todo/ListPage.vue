@@ -186,10 +186,10 @@ function useOptionsMenu() {
         <div class="flex flex-col">
           <Transition name="bottom-slide">
             <div v-if="data.selected"
-              class="z-10 py-2 px-4 border-t border-slate-300 bg-white">
-              <h2 class="text-sm text-slate-400 mb-1">ویرایش کار:</h2>
+              class="z-10 py-2 px-4 border-t border-sky-300 bg-white">
+              <h2 class="text-sm text-sky-400 mb-1">ویرایش کار:</h2>
 
-              <p class="text-xs text-slate-300 mx-2">
+              <p class="text-xs text-slate-300">
                 {{ less(data.selected.content) }}
               </p>
             </div>
