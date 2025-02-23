@@ -11,6 +11,7 @@ import type { Todo, Schedule } from '@/types'
 import { reactive, ref } from 'vue'
 import { useKeyboard } from '@/composable/keyboard'
 import { useBackEventListener } from '@/composable/backbutton'
+import SquarePenIcon from '@/components/icons/SquarePenIcon.vue'
 
 const todoStore = useTodoStore()
 const keyboard = useKeyboard()
@@ -187,12 +188,15 @@ function useOptionsMenu() {
           <Transition name="bottom-slide">
             <div v-if="data.selected"
               class="z-10 py-2 px-4 border-t border-t-sky-300 border-b
-              border-b-slate-100 bg-white">
-              <h2 class="text-sm text-sky-400 mb-1">ویرایش کار:</h2>
+              border-b-slate-100 bg-white flex flex-row">
+              <SquarePenIcon class="size-6 self-center ml-4 stroke-sky-400" />
+              <div>
+                <h2 class="text-sm text-sky-400 mb-1">ویرایش کار:</h2>
 
-              <p class="text-xs text-slate-300">
-                {{ less(data.selected.content) }}
-              </p>
+                <p class="text-xs text-slate-300">
+                  {{ less(data.selected.content) }}
+                </p>
+              </div>
             </div>
           </Transition>
         </div>
