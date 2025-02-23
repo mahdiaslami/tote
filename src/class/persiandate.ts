@@ -1,3 +1,4 @@
+import c from './calendar.js'
 
 export class PersianDate extends Date {
   getPersianFullYear(): string {
@@ -85,7 +86,7 @@ export class PersianDate extends Date {
       throw `${date} is not a date group`
     }
 
-    return new PersianDate(p2j(year, month, day))
+    return new PersianDate(c.G(year, month, day))
   }
 
   static today() {
@@ -110,33 +111,4 @@ export class PersianDate extends Date {
   duplicate() {
     return new PersianDate(this.getTime())
   }
-}
-
-//
-// THESE CODES COPIED FROM
-// https://github.com/alibaba-aero/jalaliday/blob/master/src/calendar.js
-//
-
-// PERSIAN_EPOCH
-const PE = 1948320.5
-
-function p2j(year: number, month: number, day: number) {
-  const epbase = year - ((year >= 0) ? 474 : 473)
-  const epyear = 474 + mod(epbase, 2820)
-
-  return day +
-    ((month <= 7) ?
-      ((month - 1) * 31) :
-      (((month - 1) * 30) + 6)
-    ) +
-    $floor(((epyear * 682) - 110) / 2816) +
-    (epyear - 1) * 365 +
-    $floor(epbase / 2820) * 1029983 +
-    (PE - 1)
-}
-
-/*  MOD  --  Modulus function which works for non-integers.  */
-const $floor = Math.floor
-function mod(a: number, b: number) {
-  return a - (b * $floor(a / b))
 }
