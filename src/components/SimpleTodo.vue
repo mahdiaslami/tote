@@ -2,6 +2,7 @@
 import TickIcon from '@/components/icons/TickIcon.vue'
 import FiberManualRecordIcon from './icons/FiberManualRecordIcon.vue'
 import type { Todo } from '@/types'
+import { PersianDate } from '@/class/persiandate'
 
 const props = defineProps<{
   todo: Todo
@@ -39,7 +40,13 @@ function textClasses() {
       class="font-light break-words min-w-0"
       :class="textClasses()">
       {{ todo.content }}
+
+      <span v-if="todo.type === 'mandatory' && todo.completed_at"
+        class="inline-block text-xs mx-2 text-slate-400">
+        ({{ (new PersianDate(todo.completed_at)).toPersianLocalDateString() }})
+      </span>
     </p>
+
 
     <div class="flex-shrink-0 w-10" />
   </div>
