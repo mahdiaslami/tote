@@ -29,6 +29,16 @@ export class PersianDate extends Date {
     return weekday
   }
 
+  toPersianLocalDateString() {
+    const options = {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
+    } as Intl.DateTimeFormatOptions
+
+    return this.toLocaleDateString('fa-IR', options)
+  }
+
   isHoliday(): boolean {
     return this.getDay() === 5
   }
