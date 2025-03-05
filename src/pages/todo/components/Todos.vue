@@ -29,7 +29,7 @@ function handleBeforeLeave(el: any) {
 
 <template>
   <div ref="div"
-    class="paper-4 pt-5 scroll-smooth shadow-inner">
+    class="paper-4 pt-5 scroll-smooth">
     <TransitionGroup name="todo"
       :duration="animate ? 300 : 1"
       @before-leave="handleBeforeLeave">

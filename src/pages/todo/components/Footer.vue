@@ -66,7 +66,7 @@ useKeyboardEventListener('keyboardWillShow', 'options', () => {
 </script>
 
 <template>
-  <div class="relative flex flex-row items-end bg-white">
+  <div class="relative flex flex-row items-end bg-white footer-shadow">
     <button class="flex items-center justify-center w-14 h-12 select-none"
       @mousedown.prevent="toggleOptionsKeyboard"
       @touchstart.prevent="toggleOptionsKeyboard">
@@ -103,5 +103,9 @@ useKeyboardEventListener('keyboardWillShow', 'options', () => {
 .keyboard-options-enter-from,
 .keyboard-options-leave-to {
   transform: scale(0);
+}
+
+.footer-shadow {
+  box-shadow: 0px -1px 2px 0px theme('colors.slate.200')
 }
 </style>
